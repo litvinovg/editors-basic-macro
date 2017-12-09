@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Libraries" script:language="StarBasic">Sub copyCorrectionToGlobal
+AppDocLibToGlobal(&quot;Publishing&quot;)
+End Sub
+
+
+Sub AppLibToDocLib(sLibName$)
+Dim oGlobalLib
+oGlobalLib = GlobalScope.BasicLibraries
+AddOneLib(sLibName, sLibName, oGlobalLib, BasicLibraries, True)
+oGlobalLib = GlobalScope.DialogLibraries
+AddOneLib(sLibName, sLibName, oGlobalLib, DialogLibraries, True)
+End Sub
+
+Sub AppDocLibToGlobal(sLibName$)
+Dim oGlobalLib
+oGlobalLib = GlobalScope.BasicLibraries
+AddOneLib(sLibName, sLibName, BasicLibraries , oGlobalLib , True)
+oGlobalLib = GlobalScope.DialogLibraries
+AddOneLib(sLibName, sLibName, DialogLibraries, oGlobalLib , True)
+End Sub
+
+REM sSrcLib is the name of the source library contained in oSrcLibs
+REM sDestLib is the name of the destination library contained in oDestLibs
+REM oSrcLibs is the source library container
+REM oDestLibs is the destination library container
+REM if bClearDest is True, then the destination library is cleared
+Sub AddOneLib(sSrcLib$, sDestLib$, oSrcLibs, oDestLibs, bClearDest As Boolean)
+Dim oSrcLib
+&apos;The source library to copy
+Dim oDestLib &apos;The destination library to receive the modules in oSrcLib
+Dim sNames
+Dim i%
+REM If there is no destination library then simply return
+If IsNull(oDestLibs) OR IsEmpty(oDestLibs) Then
+Exit Sub
+End If
+REM Clear the destination library if requested
+If bClearDest AND oDestLibs.hasByName(sDestLib) Then
+oDestLibs.removeLibrary(sDestLib)
+End If
+REM If there is no source library, then there is nothing else to do
+If IsNull(oSrcLibs) OR IsEmpty(oSrcLibs) Then
+Exit Sub
+End If
+REM If the source library does not exist, then there is nothing else to do
+If NOT oSrcLibs.hasByName(sSrcLib) Then
+Exit Sub
+End If
+REM If the destination library does not exist, then create it
+If NOT oDestLibs.hasByName(sDestLib) Then
+oDestLibs.createLibrary(sDestLib)
+End If
+REM This is where the real fun begins!
+REM It may seem obvious, but the libraries must be loaded first.
+REM Common mistake to not load the libraries first!
+oSrcLibs.loadLibrary(sSrcLib)
+oDestLibs.loadLibrary(sDestLib)
+REM Get the source and destination libraries
+REM Get all of the contained modules that should be copied
+oSrcLib = oSrcLibs.getByName(sSrcLib)
+oDestLib = oDestLibs.getByName(sDestLib)
+sNames = oSrcLib.getElementNames()
+REM For each module, either add it or replace it
+For i = LBound(sNames) To UBound(sNames)
+If oDestLib.hasByName(sNames(i)) Then
+oDestLib.replaceByName(sNames(i), oSrcLib.getByName(sNames(i)))
+Else
+oDestLib.insertByName(sNames(i), oSrcLib.getByName(sNames(i)))
+End If
+Next
+End Sub
+
+Sub CreateAGlobalLib
+Dim oLib
+Dim s$
+If GlobalScope.BasicLibraries.hasByName(&quot;TestLib&quot;) Then
+GlobalScope.BasicLibraries.removeLibrary(&quot;TestLib&quot;)
+GlobalScope.DialogLibraries.removeLibrary(&quot;TestLib&quot;)
+MsgBox &quot;Deleted TestLib&quot;
+Else
+GlobalScope.BasicLibraries.createLibrary(&quot;TestLib&quot;)
+GlobalScope.DialogLibraries.createLibrary(&quot;TestLib&quot;)
+oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
+s = &quot;Sub Main&quot; &amp; CHR$(10) &amp;_
+&quot; x = x + 1&quot; &amp; CHR$(10) &amp;_
+&quot;End Sub&quot;
+oLib.insertByName(&quot;Module1&quot;, s)
+s = &quot;=== Basic Libs ===&quot; &amp; CHR$(10)
+oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
+s = s &amp; Join(oLib.getElementNames(), CHR$(10))
+oLib = GlobalScope.DialogLibraries.getByName(&quot;TestLib&quot;)
+s = s &amp; CHR$(10) &amp; CHR$(10) &amp; &quot;=== Dialog Libs ===&quot; &amp; CHR$(10)
+s = s &amp; Join(oLib.getElementNames(), CHR$(10))
+MsgBox s, 0, &quot;Modules in the TestLib Library&quot;
+oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
+MsgBox oLib.getByName(&quot;Module1&quot;), 0, &quot;Module1 in TestLib&quot;
+End If
+End Sub
+
+
+
+
+
+</script:module>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Toolbars" script:language="StarBasic">
+
+Sub createCorrectionToolbar
+Dim toolbarName$
+Dim tollbarDescription$
+
+toolbarName = &quot;correctionToolbar&quot;
+toolbarDescription = &quot;Панель исправлений&quot;
+CreateWriterToolbar(toolbarName,toolbarDescription)
+End Sub
+
+Sub createCorrectionToolbarForEditors
+Dim toolbarName$
+Dim tollbarDescription$
+
+toolbarName = &quot;correctionToolbar&quot;
+toolbarDescription = &quot;Панель исправлений&quot;
+CreateWriterEditorToolbar(toolbarName,toolbarDescription)
+End Sub
+
+Sub removeCorrectionToolbar
+Dim sSupplier$    &apos; ModuleUIConfigurationManagerSupplier
+Dim oSupplier     &apos; ModuleUIConfigurationManagerSupplier
+Dim oModuleCfgMgr &apos; Module manager.
+Dim sDocType$     &apos; Component type that will containt the toolbar.
+sSupplier = &quot;com.sun.star.ui.ModuleUIConfigurationManagerSupplier&quot;
+oSupplier = CreateUnoService(sSupplier)
+sDocType = &quot;com.sun.star.text.TextDocument&quot;
+oModuleCfgMgr = oSupplier.getUIConfigurationManager( sDocType )
+sToolbarURL = &quot;private:resource/toolbar/custom_toolbar_correctionToolbar&quot;
+If (oModuleCfgMgr.hasSettings(sToolbarURL)) Then
+    oModuleCfgMgr.removeSettings(sToolbarURL)
+    Exit Sub
+End If
+End Sub
+
+
+
+Sub CreateWriterToolbar(toolbarName,toolbarDescription)
+  Dim sToolbarURL$  &apos; URL of the custom toolbar.
+  Dim sCmdID$       &apos; Command for a single toolbar button.
+  Dim sCmdLable     &apos; Lable for a single toolbar button.
+  Dim sDocType$     &apos; Component type that will containt the toolbar.
+  Dim sSupplier$    &apos; ModuleUIConfigurationManagerSupplier
+  Dim oSupplier     &apos; ModuleUIConfigurationManagerSupplier
+  Dim sConfManager$ &apos; ModuleUIConfigurationManager
+  Dim oConfManager  &apos; ModuleUIConfigurationManager
+  Dim oModuleCfgMgr &apos; Module manager.
+  Dim oTBSettings   &apos; Settings that comprise the toolbar.
+  Dim oToolbarItem  &apos; Single toolbar button.
+  Dim nCount%
+
+  REM Name of the custom toolbar; must start with &quot;custom_&quot;.
+  sToolbarURL = &quot;private:resource/toolbar/custom_toolbar_&quot; &amp; toolbarName
+
+  REM Retrieve the module configuration manager from the
+  REM central module configuration manager supplier
+  sSupplier = &quot;com.sun.star.ui.ModuleUIConfigurationManagerSupplier&quot;
+  oSupplier = CreateUnoService(sSupplier)
+  
+  REM Specify the document type associated with this toolbar.
+  sDocType = &quot;com.sun.star.text.TextDocument&quot;
+  &apos;sDocType = &quot;com.sun.star.script.BasicIDE&quot;
+
+  REM Retrieve the module configuration manager with module identifier
+  REM *** See com.sun.star.frame.ModuleManager for more information.
+  oModuleCfgMgr = oSupplier.getUIConfigurationManager( sDocType )
+  
+  REM To remove a toolbar, you can use something like the following:
+  &apos;If (oModuleCfgMgr.hasSettings(sToolbarURL)) Then
+  &apos;  oModuleCfgMgr.removeSettings(sToolbarURL)
+  &apos;  Exit Sub
+  &apos;End If
+
+  REM Create a settings container to define the structure of the
+  REM custom toolbar.
+  oTBSettings = oModuleCfgMgr.createSettings()
+    
+  REM *** Set a title for our new custom toolbar
+  oTBSettings.UIName = toolbarDescription
+    
+  REM *** Create a button for our new custom toolbar
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveConsequentSpaces?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;__&quot;
+ &apos; nCount = 0
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveBadCharacters?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;!UTF&quot;
+  nCount = 0
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveSpacesBeforeStops?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;_!&quot;
+ &apos; nCount = 2
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNumericDashBetweenNumbers?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;№-№&quot;
+ &apos; nCount = 3
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeReplaceLongDashWithSpacesBetweenWords?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;а — а&quot;
+ &apos; nCount = 4
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveSpacesAfterOpenedQuoteOrBracket?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;(_&quot;
+ &apos; nCount = 5
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenLastnameAndInitials?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;Фам_И.О.&quot;
+ &apos; nCount = 6
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenInitialsAndLastName?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;И.О._Фам&quot;
+ &apos; nCount = 7
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenEtc?language=Basic&amp;location=application&quot;
+ &apos; sCmdLable = &quot;и_т._д.&quot;
+ &apos; nCount = 8
+ &apos; oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+&apos;&apos;  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceAfterPageOrVolume?language=Basic&amp;location=application&quot;
+&apos;&apos;  sCmdLable = &quot;c|том&quot;
+&apos;&apos;  nCount = 9
+&apos;&apos;  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+&apos;&apos;  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+&apos;  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenVol?language=Basic&amp;location=application&quot;
+&apos;  sCmdLable = &quot;т._№&quot;
+&apos;  nCount = 9
+&apos;  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+&apos;  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+&apos;  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenSeries?language=Basic&amp;location=application&quot;
+&apos;  sCmdLable = &quot;с._№&quot;
+&apos;  nCount = 10
+&apos;  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+&apos;  oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+&apos;  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenPart?language=Basic&amp;location=application&quot;
+&apos;  sCmdLable = &quot;ч._№&quot;
+&apos;  nCount = 11
+&apos;  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+&apos;  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+&apos;    sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenYear?language=Basic&amp;location=application&quot;
+&apos;  sCmdLable = &quot;г._№&quot;
+&apos;  nCount = 12
+&apos;  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+&apos;  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+ &apos; &apos;sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeNonBreakingSpaceBetweenPageNum?language=Basic&amp;location=application&quot;
+ &apos; &apos;sCmdLable = &quot;с._№&quot;
+ &apos; &apos;nCount = 14
+ &apos; &apos;oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+ &apos; &apos;oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+    sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveWhiteBackground?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Фон&quot;
+  nCount = 1
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.pageBreaks.executeShrinkPageContent?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Разрыв со сжатием&quot;
+  nCount = 2
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+    sCmdID   = &quot;vnd.sun.star.script:Publishing.pageBreaks.executeSplitPages?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Разрыв&quot;
+  nCount = 3
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeMakeMeHappy?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Ошибки&quot;
+  nCount = 4
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.CleanManualFormat.executeClean?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Формат&quot;
+  nCount = 5
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeGothToArabicD?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Goth2ArabicD&quot;
+  nCount = 6
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeArabicDToGoth?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;ArabicD2Goth&quot;
+  nCount = 7
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.unusedStyles.executeRemoveUnusedStyles?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Пустые стили&quot;
+  nCount = 8
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.CleanManualFormat.executeReplaceFonts?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;ШрифтыВстили&quot;
+  nCount = 9
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.CleanManualFormat.NotesCleanStyle?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;СтилиСносок&quot;
+  nCount = 10
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Indd.executeInsertINDDPageBreaks?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Indd&quot;
+  nCount = 11
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  REM To add a second item, increment nCount, create a new
+  REM toolbar item, and insert it.
+    
+  REM *** Set the settings for our new custom toolbar. (replace/insert)
+  If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
+    oModuleCfgMgr.replaceSettings( sToolbarURL, oTBSettings )
+  Else
+    oModuleCfgMgr.insertSettings( sToolbarURL, oTBSettings )
+  End If
+   
+  oModuleCfgMgr.store()
+   
+End Sub
+
+Rem A com.sun.star.ui.ItemDescriptor is an array of property
+Rem values. This example does not set all supported  values, 
+Rem such as &quot;Style&quot;, which uses values 
+Rem from com.sun.star.ui.ItemStyle. For menu items, the
+Rem &quot;ItemDescriptorContainer&quot; is usually set as well.
+Function CreateSimpleToolbarItem( sCommand$, sLabel ) as Variant
+  Dim oItem(3) As New com.sun.star.beans.PropertyValue
+
+  oItem(0).Name = &quot;CommandURL&quot;
+  oItem(0).Value = sCommand
+  oItem(1).Name = &quot;Label&quot;
+  oItem(1).Value = sLabel
+  
+  REM Other supported types include SEPARATOR_LINE, 
+  rem SEPARATOR_SPACE, and SEPARATOR_LINEBREAK.
+  oItem(2).Name = &quot;Type&quot;
+  oItem(2).Value = com.sun.star.ui.ItemType.DEFAULT
+  
+  oItem(3).Name = &quot;Visible&quot;
+  oItem(3).Value = True
+
+  CreateSimpleToolbarItem = oItem()
+End Function
+
+Sub CreateWriterEditorToolbar(toolbarName,toolbarDescription)
+  Dim sToolbarURL$  &apos; URL of the custom toolbar.
+  Dim sCmdID$       &apos; Command for a single toolbar button.
+  Dim sCmdLable     &apos; Lable for a single toolbar button.
+  Dim sDocType$     &apos; Component type that will containt the toolbar.
+  Dim sSupplier$    &apos; ModuleUIConfigurationManagerSupplier
+  Dim oSupplier     &apos; ModuleUIConfigurationManagerSupplier
+  Dim sConfManager$ &apos; ModuleUIConfigurationManager
+  Dim oConfManager  &apos; ModuleUIConfigurationManager
+  Dim oModuleCfgMgr &apos; Module manager.
+  Dim oTBSettings   &apos; Settings that comprise the toolbar.
+  Dim oToolbarItem  &apos; Single toolbar button.
+  Dim nCount%
+
+  REM Name of the custom toolbar; must start with &quot;custom_&quot;.
+  sToolbarURL = &quot;private:resource/toolbar/custom_toolbar_&quot; &amp; toolbarName
+
+  REM Retrieve the module configuration manager from the
+  REM central module configuration manager supplier
+  sSupplier = &quot;com.sun.star.ui.ModuleUIConfigurationManagerSupplier&quot;
+  oSupplier = CreateUnoService(sSupplier)
+  
+  REM Specify the document type associated with this toolbar.
+  sDocType = &quot;com.sun.star.text.TextDocument&quot;
+  &apos;sDocType = &quot;com.sun.star.script.BasicIDE&quot;
+
+  REM Retrieve the module configuration manager with module identifier
+  REM *** See com.sun.star.frame.ModuleManager for more information.
+  oModuleCfgMgr = oSupplier.getUIConfigurationManager( sDocType )
+  
+  REM To remove a toolbar, you can use something like the following:
+  &apos;If (oModuleCfgMgr.hasSettings(sToolbarURL)) Then
+  &apos;  oModuleCfgMgr.removeSettings(sToolbarURL)
+  &apos;  Exit Sub
+  &apos;End If
+
+  REM Create a settings container to define the structure of the
+  REM custom toolbar.
+  oTBSettings = oModuleCfgMgr.createSettings()
+    
+  REM *** Set a title for our new custom toolbar
+  oTBSettings.UIName = toolbarDescription
+    
+  REM *** Create a button for our new custom toolbar
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveBadCharacters?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Не юникод&quot;
+  nCount = 0
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeRemoveWhiteBackground?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Фон&quot;
+  nCount = 1
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeMakeMeHappy?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Ошибки&quot;
+  nCount = 2
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.CleanManualFormat.executeClean?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Формат&quot;
+  nCount = 3
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.unusedStyles.executeRemoveUnusedStyles?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Пустые стили&quot;
+  nCount = 4
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeGothToArabicD?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;Goth2ArabicD&quot;
+  nCount = 5
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = &quot;vnd.sun.star.script:Publishing.Correction.executeArabicDToGoth?language=Basic&amp;location=application&quot;
+  sCmdLable = &quot;ArabicD2Goth&quot;
+  nCount = 6
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+
+  
+  REM To add a second item, increment nCount, create a new
+  REM toolbar item, and insert it.
+    
+  REM *** Set the settings for our new custom toolbar. (replace/insert)
+  If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
+    oModuleCfgMgr.replaceSettings( sToolbarURL, oTBSettings )
+  Else
+    oModuleCfgMgr.insertSettings( sToolbarURL, oTBSettings )
+  End If
+   
+  oModuleCfgMgr.store()
+   
+End Sub
+</script:module>

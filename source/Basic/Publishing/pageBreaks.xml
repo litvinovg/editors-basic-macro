@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageBreaks" script:language="StarBasic">
+Sub ExecuteShrinkPageContent
+Dim oViewCursor As Object &apos;View cursor
+Dim oTextCursor &apos;Text cursor
+Dim oSaveEndSelection &apos;Text cursor
+Dim oEnum &apos;Cursor enumeration
+Dim oText &apos;Text object in current document
+Dim oPar &apos;Current paragraph 
+Dim sTextContent$ &apos;Service name for text content.
+Dim scaleWidthShrinkValue As Integer
+Dim scaleCharHeight As Integer
+Dim scaleIntervalHeight As Integer
+Dim startOfPara As Boolean
+&apos;saveCurrentVersion
+scaleWidthShrinkValue = 7
+scaleCharHeight = 2
+scaleIntervalHeight = 3
+sTextContent = &quot;com.sun.star.text.TextContent&quot;
+oText = ThisComponent.Text
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+
+&apos;Check if we are at start of paragraph go to the end of previous paragraph
+If oText.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
+ oViewCursor.goLeft(1,false)
+  If Len(oViewCursor.String) &lt;&gt; 1 Then
+ 	oViewCursor.goRight(1,false)
+  End If
+End If 
+
+
+&apos;Move right to select left and right characters and save position to the right
+oViewCursor.goRight(1,false)
+oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+&apos;Select last 2 characters
+oViewCursor.goLeft(2,true)
+If Len(oViewCursor.String) = 2 Then
+oLastChars = oText.createTextCursorByRange(oViewCursor)
+&apos;Insert hyphen if needed
+insertHyphen(oLastChars,oViewCursor)
+End If
+&apos;Return to initial position
+oViewCursor.gotoRange(oSaveEndSelection,false) &apos;Go to end of text to check page changes
+oViewCursor.goLeft(1,false)
+&apos;Set saved position to initial state
+oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+
+
+oViewCursor.jumpToPreviousPage() 
+oViewCursor.jumpToStartOfPage()
+oTextCursor = oText.createTextCursorByRange(oViewCursor)
+oTextCursor.gotoRange(oSaveEndSelection,true)
+oViewCursor.gotoRange(oSaveEndSelection,false) &apos;Go to end of text to check page changes
+&apos;MsgBox oTextCursor.ParaFirstLineIndent
+&apos;  Exit Sub
+If shrinkIntervalHeight(oTextCursor,oViewCursor,scaleIntervalHeight) Then 
+  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  If oTextCursor.isEndOfParagraph() Then
+    pos1 = oViewCursor.getPage()
+    oViewCursor.goRight(1,false)
+	pos2 = oViewCursor.getPage()    
+	&apos;If we moved right to the next para and page haven&apos;t changed insert pageBreak
+	If pos1 = pos2 Then
+	  insertPageBreak
+	End If
+  Else
+    insertPageBreak  
+    If Not IsNull(oTextCursor.ParaFirstLineIndent) Then
+      oTextCursor.ParaFirstLineIndent = 0
+    End If 
+  
+  End If
+  
+  Exit Sub
+End If
+If shrinkCharHeight(oTextCursor,oViewCursor,scaleCharHeight) Then 
+  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  If oTextCursor.isEndOfParagraph() Then
+    pos1 = oViewCursor.getPage()
+    oViewCursor.goRight(1,false)
+	pos2 = oViewCursor.getPage()    
+	&apos;If we moved right to the next para and page haven&apos;t changed insert pageBreak
+	If pos1 = pos2 Then
+	  insertPageBreak
+	End If
+  Else
+    insertPageBreak  
+    If Not IsNull(oTextCursor.ParaFirstLineIndent) Then
+      oTextCursor.ParaFirstLineIndent = 0
+    End If 
+  
+  End If
+  
+  Exit Sub
+End If
+If shrinkScaleWidth(oTextCursor,oViewCursor,scaleWidthShrinkValue) Then 
+  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  If oTextCursor.isEndOfParagraph() Then
+    pos1 = oViewCursor.getPage()
+    oViewCursor.goRight(1,false)
+	pos2 = oViewCursor.getPage()    
+	&apos;If we moved right to the next para and page haven&apos;t changed insert pageBreak
+	If pos1 = pos2 Then
+	  insertPageBreak
+	End If
+  Else
+    insertPageBreak  
+    If Not IsNull(oTextCursor.ParaFirstLineIndent) Then
+      oTextCursor.ParaFirstLineIndent = 0
+    End If 
+  
+  End If
+  
+  Exit Sub
+End If
+
+End Sub
+
+Sub ExecuteSplitPages
+Dim oViewCursor As Object &apos;View cursor
+Dim oText &apos;Text object in current document
+Dim oSaveEndSelection &apos;Text cursor
+&apos;saveCurrentVersion
+oText = ThisComponent.Text
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+Dim saveFirstLineIndent As Boolean
+
+&apos;Check if we are at start of paragraph go to the end of previous paragraph
+If oText.createTextCursorByRange(oViewCursor).isEndOfParagraph() Then
+  oViewCursor.goRight(1,false)
+End If
+If oText.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
+  saveFirstLineIndent = true
+Else 
+  saveFirstLineIndent = false
+End If
+
+oViewCursor.goRight(1,false)
+oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+&apos;Select last 2 characters
+oViewCursor.goLeft(2,true)
+
+If Len(oViewCursor.String) = 2 Then
+	&apos;Insert hyphen if needed
+	oLastChars = oText.createTextCursorByRange(oViewCursor)
+	insertHyphen(oLastChars,oViewCursor)
+End If
+&apos;Return to initial position
+oViewCursor.gotoRange(oSaveEndSelection,false) &apos;Go to end of text to check page changes
+oViewCursor.goLeft(1,false)
+insertPageBreak
+If Not saveFirstLineIndent Then
+  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  If Not IsNull(oTextCursor.ParaFirstLineIndent) Then
+    oTextCursor.ParaFirstLineIndent = 0
+  End If
+End If
+End Sub
+
+
+Sub insertHyphen(oTextCursor,oViewCursor)
+Dim lastChars
+&apos;lastChars = oTextCursor.getString()
+replacementhyp
+&apos;MsgBox lastChars
+End Sub
+
+
+Function shrinkScaleWidth(oTextCursor,oViewCursor,iterations) As Boolean
+Dim oParEnum &apos;paragraph enumeration
+Dim oPar &apos;current paragraph
+Dim oSecEnum &apos;sections enumeration
+Dim oParSection &apos;paragraph text section
+Dim pageNum As Integer
+pageNum = oViewCursor.getPage()
+For i = 1 To iterations Step 1
+	oParEnum = oTextCursor.createEnumeration()
+	Do While oParEnum.hasMoreElements()
+        oPar = oParEnum.nextElement()
+		If oPar.supportsService(&quot;com.sun.star.text.Paragraph&quot;) Then
+	 	  oPar.charScaleWidth = 100 - i
+	 	  If pageNum &lt;&gt; oViewCursor.getPage() Then
+	 	    shrinkScaleWidth = true
+	 	    Exit Function
+	 	  End If
+&apos;	  oSecEnum = oPar.createEnumeration()
+&apos;		  Do While oSecEnum.hasMoreElements()
+&apos;            oParSection = oSecEnum.nextElement()
+&apos;            If Not IsNull(oParSection.TextPortionType) AND oParSection.TextPortionType = &quot;Text&quot; Then
+&apos;              oParSection.charScaleWidth = 100 - i
+&apos;		      If pageNum &lt;&gt; oViewCursor.getPage() Then
+&apos;	 	        shrinkScaleWidth = true
+&apos;	 	        Exit Function
+&apos;	 	      End If
+&apos;	 	    End If
+&apos;    	  Loop
+        End If
+	Loop
+Next i
+shrinkScaleWidth = false
+End Function
+
+Function shrinkCharHeight(oTextCursor,oViewCursor,iterations) As Boolean
+Dim oParEnum &apos;paragraph enumeration
+Dim oPar &apos;current paragraph
+Dim oSecEnum &apos;sections enumeration
+Dim oParSection &apos;paragraph text section
+Dim pageNum As Integer
+pageNum = oViewCursor.getPage()
+For i = 1 To iterations Step 1
+	oParEnum = oTextCursor.createEnumeration()
+	Do While oParEnum.hasMoreElements()
+        oPar = oParEnum.nextElement()
+		If oPar.supportsService(&quot;com.sun.star.text.Paragraph&quot;) Then
+	 	  oPar.charHeight = roundHeight(oPar.charHeight) - 0.1
+	 	  If pageNum &lt;&gt; oViewCursor.getPage() Then
+	 	    shrinkCharHeight = true
+	 	    Exit Function
+	 	  End If
+&apos;		  oSecEnum = oPar.createEnumeration()
+&apos;		  Do While oSecEnum.hasMoreElements()
+&apos;            oParSection = oSecEnum.nextElement()
+&apos;            If oParSection.TextPortionType = &quot;Text&quot; Then 
+&apos;		      oParSection.charHeight = oParSection.charHeight - 0.05 
+&apos;		      If pageNum &lt;&gt; oViewCursor.getPage() Then
+&apos;	 	        shrinkCharHeight = true
+&apos;	 	        Exit Function
+&apos;	 	      End If
+&apos;	 	    End If
+&apos;    	  Loop
+        End If
+	Loop
+Next i
+shrinkCharHeight = false
+End Function
+
+Function roundHeight(nHeight)
+Dim lHeight As Double
+Dim hHeight As Double
+lHeight = Int(nHeight)
+hHeight = Int(nHeight)
+
+Dim i%
+i=1
+Do While lHeight &lt; nHeight And hHeight &lt; nHeight
+	lHeight =  + i/10 + 0.001
+	hHeight =  + (i+0.5)/10
+	i=i+1
+Loop 
+roundHeight=lHeight
+End Function
+
+
+Function shrinkIntervalHeight(oTextCursor,oViewCursor,iterations) As Boolean
+Dim oParEnum &apos;paragraph enumeration
+Dim oPar &apos;current paragraph
+Dim oSecEnum &apos;sections enumeration
+Dim oParSection &apos;paragraph text section
+Dim pageNum As Integer
+Dim lineSpacing 
+pageNum = oViewCursor.getPage()
+For i = 1 To iterations Step 1
+	oParEnum = oTextCursor.createEnumeration()
+	Do While oParEnum.hasMoreElements()
+        oPar = oParEnum.nextElement()
+		If oPar.supportsService(&quot;com.sun.star.text.Paragraph&quot;) Then
+	 	  lineSpacing = oPar.ParaLineSpacing
+	 	  If lineSpacing.Mode = 3 Then 
+	 	  	lineSpacing.Height = lineSpacing.Height * 0.98
+	 	  	oPar.ParaLineSpacing = lineSpacing
+	 	  End If
+	 	  If pageNum &lt;&gt; oViewCursor.getPage() Then
+	 	    shrinkIntervalHeight = true
+	 	    Exit Function
+	 	  End If
+&apos;		  oSecEnum = oPar.createEnumeration()
+&apos;		  Do While oSecEnum.hasMoreElements()
+&apos;            oParSection = oSecEnum.nextElement()
+&apos;            If oParSection.TextPortionType = &quot;Text&quot; Then 
+&apos;		      oParSection.charHeight = oParSection.charHeight - 0.05 
+&apos;		      If pageNum &lt;&gt; oViewCursor.getPage() Then
+&apos;	 	        shrinkCharHeight = true
+&apos;	 	        Exit Function
+&apos;	 	      End If
+&apos;	 	    End If
+&apos;   	  Loop
+        End If
+	Loop
+Next i
+shrinkIntervalHeight = false
+End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sub savecursor
+Dim oViewCursor As Object &apos;View cursor
+Dim oTextCursor &apos;Text cursor
+Dim oSaveEndSelection &apos;Text cursor
+Dim oEnum &apos;Cursor enumeration
+Dim oText &apos;Text object in current document
+Dim oPar &apos;Current paragraph 
+Dim sTextContent$ &apos;Service name for text content.
+sTextContent = &quot;com.sun.star.text.TextContent&quot;
+oText = ThisComponent.Text
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+REM oViewCursor.getText.insertString(oViewCursor.getStart(), CHR$(257), False)
+&apos;If Not oViewCursor.jumpToPreviousPage() Then Exit Sub
+oViewCursor.jumpToPreviousPage() 
+oViewCursor.jumpToStartOfPage()
+
+&apos;oViewCursor.goUp(10,true)
+&apos;oViewCursor.getPage()
+oTextCursor = oText.createTextCursorByRange(oViewCursor)
+&apos;oTextCursor.gotoStart(false)
+oTextCursor.gotoRange(oSaveEndSelection,true)
+
+oParEnum = oTextCursor.createEnumeration()
+
+Do While oParEnum.hasMoreElements()
+    Dim oSubSection
+    Dim oSecEnum
+    
+   Do While oParEnum.hasMoreElements()
+    oPar = oParEnum.nextElement()
+    oPar.charScaleWidth = oPar.charScaleWidth - 1
+    Dim charHeight
+    charHeight= oPar.charHeight
+    Dim lineSpacing 
+    lineSpacing = oPar.ParaLineSpacing
+    MsgBox  lineSpacing.Mode &amp; lineSpacing.Height 
+    If oPar.supportsService(&quot;com.sun.star.text.Paragraph&quot;) Then
+      nPars = nPars + 1
+      oSecEnum = oPar.createEnumeration()
+      s = s &amp; nPars &amp; &quot;:&quot;
+      Do While oSecEnum.hasMoreElements()
+        oParSection = oSecEnum.nextElement()
+		oParSection.charScaleWidth = oParSection.charScaleWidth - 1
+		oParSection.CharHeight = oParSection.CharHeight * 0.99
+		s = s &amp; oParSection.TextPortionType &amp; &quot; Scale &quot; &amp; oParSection.CharScaleWidth  &amp; &quot; Scale &quot; &amp; oParSection.CharHeight &amp; &quot;:&quot;
+      Loop
+      s = s &amp; CHR$(10) 
+      If nPars MOD 10 = 0 Then
+        MsgBox s, 0, &quot;Paragraph Text Sections&quot;
+        s = &quot;&quot;
+      End If
+     End If
+	Loop
+Loop
+End Sub
+
+
+
+sub insertPageBreak
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, &quot;.uno:InsertPagebreak&quot;, &quot;&quot;, 0, Array())
+
+
+end sub
+
+
+
+
+
+sub replacementhyp
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+
+rem ----------------------------------------------------------------------
+dim args1(21) as new com.sun.star.beans.PropertyValue
+args1(0).Name = &quot;SearchItem.StyleFamily&quot;
+args1(0).Value = 2
+args1(1).Name = &quot;SearchItem.CellType&quot;
+args1(1).Value = 0
+args1(2).Name = &quot;SearchItem.RowDirection&quot;
+args1(2).Value = true
+args1(3).Name = &quot;SearchItem.AllTables&quot;
+args1(3).Value = false
+args1(4).Name = &quot;SearchItem.SearchFiltered&quot;
+args1(4).Value = false
+args1(5).Name = &quot;SearchItem.Backward&quot;
+args1(5).Value = false
+args1(6).Name = &quot;SearchItem.Pattern&quot;
+args1(6).Value = false
+args1(7).Name = &quot;SearchItem.Content&quot;
+args1(7).Value = false
+args1(8).Name = &quot;SearchItem.AsianOptions&quot;
+args1(8).Value = false
+args1(9).Name = &quot;SearchItem.AlgorithmType&quot;
+args1(9).Value = 1
+args1(10).Name = &quot;SearchItem.SearchFlags&quot;
+args1(10).Value = 71680
+args1(11).Name = &quot;SearchItem.SearchString&quot;
+args1(11).Value = &quot;([a-zA-Zа-яА-Я])([a-zA-Zа-яА-Я])&quot;
+args1(12).Name = &quot;SearchItem.ReplaceString&quot;
+args1(12).Value = &quot;$1­$2&quot;
+args1(13).Name = &quot;SearchItem.Locale&quot;
+args1(13).Value = 255
+args1(14).Name = &quot;SearchItem.ChangedChars&quot;
+args1(14).Value = 2
+args1(15).Name = &quot;SearchItem.DeletedChars&quot;
+args1(15).Value = 2
+args1(16).Name = &quot;SearchItem.InsertedChars&quot;
+args1(16).Value = 2
+args1(17).Name = &quot;SearchItem.TransliterateFlags&quot;
+args1(17).Value = 1024
+args1(18).Name = &quot;SearchItem.Command&quot;
+args1(18).Value = 3
+args1(19).Name = &quot;SearchItem.SearchFormatted&quot;
+args1(19).Value = false
+args1(20).Name = &quot;SearchItem.AlgorithmType2&quot;
+args1(20).Value = 2
+args1(21).Name = &quot;Quiet&quot;
+args1(21).Value = true
+
+dispatcher.executeDispatch(document, &quot;.uno:ExecuteSearch&quot;, &quot;&quot;, 0, args1())
+
+
+end sub
+sub saveCurrentVersion
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+
+rem ----------------------------------------------------------------------
+dim args1(0) as new com.sun.star.beans.PropertyValue
+args1(0).Name = &quot;VersionComment&quot;
+args1(0).Value = &quot;Вставка разрыва страниц&quot;
+
+dispatcher.executeDispatch(document, &quot;.uno:Save&quot;, &quot;&quot;, 0, args1())
+
+
+end sub
+</script:module>

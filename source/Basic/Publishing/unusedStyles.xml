@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="unusedStyles" script:language="StarBasic">sub executeRemoveUnusedStyles
+&apos;calls: RemoveUnusedStyles
+Dim sElements() as string, oFamilies, oFamily, sFamily$, sLabel, oDlg, i%
+Dim oDoc as object
+oDoc = ThisComponent
+oFamilies = thiscomponent.StyleFamilies
+sElements() = oFamilies.getElementNames()
+For i = 0 to uBound(sElements()) -2
+   oFamily = oFamilies.getByName(sElements(i))
+   RemoveUnusedStyles(oFamily,sElements(i),True)
+Next
+End Sub
+
+Sub RemoveUnusedStyles(oFamily,sFamily as string, bAsk as Boolean)
+&apos;calls: getStyleNames
+Dim sUsed() as String, sMsg$,iAnswer%, bStop as boolean
+sUsed() = getStyleNames(oFamily,bLocalized:=True,bUsed:=False,bUserDef:=true)
+If uBound(sUsed()) &gt; -1 then
+         For i = 0 to uBound(sUsed())
+            oFamily.removeByName(sUsed(i))
+         Next
+EndIf
+End Sub
+
+&apos;calls: bas_PushArray
+&apos;returns: a string-array of style-names
+&apos;oFamily:= a style family, derived from a doc (writer,calc,draw,impress)
+&apos;bLocalized:= return localized names of the builtin styles (eg. builtin &quot;Default&quot; --&gt; german &quot;Standard&quot;)
+&apos;bUsed:= only used styles. true/false for used/unused, missing for all
+&apos;bUserDef:= only builtin styles. true/false for userDefined/Builtin, missing for all
+Function getStyleNames(oFamily,bLocalized as Boolean, _
+   optional bUsed, optional bUserDef)
+Dim oStyle,i%,sNames$(),sName$,chkUse as Boolean, chkUDef as Boolean
+For i = 0 to oFamily.getCount -1
+   oStyle = oFamily.getByIndex(i)
+   If bLocalized then
+      sName = oStyle.DisplayName
+   Else
+      sName = oStyle.getName
+   Endif
+   If (vartype(bUsed) = 11)then
+      chkUse = (bUsed EQV oStyle.isInUse)
+   Else
+      chkUse = True
+   Endif
+   If (vartype(bUserDef) = 11) then
+      chkUDef = (bUserDef EQV oStyle.isUserDefined)
+   Else
+      chkUDef = True
+   EndIf
+   If sName = &quot;Автор&quot; Or sName = &quot;Автор по-английски&quot; Or sName = &quot;Ключевые слова&quot; Or sName = &quot;Текст списка литературы&quot; Or sName = &quot;Эпиграф&quot; or sName = &quot;Цитирование&quot; or sName = &quot;Сведения об авторе&quot; or sName = &quot;Аннотация&quot; Then
+     chkUse = False
+   Endif
+   If chkUse AND chkUDef then
+      bas_Pusharray sNames(),sName
+   Endif
+Next
+getStyleNames = sNames()
+End Function
+
+&apos;very simple routine appending some element to an array which can be undimensioned (LBound &gt; UBound)
+Sub bas_PushArray(xArray(),vNextElement)
+Dim iUB%,iLB%
+iLB = lBound(xArray())
+iUB = uBound(xArray())
+If iLB &gt; iUB then
+   iUB = iLB
+   redim xArray(iLB To iUB)
+Else
+   iUB = iUB +1
+   redim preserve xArray(iLB To iUB)
+Endif
+xArray(iUB) = vNextElement
+End Sub
+</script:module>

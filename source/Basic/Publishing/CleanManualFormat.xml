@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="CleanManualFormat" script:language="StarBasic">Sub ExecuteClean
+toTextAll
+executeReplaceFonts
+ClearDirectFormat
+toStyleAll
+NotesCleanStyle
+executeRemoveUnusedStyles
+End Sub
+
+Sub NotesCleanStyle
+Dim oDescriptor &apos;The search descriptor
+dim dispatcher as Object
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dim document   as Object
+document   = ThisComponent.CurrentController.Frame
+Dim oViewCursor As Object &apos;View cursor
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+allNotes= thisComponent.FootNotes
+for x = 0 to allNotes.Count -1
+  aNote = allNotes.getByIndex(x)
+  aNote.Anchor.CharStyleName=&quot;Footnote anchor&quot;
+  oEnum = aNote.Text.createEnumeration()
+  Do While oEnum.hasMoreElements()
+    oCurPar = oEnum.nextElement()
+    oCurPar.ParaStyleName = &quot;Footnote&quot;
+  Loop
+next
+End Sub
+
+
+Sub getAttINfo
+Dim oViewCursor As Object
+Dim oText
+Dim oTextCursor
+oText = ThisComponent.Text
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oTextCursor = oText.createTextCursorByRange(oViewCursor)
+MsgBox &quot;CharKerning &quot; &amp; oTextCursor.CharKerning
+&apos;MsgBox &quot;CharBackTransparent &quot; &amp; oTextCursor.CharBackTransparent
+End Sub
+
+
+Sub ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+Dim oReplace
+oReplace = ThisComponent.createReplaceDescriptor()
+oReplace.SearchString = SearchString
+oReplace.ReplaceString = ReplaceString
+oReplace.SearchRegularExpression=True
+
+oReplace.searchAll=True
+If Not IsEmpty(SrchAttributes(0).Value) Then
+  oReplace.SetSearchAttributes(SrchAttributes())
+  oReplace.searchStyles=True
+End If
+If Not IsEmpty(ReplAttributes(0).Value) Then
+  oReplace.SetReplaceAttributes(ReplAttributes())
+End If
+ThisComponent.replaceAll(oReplace)
+End Sub
+
+Sub ClearDirectFormat
+Dim oDescriptor &apos;The search descriptor
+dim dispatcher as Object
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dim document   as Object
+document   = ThisComponent.CurrentController.Frame
+Dim oViewCursor As Object &apos;View cursor
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oViewCursor.gotoStart(false)
+oViewCursor.gotoEnd(true)
+dispatcher.executeDispatch(document, &quot;.uno:ResetAttributes&quot;, &quot;&quot;, 0, Array())
+allNotes= thisComponent.FootNotes
+for x = 0 to allNotes.Count -1
+  aNote = allNotes.getByIndex(x)
+  footNoteText = aNote.getText()
+  oTextcursor = footNoteText.createTextCursor()
+  oViewCursor.gotoRange(oTextcursor.getStart(),false) 
+  oViewCursor.gotoEnd(true)
+  dispatcher.executeDispatch(document, &quot;.uno:ResetAttributes&quot;, &quot;&quot;, 0, Array())
+next
+oViewCursor.gotoStart(false)
+End Sub
+
+
+Sub toTextBold
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharWeight&quot;
+SrchAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;bold&gt;$1&lt;/bold&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextItalic
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharPosture&quot;
+SrchAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;italic&gt;$1&lt;/italic&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextStrikeout
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharStrikeout&quot;
+SrchAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;strikeout&gt;$1&lt;/strikeout&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextUnderline
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharUnderline&quot;
+SrchAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;underline&gt;$1&lt;/underline&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextSuperscript
+Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharEscapementHeight&quot;
+SrchAttributes(0).Value = 58
+SrchAttributes(1).Name = &quot;CharEscapement&quot;
+SrchAttributes(1).Value = 101
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;superscript&gt;$1&lt;/superscript&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextSubscript
+Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharEscapementHeight&quot;
+SrchAttributes(0).Value = 58
+SrchAttributes(1).Name = &quot;CharEscapement&quot;
+SrchAttributes(1).Value = -101
+SearchString = &quot;(.*)&quot;
+ReplaceString = &quot;&lt;subscript&gt;$1&lt;/subscript&gt;&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toTextSparce
+
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+
+For i=35 To 71 
+	SrchAttributes(0).Name = &quot;CharKerning&quot;
+	SearchString = &quot;(.*)&quot;
+	SrchAttributes(0).Value = i
+	ReplaceString = &quot;&lt;sparce&quot; &amp; i &amp; &quot;&gt;$1&lt;/sparce&gt;&quot;
+	ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+Next
+
+
+End Sub
+
+Sub toStyleBold
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharWeight&quot;
+ReplAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
+SearchString = &quot;&lt;bold&gt;(.*?)&lt;/bold&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toStyleItalic
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharPosture&quot;
+ReplAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
+SearchString = &quot;&lt;italic&gt;(.*?)&lt;/italic&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toStyleStrikeout
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharStrikeout&quot;
+ReplAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
+SearchString = &quot;&lt;strikeout&gt;(.*?)&lt;/strikeout&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+
+Sub toStyleUnderline
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharUnderline&quot;
+ReplAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
+SearchString = &quot;&lt;underline&gt;(.*?)&lt;/underline&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+
+Sub toStyleSuperscript
+Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharEscapementHeight&quot;
+ReplAttributes(0).Value = 58
+ReplAttributes(1).Name = &quot;CharEscapement&quot;
+ReplAttributes(1).Value = 101
+SearchString = &quot;&lt;superscript&gt;(.*?)&lt;/superscript&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toStyleSubscript
+Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharEscapementHeight&quot;
+ReplAttributes(0).Value = 58
+ReplAttributes(1).Name = &quot;CharEscapement&quot;
+ReplAttributes(1).Value = -101
+SearchString = &quot;&lt;subscript&gt;(.*?)&lt;/subscript&gt;&quot;
+ReplaceString = &quot;$1&quot;
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
+Sub toStyleSparce
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = &quot;CharKerning&quot;
+ReplaceString = &quot;$1&quot;
+For i=35 To 71 
+	ReplAttributes(0).Value = i
+	SearchString = &quot;&lt;sparce&quot; &amp; i &amp; &quot;&gt;(.*?)&lt;/sparce&gt;&quot;
+	ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+Next 
+End Sub
+
+Sub toTextAll
+toTextBold
+toTextItalic
+toTextStrikeout
+toTextUnderline
+toTextSuperscript
+toTextSubscript
+toTextSparce
+End Sub
+
+Sub toStyleAll
+toStyleSparce
+toStyleSuperscript
+toStyleSubscript
+toStyleUnderline
+toStyleStrikeout
+toStyleItalic
+toStyleBold
+End Sub
+
+
+Sub executeReplaceFonts
+Dim oDoc
+oDoc = Thiscomponent
+Dim srch(0) as new com.sun.star.beans.PropertyValue
+SDesc = Thiscomponent.createSearchDescriptor()
+  SDesc.SearchAll = true
+  SDesc.ValueSearch = false
+  SDesc.SearchStyles = false 
+  SDesc.SearchRegularExpression = false
+  SDesc.SearchString = &quot;&quot; 
+  srch(0).Name = &quot;CharFontName&quot;
+  SDesc.SetSearchAttributes(srch())
+  founds = Thiscomponent.findFirst(SDesc)
+  do while not isNull(founds)
+    curFont = founds.CharFontName
+    If curFont &lt;&gt; &quot;Times New Roman&quot; Then
+      If Not DocHasCharStyle(oDoc,curFont) Then
+        oProps() = Array(CreateProperty(&quot;CharFontName&quot;, curFont))
+        CreateCharacterStyle(curFont, oProps())
+      End If
+      founds.CharStyleNames = Array(curFont)
+    End If
+    founds = Thiscomponent.findNext(founds.getend, SDesc)
+  loop
+End Sub
+
+Sub replaceFontToStyle(fontName As String)
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = &quot;CharFontName&quot;
+SrchAttributes(0).Value = fontName
+ReplAttributes(0).Name = &quot;CharStyleName&quot;
+ReplAttributes(0).Value = fontName
+srchString = &quot;(.*)&quot;
+repString = &quot;$1&quot;
+ReplaceFormatting(srchString,repString,SrchAttributes,ReplAttributes)
+End Sub
+
+
+Function CreateProperty( Optional cName As String, Optional uValue ) As com.sun.star.beans.PropertyValue
+Dim oPropertyValue As New com.sun.star.beans.PropertyValue
+If Not IsMissing( cName ) Then
+  oPropertyValue.Name = cName
+EndIf
+If Not IsMissing( uValue ) Then
+  oPropertyValue.Value = uValue
+EndIf
+CreateProperty() = oPropertyValue
+End Function
+
+Function DocHasCharStyle(oDoc, sName$) As Boolean
+  Dim oStyles
+  oStyles = oDoc.StyleFamilies.getByName(&quot;CharacterStyles&quot;)
+  DocHasCharStyle() = oStyles.hasByName(sName)
+End Function
+
+Sub CreateCharacterStyle(sStyleName$, oProps())
+Dim i%
+Dim oFamilies
+Dim oStyle
+Dim oStyles
+oFamilies = ThisComponent.StyleFamilies
+oStyles = oFamilies.getByName(&quot;CharacterStyles&quot;)
+If oStyles.HasByName(sStyleName) Then
+  Exit Sub
+End If
+oStyle = ThisComponent.createInstance(&quot;com.sun.star.style.CharacterStyle&quot;)
+For i=LBound(oProps) To UBound(oProps)
+  oStyle.setPropertyValue(oProps(i).Name, oProps(i).Value)
+Next
+oStyles.insertByName(sStyleName, oStyle)
+End Sub
+</script:module>
