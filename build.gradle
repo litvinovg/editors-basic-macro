@@ -1,0 +1,19 @@
+
+task odt(type: Zip) {
+   from 'source/'
+   include '*'
+   include '*/*'
+   include '*/*/*'
+   include '*/*/*/*'
+   archiveName 'macro.odt'
+}
+task raw(type: Copy) {
+    def zipFile = file('macro.odt')
+    def outputDir = file('source')
+      from zipTree(zipFile)
+    into outputDir
+    include '*'
+    include '*/*'
+    include '*/*/*'
+    include '*/*/*/*'
+}
