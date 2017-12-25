@@ -10,21 +10,21 @@ executeRemoveUnusedStyles
 End Sub
 
 Sub NotesCleanStyle
-Dim oDescriptor &apos;The search descriptor
+Dim oDescriptor 'The search descriptor
 dim dispatcher as Object
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 dim document   as Object
 document   = ThisComponent.CurrentController.Frame
-Dim oViewCursor As Object &apos;View cursor
+Dim oViewCursor As Object 'View cursor
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 allNotes= thisComponent.FootNotes
 for x = 0 to allNotes.Count -1
   aNote = allNotes.getByIndex(x)
-  aNote.Anchor.CharStyleName=&quot;Footnote anchor&quot;
+  aNote.Anchor.CharStyleName="Footnote anchor"
   oEnum = aNote.Text.createEnumeration()
   Do While oEnum.hasMoreElements()
     oCurPar = oEnum.nextElement()
-    oCurPar.ParaStyleName = &quot;Footnote&quot;
+    oCurPar.ParaStyleName = "Footnote"
   Loop
 next
 End Sub
@@ -37,8 +37,8 @@ Dim oTextCursor
 oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 oTextCursor = oText.createTextCursorByRange(oViewCursor)
-MsgBox &quot;CharKerning &quot; &amp; oTextCursor.CharKerning
-&apos;MsgBox &quot;CharBackTransparent &quot; &amp; oTextCursor.CharBackTransparent
+MsgBox "CharKerning " &amp; oTextCursor.CharKerning
+'MsgBox "CharBackTransparent " &amp; oTextCursor.CharBackTransparent
 End Sub
 
 
@@ -61,16 +61,16 @@ ThisComponent.replaceAll(oReplace)
 End Sub
 
 Sub ClearDirectFormat
-Dim oDescriptor &apos;The search descriptor
+Dim oDescriptor 'The search descriptor
 dim dispatcher as Object
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 dim document   as Object
 document   = ThisComponent.CurrentController.Frame
-Dim oViewCursor As Object &apos;View cursor
+Dim oViewCursor As Object 'View cursor
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 oViewCursor.gotoStart(false)
 oViewCursor.gotoEnd(true)
-dispatcher.executeDispatch(document, &quot;.uno:ResetAttributes&quot;, &quot;&quot;, 0, Array())
+dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
 allNotes= thisComponent.FootNotes
 for x = 0 to allNotes.Count -1
   aNote = allNotes.getByIndex(x)
@@ -78,7 +78,7 @@ for x = 0 to allNotes.Count -1
   oTextcursor = footNoteText.createTextCursor()
   oViewCursor.gotoRange(oTextcursor.getStart(),false) 
   oViewCursor.gotoEnd(true)
-  dispatcher.executeDispatch(document, &quot;.uno:ResetAttributes&quot;, &quot;&quot;, 0, Array())
+  dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
 next
 oViewCursor.gotoStart(false)
 End Sub
@@ -87,64 +87,64 @@ End Sub
 Sub toTextBold
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharWeight&quot;
+SrchAttributes(0).Name = "CharWeight"
 SrchAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;bold&gt;$1&lt;/bold&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;bold&gt;$1&lt;/bold&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toTextItalic
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharPosture&quot;
+SrchAttributes(0).Name = "CharPosture"
 SrchAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;italic&gt;$1&lt;/italic&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;italic&gt;$1&lt;/italic&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toTextStrikeout
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharStrikeout&quot;
+SrchAttributes(0).Name = "CharStrikeout"
 SrchAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;strikeout&gt;$1&lt;/strikeout&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;strikeout&gt;$1&lt;/strikeout&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toTextUnderline
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharUnderline&quot;
+SrchAttributes(0).Name = "CharUnderline"
 SrchAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;underline&gt;$1&lt;/underline&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;underline&gt;$1&lt;/underline&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toTextSuperscript
 Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharEscapementHeight&quot;
+SrchAttributes(0).Name = "CharEscapementHeight"
 SrchAttributes(0).Value = 58
-SrchAttributes(1).Name = &quot;CharEscapement&quot;
+SrchAttributes(1).Name = "CharEscapement"
 SrchAttributes(1).Value = 101
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;superscript&gt;$1&lt;/superscript&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;superscript&gt;$1&lt;/superscript&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toTextSubscript
 Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharEscapementHeight&quot;
+SrchAttributes(0).Name = "CharEscapementHeight"
 SrchAttributes(0).Value = 58
-SrchAttributes(1).Name = &quot;CharEscapement&quot;
+SrchAttributes(1).Name = "CharEscapement"
 SrchAttributes(1).Value = -101
-SearchString = &quot;(.*)&quot;
-ReplaceString = &quot;&lt;subscript&gt;$1&lt;/subscript&gt;&quot;
+SearchString = "(.*)"
+ReplaceString = "&lt;subscript&gt;$1&lt;/subscript&gt;"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
@@ -154,10 +154,10 @@ Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 
 For i=35 To 71 
-	SrchAttributes(0).Name = &quot;CharKerning&quot;
-	SearchString = &quot;(.*)&quot;
+	SrchAttributes(0).Name = "CharKerning"
+	SearchString = "(.*)"
 	SrchAttributes(0).Value = i
-	ReplaceString = &quot;&lt;sparce&quot; &amp; i &amp; &quot;&gt;$1&lt;/sparce&gt;&quot;
+	ReplaceString = "&lt;sparce" &amp; i &amp; "&gt;$1&lt;/sparce&gt;"
 	ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 Next
 
@@ -167,30 +167,30 @@ End Sub
 Sub toStyleBold
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharWeight&quot;
+ReplAttributes(0).Name = "CharWeight"
 ReplAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
-SearchString = &quot;&lt;bold&gt;(.*?)&lt;/bold&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;bold&gt;(.*?)&lt;/bold&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toStyleItalic
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharPosture&quot;
+ReplAttributes(0).Name = "CharPosture"
 ReplAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
-SearchString = &quot;&lt;italic&gt;(.*?)&lt;/italic&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;italic&gt;(.*?)&lt;/italic&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toStyleStrikeout
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharStrikeout&quot;
+ReplAttributes(0).Name = "CharStrikeout"
 ReplAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
-SearchString = &quot;&lt;strikeout&gt;(.*?)&lt;/strikeout&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;strikeout&gt;(.*?)&lt;/strikeout&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
@@ -198,10 +198,10 @@ End Sub
 Sub toStyleUnderline
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharUnderline&quot;
+ReplAttributes(0).Name = "CharUnderline"
 ReplAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
-SearchString = &quot;&lt;underline&gt;(.*?)&lt;/underline&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;underline&gt;(.*?)&lt;/underline&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
@@ -209,35 +209,35 @@ End Sub
 Sub toStyleSuperscript
 Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharEscapementHeight&quot;
+ReplAttributes(0).Name = "CharEscapementHeight"
 ReplAttributes(0).Value = 58
-ReplAttributes(1).Name = &quot;CharEscapement&quot;
+ReplAttributes(1).Name = "CharEscapement"
 ReplAttributes(1).Value = 101
-SearchString = &quot;&lt;superscript&gt;(.*?)&lt;/superscript&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;superscript&gt;(.*?)&lt;/superscript&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toStyleSubscript
 Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharEscapementHeight&quot;
+ReplAttributes(0).Name = "CharEscapementHeight"
 ReplAttributes(0).Value = 58
-ReplAttributes(1).Name = &quot;CharEscapement&quot;
+ReplAttributes(1).Name = "CharEscapement"
 ReplAttributes(1).Value = -101
-SearchString = &quot;&lt;subscript&gt;(.*?)&lt;/subscript&gt;&quot;
-ReplaceString = &quot;$1&quot;
+SearchString = "&lt;subscript&gt;(.*?)&lt;/subscript&gt;"
+ReplaceString = "$1"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub toStyleSparce
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = &quot;CharKerning&quot;
-ReplaceString = &quot;$1&quot;
+ReplAttributes(0).Name = "CharKerning"
+ReplaceString = "$1"
 For i=35 To 71 
 	ReplAttributes(0).Value = i
-	SearchString = &quot;&lt;sparce&quot; &amp; i &amp; &quot;&gt;(.*?)&lt;/sparce&gt;&quot;
+	SearchString = "&lt;sparce" &amp; i &amp; "&gt;(.*?)&lt;/sparce&gt;"
 	ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 Next 
 End Sub
@@ -272,15 +272,15 @@ SDesc = Thiscomponent.createSearchDescriptor()
   SDesc.ValueSearch = false
   SDesc.SearchStyles = false 
   SDesc.SearchRegularExpression = false
-  SDesc.SearchString = &quot;&quot; 
-  srch(0).Name = &quot;CharFontName&quot;
+  SDesc.SearchString = "" 
+  srch(0).Name = "CharFontName"
   SDesc.SetSearchAttributes(srch())
   founds = Thiscomponent.findFirst(SDesc)
   do while not isNull(founds)
     curFont = founds.CharFontName
-    If curFont &lt;&gt; &quot;Times New Roman&quot; Then
+    If curFont &lt;&gt; "Times New Roman" Then
       If Not DocHasCharStyle(oDoc,curFont) Then
-        oProps() = Array(CreateProperty(&quot;CharFontName&quot;, curFont))
+        oProps() = Array(CreateProperty("CharFontName", curFont))
         CreateCharacterStyle(curFont, oProps())
       End If
       founds.CharStyleNames = Array(curFont)
@@ -292,12 +292,12 @@ End Sub
 Sub replaceFontToStyle(fontName As String)
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharFontName&quot;
+SrchAttributes(0).Name = "CharFontName"
 SrchAttributes(0).Value = fontName
-ReplAttributes(0).Name = &quot;CharStyleName&quot;
+ReplAttributes(0).Name = "CharStyleName"
 ReplAttributes(0).Value = fontName
-srchString = &quot;(.*)&quot;
-repString = &quot;$1&quot;
+srchString = "(.*)"
+repString = "$1"
 ReplaceFormatting(srchString,repString,SrchAttributes,ReplAttributes)
 End Sub
 
@@ -315,7 +315,7 @@ End Function
 
 Function DocHasCharStyle(oDoc, sName$) As Boolean
   Dim oStyles
-  oStyles = oDoc.StyleFamilies.getByName(&quot;CharacterStyles&quot;)
+  oStyles = oDoc.StyleFamilies.getByName("CharacterStyles")
   DocHasCharStyle() = oStyles.hasByName(sName)
 End Function
 
@@ -325,11 +325,11 @@ Dim oFamilies
 Dim oStyle
 Dim oStyles
 oFamilies = ThisComponent.StyleFamilies
-oStyles = oFamilies.getByName(&quot;CharacterStyles&quot;)
+oStyles = oFamilies.getByName("CharacterStyles")
 If oStyles.HasByName(sStyleName) Then
   Exit Sub
 End If
-oStyle = ThisComponent.createInstance(&quot;com.sun.star.style.CharacterStyle&quot;)
+oStyle = ThisComponent.createInstance("com.sun.star.style.CharacterStyle")
 For i=LBound(oProps) To UBound(oProps)
   oStyle.setPropertyValue(oProps(i).Name, oProps(i).Value)
 Next

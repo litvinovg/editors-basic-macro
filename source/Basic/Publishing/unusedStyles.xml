@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="unusedStyles" script:language="StarBasic">sub executeRemoveUnusedStyles
-&apos;calls: RemoveUnusedStyles
+'calls: RemoveUnusedStyles
 Dim sElements() as string, oFamilies, oFamily, sFamily$, sLabel, oDlg, i%
 Dim oDoc as object
 oDoc = ThisComponent
@@ -14,7 +14,7 @@ Next
 End Sub
 
 Sub RemoveUnusedStyles(oFamily,sFamily as string, bAsk as Boolean)
-&apos;calls: getStyleNames
+'calls: getStyleNames
 Dim sUsed() as String, sMsg$,iAnswer%, bStop as boolean
 sUsed() = getStyleNames(oFamily,bLocalized:=True,bUsed:=False,bUserDef:=true)
 If uBound(sUsed()) &gt; -1 then
@@ -24,12 +24,12 @@ If uBound(sUsed()) &gt; -1 then
 EndIf
 End Sub
 
-&apos;calls: bas_PushArray
-&apos;returns: a string-array of style-names
-&apos;oFamily:= a style family, derived from a doc (writer,calc,draw,impress)
-&apos;bLocalized:= return localized names of the builtin styles (eg. builtin &quot;Default&quot; --&gt; german &quot;Standard&quot;)
-&apos;bUsed:= only used styles. true/false for used/unused, missing for all
-&apos;bUserDef:= only builtin styles. true/false for userDefined/Builtin, missing for all
+'calls: bas_PushArray
+'returns: a string-array of style-names
+'oFamily:= a style family, derived from a doc (writer,calc,draw,impress)
+'bLocalized:= return localized names of the builtin styles (eg. builtin "Default" --&gt; german "Standard")
+'bUsed:= only used styles. true/false for used/unused, missing for all
+'bUserDef:= only builtin styles. true/false for userDefined/Builtin, missing for all
 Function getStyleNames(oFamily,bLocalized as Boolean, _
    optional bUsed, optional bUserDef)
 Dim oStyle,i%,sNames$(),sName$,chkUse as Boolean, chkUDef as Boolean
@@ -50,7 +50,7 @@ For i = 0 to oFamily.getCount -1
    Else
       chkUDef = True
    EndIf
-   If sName = &quot;Автор&quot; Or sName = &quot;Автор по-английски&quot; Or sName = &quot;Ключевые слова&quot; Or sName = &quot;Текст списка литературы&quot; Or sName = &quot;Эпиграф&quot; or sName = &quot;Цитирование&quot; or sName = &quot;Сведения об авторе&quot; or sName = &quot;Аннотация&quot; Then
+   If sName = "Автор" Or sName = "Автор по-английски" Or sName = "Ключевые слова" Or sName = "Текст списка литературы" Or sName = "Эпиграф" or sName = "Цитирование" or sName = "Сведения об авторе" or sName = "Аннотация" Then
      chkUse = False
    Endif
    If chkUse AND chkUDef then
@@ -60,7 +60,7 @@ Next
 getStyleNames = sNames()
 End Function
 
-&apos;very simple routine appending some element to an array which can be undimensioned (LBound &gt; UBound)
+'very simple routine appending some element to an array which can be undimensioned (LBound &gt; UBound)
 Sub bas_PushArray(xArray(),vNextElement)
 Dim iUB%,iLB%
 iLB = lBound(xArray())

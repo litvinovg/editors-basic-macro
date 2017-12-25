@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE library:library PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "library.dtd">
 <library:library xmlns:library="http://openoffice.org/2000/library" library:name="Publishing" library:readonly="false" library:passwordprotected="false">
- <library:element library:name="Correction"/>
- <library:element library:name="Libraries"/>
- <library:element library:name="Toolbars"/>
- <library:element library:name="pageBreaks"/>
- <library:element library:name="CleanManualFormat"/>
- <library:element library:name="unusedStyles"/>
- <library:element library:name="Indd"/>
+  <library:element library:name="Correction"/>
+  <library:element library:name="Libraries"/>
+  <library:element library:name="Toolbars"/>
+  <library:element library:name="pageBreaks"/>
+  <library:element library:name="CleanManualFormat"/>
+  <library:element library:name="unusedStyles"/>
+  <library:element library:name="Indd"/>
 </library:library>

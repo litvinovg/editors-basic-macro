@@ -2,21 +2,21 @@
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Indd" script:language="StarBasic">sub executeInsertINDDPageBreaks
 document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 oVC = thisComponent.getCurrentController.getViewCursor
 oVC.jumpToFirstPage
 Dim args(0) as new com.sun.star.beans.PropertyValue
 
 rem Turn off tracking changes to prevent infinite
-args(0).Name = &quot;TrackChanges&quot;
+args(0).Name = "TrackChanges"
 args(0).Value = false
-dispatcher.executeDispatch(document, &quot;.uno:TrackChanges&quot;, &quot;&quot;, 0, args())
+dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
 
 Dim oSearch
 Dim oTextCursor 
 Dim lineIndent
 oSearch = ThisComponent.createSearchDescriptor()
-oSearch.SearchString = &quot;---XYXYX---&quot;
+oSearch.SearchString = "---XYXYX---"
 oSearch.SearchRegularExpression=True
 oSearch.searchAll=True
 oFound = ThisComponent.findFirst(oSearch)
@@ -31,10 +31,10 @@ rem  oTextCursor.goLeft(1,false)
   oTextCursor.gotoStartOfParagraph(false)
   oTextCursor.gotoEndOfParagraph(true)
   
-  oTextCursor.String = &quot;&quot;
+  oTextCursor.String = ""
   oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
 rem  oTextCursor.ParaFirstLineIndent = lineIndent
-&apos;check first character is lowercase.
+'check first character is lowercase.
   oTextCursor.goRight(1,true)
   
   

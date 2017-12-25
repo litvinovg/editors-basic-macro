@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:grddl="http://www.w3.org/2003/g/data-view#" office:version="1.2"><office:meta><meta:creation-date>2017-02-27T12:20:56.477198793</meta:creation-date><meta:editing-duration>P1DT9H4M7S</meta:editing-duration><meta:editing-cycles>513</meta:editing-cycles><meta:generator>LibreOffice/5.4.1.2$Linux_X86_64 LibreOffice_project/ea7cb86e6eeb2bf3a5af73a8f7777ac570321527</meta:generator><dc:date>2017-12-25T14:51:47.130392686</dc:date><meta:document-statistic meta:table-count="2" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="135" meta:word-count="905" meta:character-count="7555" meta:non-whitespace-character-count="6801"/></office:meta></office:document-meta>
+<office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:grddl="http://www.w3.org/2003/g/data-view#" office:version="1.2">
+  <office:meta>
+    <meta:creation-date>2017-02-27T12:20:56.477198793</meta:creation-date>
+    <meta:editing-duration>P1DT9H4M7S</meta:editing-duration>
+    <meta:editing-cycles>513</meta:editing-cycles>
+    <meta:generator>LibreOffice/5.4.1.2$Linux_X86_64 LibreOffice_project/ea7cb86e6eeb2bf3a5af73a8f7777ac570321527</meta:generator>
+    <dc:date>2017-12-25T14:51:47.130392686</dc:date>
+    <meta:document-statistic meta:table-count="2" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="135" meta:word-count="905" meta:character-count="7555" meta:non-whitespace-character-count="6801"/>
+  </office:meta>
+</office:document-meta>

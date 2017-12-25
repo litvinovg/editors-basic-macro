@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Libraries" script:language="StarBasic">Sub copyCorrectionToGlobal
-AppDocLibToGlobal(&quot;Publishing&quot;)
+AppDocLibToGlobal("Publishing")
 End Sub
 
 
@@ -28,8 +28,8 @@ REM oDestLibs is the destination library container
 REM if bClearDest is True, then the destination library is cleared
 Sub AddOneLib(sSrcLib$, sDestLib$, oSrcLibs, oDestLibs, bClearDest As Boolean)
 Dim oSrcLib
-&apos;The source library to copy
-Dim oDestLib &apos;The destination library to receive the modules in oSrcLib
+'The source library to copy
+Dim oDestLib 'The destination library to receive the modules in oSrcLib
 Dim sNames
 Dim i%
 REM If there is no destination library then simply return
@@ -75,27 +75,27 @@ End Sub
 Sub CreateAGlobalLib
 Dim oLib
 Dim s$
-If GlobalScope.BasicLibraries.hasByName(&quot;TestLib&quot;) Then
-GlobalScope.BasicLibraries.removeLibrary(&quot;TestLib&quot;)
-GlobalScope.DialogLibraries.removeLibrary(&quot;TestLib&quot;)
-MsgBox &quot;Deleted TestLib&quot;
+If GlobalScope.BasicLibraries.hasByName("TestLib") Then
+GlobalScope.BasicLibraries.removeLibrary("TestLib")
+GlobalScope.DialogLibraries.removeLibrary("TestLib")
+MsgBox "Deleted TestLib"
 Else
-GlobalScope.BasicLibraries.createLibrary(&quot;TestLib&quot;)
-GlobalScope.DialogLibraries.createLibrary(&quot;TestLib&quot;)
-oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
-s = &quot;Sub Main&quot; &amp; CHR$(10) &amp;_
-&quot; x = x + 1&quot; &amp; CHR$(10) &amp;_
-&quot;End Sub&quot;
-oLib.insertByName(&quot;Module1&quot;, s)
-s = &quot;=== Basic Libs ===&quot; &amp; CHR$(10)
-oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
+GlobalScope.BasicLibraries.createLibrary("TestLib")
+GlobalScope.DialogLibraries.createLibrary("TestLib")
+oLib = GlobalScope.BasicLibraries.getByName("TestLib")
+s = "Sub Main" &amp; CHR$(10) &amp;_
+" x = x + 1" &amp; CHR$(10) &amp;_
+"End Sub"
+oLib.insertByName("Module1", s)
+s = "=== Basic Libs ===" &amp; CHR$(10)
+oLib = GlobalScope.BasicLibraries.getByName("TestLib")
 s = s &amp; Join(oLib.getElementNames(), CHR$(10))
-oLib = GlobalScope.DialogLibraries.getByName(&quot;TestLib&quot;)
-s = s &amp; CHR$(10) &amp; CHR$(10) &amp; &quot;=== Dialog Libs ===&quot; &amp; CHR$(10)
+oLib = GlobalScope.DialogLibraries.getByName("TestLib")
+s = s &amp; CHR$(10) &amp; CHR$(10) &amp; "=== Dialog Libs ===" &amp; CHR$(10)
 s = s &amp; Join(oLib.getElementNames(), CHR$(10))
-MsgBox s, 0, &quot;Modules in the TestLib Library&quot;
-oLib = GlobalScope.BasicLibraries.getByName(&quot;TestLib&quot;)
-MsgBox oLib.getByName(&quot;Module1&quot;), 0, &quot;Module1 in TestLib&quot;
+MsgBox s, 0, "Modules in the TestLib Library"
+oLib = GlobalScope.BasicLibraries.getByName("TestLib")
+MsgBox oLib.getByName("Module1"), 0, "Module1 in TestLib"
 End If
 End Sub
 

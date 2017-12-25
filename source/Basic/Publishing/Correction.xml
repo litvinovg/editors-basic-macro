@@ -2,153 +2,153 @@
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Correction" script:language="StarBasic">Sub executeMakeMeHappy
 	StartTracking
-	AskAndReplace(&quot;(?&lt;=[:space:])[:space:]+&quot;,&quot;&quot;)
-&apos;	AskAndReplace(&quot;[\uE000-\uF8FF]+&quot;,&quot;&quot;)
-	AskAndReplace(&quot;[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])&quot;,&quot;&quot;)
-	AskAndReplace(&quot;(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])&quot;,&quot;‒&quot;)
-	AskAndReplace(&quot;(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])&quot;,&quot;–&quot;)
-	AskAndReplace(&quot;(?&lt;=[\(\[\{«„])[:space:]&quot;,&quot;&quot;)
-	AskAndReplace(&quot;(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)&quot;,&quot; &quot;)
-	AskAndReplace(&quot;(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)&quot;,&quot; &quot;)
-    AskAndReplace(&quot;(?&lt;=\bи)\ (?=т\.)&quot;,&quot; &quot;)
-    AskAndReplace(&quot;(?&lt;=\bт)\.\ ?(?=[ендпк]\.)&quot;,&quot;. &quot;)
-&apos;	AskAndReplace(&quot;(?&lt;=\b[сСтТ]\.)[:space:](?=[:digit:])&quot;,&quot; &quot;)
-	AskAndReplace(&quot;(?&lt;=\b[тТ](ом|\.))\ (?=[:digit:])&quot;,&quot; &quot;)
-	AskAndReplace(&quot;(?&lt;=\b[сС](ерия|\.))\ +(?=[:digit:])&quot;,&quot; &quot;)
-	AskAndReplace(&quot;(?&lt;=\b[чЧ](асть|\.))\ +(?=[:digit:])&quot;,&quot; &quot;)
-	AskAndReplace(&quot;(?&lt;=[0-9])[:space:]*г(?=\.)&quot;,&quot; г&quot;)
-&apos;citation correction	
-	AskAndReplace(&quot;(?&lt;=[:alpha:])&lt;(?=…&gt;)&quot;,&quot; &lt;&quot;)
-    AskAndReplace(&quot;(?&lt;=&lt;…)&gt;(?=[:alpha:])&quot;,&quot;&gt; &quot;)
-    AskAndReplace(&quot;(?&lt;=[:alpha:])–(?=[:alpha:])&quot;,&quot; – &quot;)
-&apos;Empty par and leading spaces
+	AskAndReplace("(?&lt;=[:space:])[:space:]+","")
+'	AskAndReplace("[\uE000-\uF8FF]+","")
+	AskAndReplace("[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])","")
+	AskAndReplace("(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])","‒")
+	AskAndReplace("(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])","–")
+	AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
+	AskAndReplace("(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")
+	AskAndReplace("(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)"," ")
+    AskAndReplace("(?&lt;=\bи)\ (?=т\.)"," ")
+    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)",". ")
+'	AskAndReplace("(?&lt;=\b[сСтТ]\.)[:space:](?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[тТ](ом|\.))\ (?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[сС](ерия|\.))\ +(?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[чЧ](асть|\.))\ +(?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=[0-9])[:space:]*г(?=\.)"," г")
+'citation correction	
+	AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
+    AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt; ")
+    AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
+'Empty par and leading spaces
 	StopTracking
-    AskAndReplace(&quot;^[\t\n\ ]+&quot;,&quot;&quot;)
-    AskAndReplace(&quot;^$&quot;,&quot;&quot;)
+    AskAndReplace("^[\t\n\ ]+","")
+    AskAndReplace("^$","")
 End Sub
 
 
 Sub executeCitationCorrection
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[:alpha:])&lt;(?=…&gt;)&quot;,&quot; &lt;&quot;)
-	    AskAndReplace(&quot;(?&lt;=&lt;…)&gt;(?=[:alpha:])&quot;,&quot;&gt; &quot;)
-	    AskAndReplace(&quot;(?&lt;=[:alpha:])–(?=[:alpha:])&quot;,&quot; – &quot;)
+	    AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
+	    AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt; ")
+	    AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
 	StopTracking
 End Sub
 
 
 Sub executeRemoveConsequentSpaces
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[:space:])[:space:]+&quot;,&quot;&quot;)
+	    AskAndReplace("(?&lt;=[:space:])[:space:]+","")
 	StopTracking
 End Sub
 Sub executeRemoveBadCharacters
 	StartTracking
-	    AskAndReplace(&quot;[\uE000-\uF8FF]+&quot;,&quot;&quot;)
+	    AskAndReplace("[\uE000-\uF8FF]+","")
 	StopTracking
 End Sub
 
 Sub executeRemoveSpacesBeforeStops
 	StartTracking
-	    AskAndReplace(&quot;[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])&quot;,&quot;&quot;)
-&apos;removed “
+	    AskAndReplace("[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])","")
+'removed “
 	StopTracking
 End Sub
 
 Sub executeNumericDashBetweenNumbers
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])&quot;,&quot;‒&quot;)
+	    AskAndReplace("(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])","‒")
 	StopTracking
 End Sub
 
 Sub executeReplaceLongDashWithSpacesBetweenWords
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])&quot;,&quot;–&quot;)
+	    AskAndReplace("(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])","–")
 	StopTracking
 End Sub
 
 Sub executeRemoveSpacesAfterOpenedQuoteOrBracket
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[\(\[\{«„])[:space:]&quot;,&quot;&quot;)
+	    AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
 	StopTracking
 End Sub
 
 
 Sub executeNonBreakingSpaceBetweenLastnameAndInitials
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)&quot;,&quot; &quot;)
+	    AskAndReplace("(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")
 	StopTracking
 End Sub
 
 
 Sub executeNonBreakingSpaceBetweenInitialsAndLastName
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)&quot;,&quot; &quot;)
+	    AskAndReplace("(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)"," ")
 	StopTracking
 End Sub
 
 Sub executeNonBreakingSpaceBetweenEtc
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=\bи)\ (?=т\.)&quot;,&quot; &quot;)
-	    AskAndReplace(&quot;(?&lt;=\bт)\.\ ?(?=[ендпк]\.)&quot;,&quot;. &quot;)
+	    AskAndReplace("(?&lt;=\bи)\ (?=т\.)"," ")
+	    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)",". ")
 	StopTracking
 End Sub
 
-&apos;Sub executeNonBreakingSpaceAfterPageOrVolume
-&apos;	StartTracking
-&apos;	    AskAndReplace(&quot;(?&lt;=\b[сСтТ]\.)[:space:](?=[:digit:])&quot;,&quot; &quot;)
-&apos;	StopTracking
-&apos;End Sub
+'Sub executeNonBreakingSpaceAfterPageOrVolume
+'	StartTracking
+'	    AskAndReplace("(?&lt;=\b[сСтТ]\.)[:space:](?=[:digit:])"," ")
+'	StopTracking
+'End Sub
 
 Sub executeNonBreakingSpaceBetweenVol
 	StartTracking
-      AskAndReplace(&quot;(?&lt;=\b[тТ](ом|\.))[:space:](?=[:digit:])&quot;,&quot; &quot;)
+      AskAndReplace("(?&lt;=\b[тТ](ом|\.))[:space:](?=[:digit:])"," ")
 	StopTracking
 End Sub
 
 Sub executeNonBreakingSpaceBetweenSeries
 	StartTracking
-	    AskAndReplace(&quot;(?&lt;=\b[сС](ерия|\.))[:space:](?=[:digit:])&quot;,&quot; &quot;)
+	    AskAndReplace("(?&lt;=\b[сС](ерия|\.))[:space:](?=[:digit:])"," ")
 	StopTracking
 End Sub
 
 Sub executeNonBreakingSpaceBetweenPart
     StartTracking
-	AskAndReplace(&quot;(?&lt;=\b[чЧ](асть|\.))[:space:]+(?=[:digit:])&quot;,&quot; &quot;)
+	AskAndReplace("(?&lt;=\b[чЧ](асть|\.))[:space:]+(?=[:digit:])"," ")
 	StopTracking
 End Sub
 
 
 Sub executeNonBreakingSpaceBetweenYear
 	StartTracking
-    AskAndReplace(&quot;(?&lt;=[0-9])[:space:]*г(?=\.)&quot;,&quot; г&quot;)
+    AskAndReplace("(?&lt;=[0-9])[:space:]*г(?=\.)"," г")
 	StopTracking
 End Sub
 
 Sub StartTracking
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 document   = ThisComponent.CurrentController.Frame
 dim trackProperties(0) as new com.sun.star.beans.PropertyValue
-trackProperties(0).Name = &quot;TrackChanges&quot;
+trackProperties(0).Name = "TrackChanges"
 trackProperties(0).Value = true
-dispatcher.executeDispatch(document, &quot;.uno:TrackChanges&quot;, &quot;&quot;, 0, trackProperties())
+dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, trackProperties())
 dim args1(0) as new com.sun.star.beans.PropertyValue
-args1(0).Name = &quot;ShowTrackedChanges&quot;
+args1(0).Name = "ShowTrackedChanges"
 args1(0).Value = true
-dispatcher.executeDispatch(document, &quot;.uno:ShowTrackedChanges&quot;, &quot;&quot;, 0, args1())
+dispatcher.executeDispatch(document, ".uno:ShowTrackedChanges", "", 0, args1())
 End Sub
 
 Sub StopTracking
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 document   = ThisComponent.CurrentController.Frame
 dim trackProperties(0) as new com.sun.star.beans.PropertyValue
-trackProperties(0).Name = &quot;TrackChanges&quot;
+trackProperties(0).Name = "TrackChanges"
 trackProperties(0).Value = false
-dispatcher.executeDispatch(document, &quot;.uno:TrackChanges&quot;, &quot;&quot;, 0, trackProperties())
+dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, trackProperties())
 dim args1(0) as new com.sun.star.beans.PropertyValue
-args1(0).Name = &quot;ShowTrackedChanges&quot;
+args1(0).Name = "ShowTrackedChanges"
 args1(0).Value = true
-dispatcher.executeDispatch(document, &quot;.uno:ShowTrackedChanges&quot;, &quot;&quot;, 0, args1())
+dispatcher.executeDispatch(document, ".uno:ShowTrackedChanges", "", 0, args1())
 End Sub
 
 
@@ -156,18 +156,18 @@ End Sub
 Sub executeRemoveWhiteBackground
 Dim oReplace
 oReplace = ThisComponent.createReplaceDescriptor()
-oReplace.SearchString = &quot;(.*)&quot;
-oReplace.ReplaceString = &quot;$1&quot;
+oReplace.SearchString = "(.*)"
+oReplace.ReplaceString = "$1"
 oReplace.SearchRegularExpression=True
 Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharBackTransparent&quot;
+SrchAttributes(0).Name = "CharBackTransparent"
 SrchAttributes(0).Value = False
-SrchAttributes(1).Name = &quot;CharBackColor&quot;
+SrchAttributes(1).Name = "CharBackColor"
 SrchAttributes(1).Value = 16777215
-ReplAttributes(0).Name = &quot;CharBackTransparent&quot;
+ReplAttributes(0).Name = "CharBackTransparent"
 ReplAttributes(0).Value = True
-ReplAttributes(1).Name = &quot;CharBackColor&quot;
+ReplAttributes(1).Name = "CharBackColor"
 ReplAttributes(1).Value = -1
 oReplace.SetSearchAttributes(SrchAttributes())
 oReplace.searchStyles=True
@@ -194,9 +194,9 @@ End With
 If Not oVC.isCollapsed then 
   oEnd = oText.createTextCursorByRange(oVC.End)
 End If
-If isEmpty(oEnd) then &apos;Do whole document.
+If isEmpty(oEnd) then 'Do whole document.
   oDoc.replaceAll(FandR)
-Else &apos;Do selection.
+Else 'Do selection.
   Do
     oFind = oDoc.FindNext(oStart.End,FandR)
     If isNull(oFind) then
@@ -213,18 +213,18 @@ End Sub
 
 
 Function IsAnythingSelected(oDoc As Object) As Boolean
-Dim oSelections &apos;Contains all of the selections
+Dim oSelections 'Contains all of the selections
 Dim oSel
-&apos;Contains one specific selection
+'Contains one specific selection
 Dim oCursor
-&apos;Text cursor to check for a collapsed range
+'Text cursor to check for a collapsed range
 REM Assume nothing is selected
 IsAnythingSelected = False
 If IsNull(ThisComponent) Then 
   Exit Function
 End If
-&apos; The current selection in the current controller.
-&apos;If there is no current controller, it returns NULL.
+' The current selection in the current controller.
+'If there is no current controller, it returns NULL.
 oSelections = ThisComponent.getCurrentSelection()
 If IsNull(oSelections) Then 
   Exit Function
@@ -256,7 +256,7 @@ If IsAnythingSelected() Then
   thisComponent.currentController.select(oSelections) 
 Else
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-&apos;  ReplaceEverywhere(SearchString, ReplaceString)
+'  ReplaceEverywhere(SearchString, ReplaceString)
 End If
 End Sub
 
@@ -265,36 +265,36 @@ Sub executeGothToArabicD
 
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharFontName&quot;
-SrchAttributes(0).Value = &quot;WL LatinAllIn1Goth&quot;
-ReplAttributes(0).Name = &quot;CharFontName&quot;
-ReplAttributes(0).Value = &quot;ArabicD&quot;
-SearchString = &quot;\uF0D4&quot;
-ReplaceString = &quot;̱&quot;
+SrchAttributes(0).Name = "CharFontName"
+SrchAttributes(0).Value = "WL LatinAllIn1Goth"
+ReplAttributes(0).Name = "CharFontName"
+ReplAttributes(0).Value = "ArabicD"
+SearchString = "\uF0D4"
+ReplaceString = "̱"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-SearchString = &quot;\uF0D6&quot;
-ReplaceString = &quot;̣&quot;
+SearchString = "\uF0D6"
+ReplaceString = "̣"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-SearchString = &quot;\uF0F4&quot;
-ReplaceString = &quot;̄&quot;
+SearchString = "\uF0F4"
+ReplaceString = "̄"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub executeArabicDToGoth
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = &quot;CharFontName&quot;
-SrchAttributes(0).Value = &quot;ArabicD&quot;
-ReplAttributes(0).Name = &quot;CharFontName&quot;
-ReplAttributes(0).Value = &quot;WL LatinAllIn1Goth&quot;
-SearchString = &quot;\u0304&quot;
-ReplaceString = &quot;&quot;
+SrchAttributes(0).Name = "CharFontName"
+SrchAttributes(0).Value = "ArabicD"
+ReplAttributes(0).Name = "CharFontName"
+ReplAttributes(0).Value = "WL LatinAllIn1Goth"
+SearchString = "\u0304"
+ReplaceString = ""
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-SearchString = &quot;\u0323&quot;
-ReplaceString = &quot;&quot;
+SearchString = "\u0323"
+ReplaceString = ""
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-SearchString = &quot;\u0331&quot;
-ReplaceString = &quot;&quot;
+SearchString = "\u0331"
+ReplaceString = ""
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
@@ -307,56 +307,56 @@ dim dispatcher as object
 rem ----------------------------------------------------------------------
 rem get access to the document
 document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 
 rem ----------------------------------------------------------------------
 dim args1(21) as new com.sun.star.beans.PropertyValue
-args1(0).Name = &quot;SearchItem.StyleFamily&quot;
+args1(0).Name = "SearchItem.StyleFamily"
 args1(0).Value = 2
-args1(1).Name = &quot;SearchItem.CellType&quot;
+args1(1).Name = "SearchItem.CellType"
 args1(1).Value = 0
-args1(2).Name = &quot;SearchItem.RowDirection&quot;
+args1(2).Name = "SearchItem.RowDirection"
 args1(2).Value = true
-args1(3).Name = &quot;SearchItem.AllTables&quot;
+args1(3).Name = "SearchItem.AllTables"
 args1(3).Value = false
-args1(4).Name = &quot;SearchItem.SearchFiltered&quot;
+args1(4).Name = "SearchItem.SearchFiltered"
 args1(4).Value = false
-args1(5).Name = &quot;SearchItem.Backward&quot;
+args1(5).Name = "SearchItem.Backward"
 args1(5).Value = false
-args1(6).Name = &quot;SearchItem.Pattern&quot;
+args1(6).Name = "SearchItem.Pattern"
 args1(6).Value = false
-args1(7).Name = &quot;SearchItem.Content&quot;
+args1(7).Name = "SearchItem.Content"
 args1(7).Value = false
-args1(8).Name = &quot;SearchItem.AsianOptions&quot;
+args1(8).Name = "SearchItem.AsianOptions"
 args1(8).Value = false
-args1(9).Name = &quot;SearchItem.AlgorithmType&quot;
+args1(9).Name = "SearchItem.AlgorithmType"
 args1(9).Value = 1
-args1(10).Name = &quot;SearchItem.SearchFlags&quot;
+args1(10).Name = "SearchItem.SearchFlags"
 args1(10).Value = 71680
-args1(11).Name = &quot;SearchItem.SearchString&quot;
+args1(11).Name = "SearchItem.SearchString"
 args1(11).Value = SearchString
-args1(12).Name = &quot;SearchItem.ReplaceString&quot;
+args1(12).Name = "SearchItem.ReplaceString"
 args1(12).Value = ReplaceString
-args1(13).Name = &quot;SearchItem.Locale&quot;
+args1(13).Name = "SearchItem.Locale"
 args1(13).Value = 255
-args1(14).Name = &quot;SearchItem.ChangedChars&quot;
+args1(14).Name = "SearchItem.ChangedChars"
 args1(14).Value = 2
-args1(15).Name = &quot;SearchItem.DeletedChars&quot;
+args1(15).Name = "SearchItem.DeletedChars"
 args1(15).Value = 2
-args1(16).Name = &quot;SearchItem.InsertedChars&quot;
+args1(16).Name = "SearchItem.InsertedChars"
 args1(16).Value = 2
-args1(17).Name = &quot;SearchItem.TransliterateFlags&quot;
+args1(17).Name = "SearchItem.TransliterateFlags"
 args1(17).Value = 1024
-args1(18).Name = &quot;SearchItem.Command&quot;
+args1(18).Name = "SearchItem.Command"
 args1(18).Value = 3
-args1(19).Name = &quot;SearchItem.SearchFormatted&quot;
+args1(19).Name = "SearchItem.SearchFormatted"
 args1(19).Value = false
-args1(20).Name = &quot;SearchItem.AlgorithmType2&quot;
+args1(20).Name = "SearchItem.AlgorithmType2"
 args1(20).Value = 2
-args1(21).Name = &quot;Quiet&quot;
+args1(21).Name = "Quiet"
 args1(21).Value = true
 
-dispatcher.executeDispatch(document, &quot;.uno:ExecuteSearch&quot;, &quot;&quot;, 0, args1())
+dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 
 
 end Sub

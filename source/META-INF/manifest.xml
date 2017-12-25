@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.2">
- <manifest:file-entry manifest:full-path="/" manifest:version="1.2" manifest:media-type="application/vnd.oasis.opendocument.text"/>
- <manifest:file-entry manifest:full-path="Thumbnails/thumbnail.png" manifest:media-type="image/png"/>
- <manifest:file-entry manifest:full-path="layout-cache" manifest:media-type="application/binary"/>
- <manifest:file-entry manifest:full-path="content.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="meta.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="manifest.rdf" manifest:media-type="application/rdf+xml"/>
- <manifest:file-entry manifest:full-path="Configurations2/" manifest:media-type="application/vnd.sun.xml.ui.configuration"/>
- <manifest:file-entry manifest:full-path="Dialogs/dialog-lc.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Dialogs/Publishing/dialog-lb.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Dialogs/Standard/dialog-lb.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="settings.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/script-lc.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/script-lb.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/Indd.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/unusedStyles.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/CleanManualFormat.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/pageBreaks.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/Toolbars.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/Libraries.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Publishing/Correction.xml" manifest:media-type="text/xml"/>
- <manifest:file-entry manifest:full-path="Basic/Standard/script-lb.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="/" manifest:version="1.2" manifest:media-type="application/vnd.oasis.opendocument.text"/>
+  <manifest:file-entry manifest:full-path="Thumbnails/thumbnail.png" manifest:media-type="image/png"/>
+  <manifest:file-entry manifest:full-path="layout-cache" manifest:media-type="application/binary"/>
+  <manifest:file-entry manifest:full-path="content.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="meta.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="manifest.rdf" manifest:media-type="application/rdf+xml"/>
+  <manifest:file-entry manifest:full-path="Configurations2/" manifest:media-type="application/vnd.sun.xml.ui.configuration"/>
+  <manifest:file-entry manifest:full-path="Dialogs/dialog-lc.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Dialogs/Publishing/dialog-lb.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Dialogs/Standard/dialog-lb.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="settings.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/script-lc.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/script-lb.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Indd.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/unusedStyles.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/CleanManualFormat.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/pageBreaks.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Toolbars.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Libraries.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Correction.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Standard/script-lb.xml" manifest:media-type="text/xml"/>
 </manifest:manifest>
