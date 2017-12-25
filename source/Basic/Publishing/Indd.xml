@@ -5,7 +5,7 @@ document   = ThisComponent.CurrentController.Frame
 dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
 oVC = thisComponent.getCurrentController.getViewCursor
 oVC.jumpToFirstPage
-dim args(0) as new com.sun.star.beans.PropertyValue
+Dim args(0) as new com.sun.star.beans.PropertyValue
 
 rem Turn off tracking changes to prevent infinite
 args(0).Name = &quot;TrackChanges&quot;
@@ -13,7 +13,8 @@ args(0).Value = false
 dispatcher.executeDispatch(document, &quot;.uno:TrackChanges&quot;, &quot;&quot;, 0, args())
 
 Dim oSearch
-dim oTextCursor 
+Dim oTextCursor 
+Dim lineIndent
 oSearch = ThisComponent.createSearchDescriptor()
 oSearch.SearchString = &quot;---XYXYX---&quot;
 oSearch.SearchRegularExpression=True
@@ -22,11 +23,22 @@ oFound = ThisComponent.findFirst(oSearch)
 Do While Not IsNull(oFound)
   oTextCursor = oFound.Text.createTextCursor()
   oTextCursor.gotoRange(oFound,false)
+
+rem  oTextCursor.goRight(1,false)
+rem  lineIndent = oTextCursor.ParaFirstLineIndent
+rem  oTextCursor.goLeft(1,false)
+  
   oTextCursor.gotoStartOfParagraph(false)
   oTextCursor.gotoEndOfParagraph(true)
-  oTextCursor.goRight(1,true)
+  
   oTextCursor.String = &quot;&quot;
   oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
+rem  oTextCursor.ParaFirstLineIndent = lineIndent
+&apos;check first character is lowercase.
+  oTextCursor.goRight(1,true)
+  
+  
+  
   oFound = ThisComponent.findNext(oFound.End, oSearch)
 Loop
 
