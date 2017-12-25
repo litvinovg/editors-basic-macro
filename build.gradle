@@ -1,4 +1,6 @@
-
+task xmllint(type: Exec) {
+    commandLine './xmllint.sh'
+}
 task odt(type: Zip) {
    from 'source/'
    include '*'
@@ -7,7 +9,7 @@ task odt(type: Zip) {
    include '*/*/*/*'
    archiveName 'macro.odt'
 }
-task raw(type: Copy) {
+task unzip(type: Copy) {
     def zipFile = file('macro.odt')
     def outputDir = file('source')
       from zipTree(zipFile)
@@ -17,3 +19,4 @@ task raw(type: Copy) {
     include '*/*/*'
     include '*/*/*/*'
 }
+task raw(dependsOn: ['unzip', 'xmllint'])
