@@ -30,13 +30,19 @@ rem  oTextCursor.goLeft(1,false)
   
   oTextCursor.gotoStartOfParagraph(false)
   oTextCursor.gotoEndOfParagraph(true)
+  oTextCursor.goRight(1,true)
   
   oTextCursor.String = ""
   oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
 rem  oTextCursor.ParaFirstLineIndent = lineIndent
 'check first character is lowercase.
   oTextCursor.goRight(1,true)
-  
+    Dim charNum
+  charNum = ASC(oTextCursor.string)
+'check if first character is in lowercase
+  If ((charNum &gt; 1071 AND charNum &lt; 1104) Or (charNum &gt; 60 AND charNum &lt; 123)) Then
+  	oTextCursor.ParaFirstLineIndent = 0
+  End If
   
   
   oFound = ThisComponent.findNext(oFound.End, oSearch)
