@@ -37,8 +37,13 @@ rem  oTextCursor.goLeft(1,false)
 rem  oTextCursor.ParaFirstLineIndent = lineIndent
 'check first character is lowercase.
   oTextCursor.goRight(1,true)
-    Dim charNum
-  charNum = ASC(oTextCursor.string)
+  Dim charNum
+  Dim character 
+  character = oTextCursor.string
+  If (character = "") Then
+	character="0"
+  End If
+  charNum = ASC(character)
 'check if first character is in lowercase
   If ((charNum &gt; 1071 AND charNum &lt; 1104) Or (charNum &gt; 60 AND charNum &lt; 123)) Then
   	oTextCursor.ParaFirstLineIndent = 0
