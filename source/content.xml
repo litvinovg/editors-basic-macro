@@ -166,11 +166,12 @@
       <text:p text:style-name="Text_20_body">Данный файл содержит макросы, нажмите на кнопки для их установки</text:p>
       <text:p text:style-name="Standard">
         <draw:control text:anchor-type="as-char" svg:y="-0.381cm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="4.261cm" svg:height="0.595cm" draw:control="control1"/>
-        <text:s/>
+        <text:s text:c="3"/>
       </text:p>
       <text:p text:style-name="Text_20_body">Панель с макросами для редактора</text:p>
       <text:p text:style-name="Text_20_body">
         <draw:control text:anchor-type="as-char" svg:y="-0.4cm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="6.347cm" svg:height="0.595cm" draw:control="control2"/>
+        <text:s/>
       </text:p>
       <text:p text:style-name="Text_20_body">Если после нажатия на кнопки «Установить макросы» и «Установить панель» ничего не происходит (не появляется новая панель наверху), то необходимо разрешить макросы.</text:p>
       <text:p text:style-name="Text_20_body">Сделать это можно так:</text:p>
@@ -179,6 +180,7 @@
       <text:p text:style-name="Text_20_body">Панель со всеми доступными макросами</text:p>
       <text:p text:style-name="Text_20_body">
         <draw:control text:anchor-type="as-char" svg:y="-0.383cm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="9.771cm" svg:height="0.595cm" draw:control="control3"/>
+        <text:s/>
       </text:p>
       <text:h text:style-name="Heading_20_1" text:outline-level="1">Документация по макросам</text:h>
       <text:h text:style-name="Heading_20_2" text:outline-level="2">Макросы на панели редактора</text:h>
@@ -225,7 +227,7 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list2181678552" text:style-name="L1">
+            <text:list xml:id="list1144457465" text:style-name="L1">
               <text:list-item>
                 <text:p text:style-name="P1">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
@@ -333,7 +335,7 @@
             <text:p text:style-name="Table_20_Contents">__</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145726198845789" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207367381201" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-header>
@@ -360,7 +362,7 @@
             <text:p text:style-name="Table_20_Contents">_!</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725703263750" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207022047502" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-header>
@@ -375,7 +377,7 @@
             <text:p text:style-name="Table_20_Contents">№-№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145724498853891" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207000298875" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-header>
@@ -390,7 +392,7 @@
             <text:p text:style-name="Table_20_Contents">а - а</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725538597612" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206187689393" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Тире между словами заменяется на среднее тире</text:p>
               </text:list-header>
@@ -405,7 +407,7 @@
             <text:p text:style-name="Table_20_Contents">(_</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145724535128088" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113205880625712" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-header>
@@ -420,7 +422,7 @@
             <text:p text:style-name="Table_20_Contents">Фам_И.О.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145724754750412" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207853806967" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-header>
@@ -435,7 +437,7 @@
             <text:p text:style-name="Table_20_Contents">И.О._Фам</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145726094048405" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207743229977" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-header>
@@ -450,7 +452,7 @@
             <text:p text:style-name="Table_20_Contents">и_т._д.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145726116979320" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113207191036742" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-header>
@@ -465,7 +467,7 @@
             <text:p text:style-name="Table_20_Contents">с|том</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725928944515" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206350506085" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-header>
@@ -480,7 +482,7 @@
             <text:p text:style-name="Table_20_Contents">т._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725782356841" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206958703855" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между том. 7 заменяется на неразрывный</text:p>
               </text:list-header>
@@ -495,7 +497,7 @@
             <text:p text:style-name="Table_20_Contents">с._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145724374632505" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206818612475" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между с. 7 и серия 7 заменяются на неразрывные</text:p>
               </text:list-header>
@@ -510,7 +512,7 @@
             <text:p text:style-name="Table_20_Contents">ч._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725260302933" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206220890946" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между ч. 7 и часть 7 заменяются на неразрывные</text:p>
               </text:list-header>
@@ -525,7 +527,7 @@
             <text:p text:style-name="Table_20_Contents">г._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list145725197840319" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list113206167077244" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
               </text:list-header>
@@ -574,7 +576,7 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list145725122909369" text:continue-list="list145725197840319" text:style-name="L1">
+            <text:list xml:id="list113206793172985" text:continue-list="list113206167077244" text:style-name="L1">
               <text:list-item text:start-value="1">
                 <text:p text:style-name="P1"><text:soft-page-break/>Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>

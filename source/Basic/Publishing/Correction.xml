@@ -177,7 +177,7 @@ ThisComponent.replaceAll(oReplace)
 End Sub
 
 
-Sub ReplaceEverywhere(SearchString,ReplaceString)
+Sub ReplaceEverywhere(SearchString,oReplaceString)
 Dim oDoc,oText,oVC,oStart,oEnd,oFind,FandR
 oDoc = ThisComponent 
 oText = oDoc.Text
@@ -187,7 +187,7 @@ oStart = oText.createTextCursorByRange(oVC.Start)
 FandR = oDoc.createReplaceDescriptor
 With FandR
   .SearchString = SearchString
-  .ReplaceString = ReplaceString
+  .ReplaceString = oReplaceString
   .SearchRegularExpression=True
   .searchAll=True
 End With
@@ -247,16 +247,16 @@ End If
 End Function
 
 
-Sub AskAndReplace(SearchString, ReplaceString)
+Sub AskAndReplace(SearchString, oReplaceString)
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 If IsAnythingSelected() Then
   oSelections = ThisComponent.getCurrentSelection()
-  ReplaceInSelection(SearchString, ReplaceString)
+  ReplaceInSelection(SearchString, oReplaceString)
   thisComponent.currentController.select(oSelections) 
 Else
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
-'  ReplaceEverywhere(SearchString, ReplaceString)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+'  ReplaceEverywhere(SearchString, oReplaceString)
 End If
 End Sub
 
@@ -270,14 +270,14 @@ SrchAttributes(0).Value = "WL LatinAllIn1Goth"
 ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "ArabicD"
 SearchString = "\uF0D4"
-ReplaceString = "̱"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = "̱"
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 SearchString = "\uF0D6"
-ReplaceString = "̣"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = "̣"
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 SearchString = "\uF0F4"
-ReplaceString = "̄"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = "̄"
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 Sub executeArabicDToGoth
@@ -288,18 +288,18 @@ SrchAttributes(0).Value = "ArabicD"
 ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "WL LatinAllIn1Goth"
 SearchString = "\u0304"
-ReplaceString = ""
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = ""
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 SearchString = "\u0323"
-ReplaceString = ""
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = ""
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 SearchString = "\u0331"
-ReplaceString = ""
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+oReplaceString = ""
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
 End Sub
 
 
-Sub ReplaceInSelection(SearchString,ReplaceString)
+Sub ReplaceInSelection(SearchString,oReplaceString)
 rem ----------------------------------------------------------------------
 rem define variables
 dim document   as object
@@ -336,7 +336,7 @@ args1(10).Value = 71680
 args1(11).Name = "SearchItem.SearchString"
 args1(11).Value = SearchString
 args1(12).Name = "SearchItem.ReplaceString"
-args1(12).Value = ReplaceString
+args1(12).Value = oReplaceString
 args1(13).Name = "SearchItem.Locale"
 args1(13).Value = 255
 args1(14).Name = "SearchItem.ChangedChars"
