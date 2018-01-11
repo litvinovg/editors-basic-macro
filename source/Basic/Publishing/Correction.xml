@@ -255,7 +255,7 @@ If IsAnythingSelected() Then
   ReplaceInSelection(SearchString, oReplaceString)
   thisComponent.currentController.select(oSelections) 
 Else
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 '  ReplaceEverywhere(SearchString, oReplaceString)
 End If
 End Sub
@@ -271,13 +271,17 @@ ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "ArabicD"
 SearchString = "\uF0D4"
 oReplaceString = "̱"
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 SearchString = "\uF0D6"
 oReplaceString = "̣"
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 SearchString = "\uF0F4"
 oReplaceString = "̄"
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+substituteCharNameInStyles( "WL LatinAllIn1Goth","ArabicD")
 End Sub
 
 Sub executeArabicDToGoth
@@ -289,13 +293,17 @@ ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "WL LatinAllIn1Goth"
 SearchString = "\u0304"
 oReplaceString = ""
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 SearchString = "\u0323"
 oReplaceString = ""
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 SearchString = "\u0331"
 oReplaceString = ""
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+substituteCharNameInStyles("ArabicD","WL LatinAllIn1Goth")
 End Sub
 
 
@@ -360,4 +368,28 @@ dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 
 
 end Sub
+
+sub substituteCharNameInStyles(oldFont,newFont)
+Dim oDoc as Object
+Dim fontNames As String
+fontNames = ""
+oDoc = ThisComponent
+oFamilies = thiscomponent.StyleFamilies
+sElements() = oFamilies.getElementNames()
+For i = 0 to uBound(sElements()) -5
+  oFamily = oFamilies.getByName(sElements(i))
+nameff = sElements(i)
+  For j = 0 to oFamily.getCount -1
+    oStyle = oFamily.getByIndex(j)
+    fontName = oStyle.CharFontName
+    fontNames = fontNames + fontName
+    If fontName = oldFont Then
+    oStyle.CharFontName = newFont
+
+    Endif
+
+  
+  Next
+Next
+End Sub
 </script:module>

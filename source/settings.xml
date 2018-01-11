@@ -5,7 +5,7 @@
       <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
       <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
       <config:config-item config:name="ViewAreaWidth" config:type="long">23366</config:config-item>
-      <config:config-item config:name="ViewAreaHeight" config:type="long">12776</config:config-item>
+      <config:config-item config:name="ViewAreaHeight" config:type="long">12762</config:config-item>
       <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
       <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
       <config:config-item-map-indexed config:name="Views">
@@ -16,7 +16,7 @@
           <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
           <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
           <config:config-item config:name="VisibleRight" config:type="long">23364</config:config-item>
-          <config:config-item config:name="VisibleBottom" config:type="long">12774</config:config-item>
+          <config:config-item config:name="VisibleBottom" config:type="long">12760</config:config-item>
           <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
           <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
           <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -69,7 +69,7 @@
       <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
       <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
       <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="Rsid" config:type="int">42817957</config:config-item>
+      <config:config-item config:name="Rsid" config:type="int">43057275</config:config-item>
       <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
       <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
