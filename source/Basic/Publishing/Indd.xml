@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Indd" script:language="StarBasic">sub executeInsertINDDPageBreaks
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Indd" script:language="StarBasic">Sub CreateBidirectionalLink
+Dim oSelections 'Contains all of the selections
+Dim oAnchor1
+Dim oAnchor2
+
+If IsNull(ThisComponent) Then 
+  MsgBox "Ничего не выбрано"
+  Exit Sub
+End If
+oSelections = ThisComponent.getCurrentSelection()
+If IsNull(oSelections) Then 
+  MsgBox "Ничего не выбрано"
+  Exit Sub
+End If
+objectsCount = oSelections.getCount() - 1
+If oSelections.getCount() = 0 Then 
+  MsgBox "Ничего не выбрано"
+  Exit Sub
+End If
+If oSelections.getCount() &lt;= 2 Then
+  MsgBox "Нужно выделить два объекта, а не " + objectsCount
+  Exit Sub
+End If
+If oSelections.getCount() &gt; 3 Then
+  MsgBox "Нужно выделить только два объекта, а не " + objectsCount 
+  Exit Sub
+End If
+
+oAnchor1 = oSelections.getByIndex(1)
+oAnchor2 = oSelections.getByIndex(2)
+oAnchor1Name = RND_String()
+oAnchor2Name = RND_String()
+createAnchor(oAnchor1,oAnchor1Name)
+createAnchor(oAnchor2,oAnchor2Name)
+createLink(oAnchor1,oAnchor1.String,oAnchor2Name)
+createLink(oAnchor2,oAnchor2.String,oAnchor1Name)
+End Sub
+
+Sub createAnchor(targetRange as Object,anchorName as String)
+
+dim oViewCursor as object
+dim document   as object
+dim dispatcher as object
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oViewCursor.gotoRange(targetRange,false)
+dim args1(0) as new com.sun.star.beans.PropertyValue
+args1(0).Name = "Bookmark"
+args1(0).Value = anchorName
+dispatcher.executeDispatch(document, ".uno:InsertBookmark", "", 0, args1())
+
+End Sub
+
+Sub createLink(targetRange as Object,linkName as String,linkURL as String)
+
+dim oViewCursor as object
+dim document   as object
+dim dispatcher as object
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oViewCursor.gotoRange(targetRange,false)
+dim args2(4) as new com.sun.star.beans.PropertyValue
+args2(0).Name = "Hyperlink.Text"
+args2(0).Value = linkName
+args2(1).Name = "Hyperlink.URL"
+args2(1).Value = "#"+linkURL
+args2(2).Name = "Hyperlink.Target"
+args2(2).Value = ""
+args2(3).Name = "Hyperlink.Name"
+args2(3).Value = linkName
+args2(4).Name = "Hyperlink.Type"
+args2(4).Value = 1
+dispatcher.executeDispatch(document, ".uno:SetHyperlink", "", 0, args2())
+
+End Sub
+
+Function RND_String
+	Dim OutputString As String
+	Dim TempString As String
+	Dim i as Long
+
+	OutputString=""
+	randomize
+	
+	for i = 1 to 20
+	
+		Select Case i
+			Case 5, 8, 11, 14
+				OutputString=OutputString+"-"
+			Case Else
+				TempString=Hex(int(rnd*256))
+				if len(TempString)&lt;2 then TempString=TempString+"0"
+				OutputString=OutputString+TempString
+		End Select
+	next i
+		
+	RND_String = OutputString
+End Function
+
+
+sub executeInsertINDDPageBreaks
 document   = ThisComponent.CurrentController.Frame
 dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 oVC = thisComponent.getCurrentController.getViewCursor
