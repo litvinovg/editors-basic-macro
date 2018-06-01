@@ -392,4 +392,93 @@ nameff = sElements(i)
   Next
 Next
 End Sub
+
+
+Sub TimesArabicToAriabicD
+
+searchAndReplaceDiffFonts("\u2502","Г","̣")
+searchAndReplaceDiffFonts("\u250c","Д","̣")
+searchAndReplaceDiffFonts("\u2510","З","̣")
+searchAndReplaceDiffFonts("\u2514","З","̱")
+searchAndReplaceDiffFonts("\u2518","И","̄")
+searchAndReplaceDiffFonts("\u251c","К","̣")
+searchAndReplaceDiffFonts("\u2524","С","̣")
+searchAndReplaceDiffFonts("\u252c","С","̱")
+searchAndReplaceDiffFonts("\u2534","Т","̣")
+searchAndReplaceDiffFonts("\u253c","У","̄")
+'с полумесяцем
+searchAndReplaceDiffFonts("\u2550","Х","̮")
+searchAndReplaceDiffFonts("\u2551","Х","̣")
+searchAndReplaceDiffFonts("\u2552","г","̣")
+searchAndReplaceDiffFonts("\u2553","д","̣")
+searchAndReplaceDiffFonts("\u2554","з","̣")
+searchAndReplaceDiffFonts("\u2555","з","̱")
+searchAndReplaceDiffFonts("\u2556","и","̄")
+searchAndReplaceDiffFonts("\u2557","к","̣")
+searchAndReplaceDiffFonts("\u2558","с","̣")
+searchAndReplaceDiffFonts("\u2559","с","̱")
+searchAndReplaceDiffFonts("\u255a","т","̣")
+searchAndReplaceDiffFonts("\u255b","у","̄")
+'с полумесяцем
+searchAndReplaceDiffFonts("\u255c","х","̮")
+searchAndReplaceDiffFonts("\u255d","х","̣")
+
+End Sub
+
+
+Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPart  As String)
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+oVC = thisComponent.getCurrentController.getViewCursor
+oVC.jumpToFirstPage
+Dim args(0) as new com.sun.star.beans.PropertyValue
+
+rem Turn off tracking changes to prevent infinite
+args(0).Name = "TrackChanges"
+args(0).Value = false
+dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
+
+Dim oSearch
+Dim oTextCursor As Object 
+Dim oViewCursor As Object
+Dim lineIndent
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oSearch = ThisComponent.createSearchDescriptor()
+oSearch.SearchString = badSymbol
+oSearch.SearchRegularExpression=True
+oSearch.searchAll=True
+oFound = ThisComponent.findFirst(oSearch)
+Do While Not IsNull(oFound)
+  oTextCursor = oFound.Text.createTextCursor()
+  oTextCursor.gotoRange(oFound,false)
+  oTextCursor.String = firstPart
+  oTextCursor.goRight(1,false)
+  oViewCursor.gotoRange(oTextCursor.getStart(),false)
+  insertSpecialCharacterInFont(secondPart, "ArabicD")
+  oFound = ThisComponent.findNext(oFound.End, oSearch)
+Loop
+
+End sub
+
+
+sub insertSpecialCharacterInFont(sCharacter As String, sFont As String)
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dim args1(1) as new com.sun.star.beans.PropertyValue
+args1(0).Name = "Symbols"
+args1(0).Value = sCharacter
+args1(1).Name = "FontName"
+args1(1).Value = sFont
+
+dispatcher.executeDispatch(document, ".uno:InsertSymbol", "", 0, args1())
+
+end sub
 </script:module>

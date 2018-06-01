@@ -243,6 +243,13 @@ Sub CreateWriterToolbar(toolbarName,toolbarDescription)
   nCount = 12
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.Correction.TimesArabicToAriabicD?language=Basic&amp;location=application"
+  sCmdLable = "TimesArabicToArabicD"
+  nCount = 13
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
   REM To add a second item, increment nCount, create a new
   REM toolbar item, and insert it.
     
