@@ -269,18 +269,28 @@ SrchAttributes(0).Name = "CharFontName"
 SrchAttributes(0).Value = "WL LatinAllIn1Goth"
 ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "ArabicD"
+
 SearchString = "\uF0D4"
 oReplaceString = "̱"
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 SearchString = "\uF0D6"
 oReplaceString = "̣"
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 SearchString = "\uF0F4"
 oReplaceString = "̄"
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
+ReplAttributes(0).Value = "ArabicD"
+SearchString = "\uF0F1"
+oReplaceString = "́"
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 substituteCharNameInStyles( "WL LatinAllIn1Goth","ArabicD")
 End Sub
 
@@ -295,14 +305,22 @@ SearchString = "\u0304"
 oReplaceString = ""
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 SearchString = "\u0323"
 oReplaceString = ""
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 SearchString = "\u0331"
 oReplaceString = ""
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
+SearchString = "\u0341"
+oReplaceString = ""
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+
 substituteCharNameInStyles("ArabicD","WL LatinAllIn1Goth")
 End Sub
 
