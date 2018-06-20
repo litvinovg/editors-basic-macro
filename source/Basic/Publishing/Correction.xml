@@ -294,6 +294,29 @@ ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, tru
 substituteCharNameInStyles( "WL LatinAllIn1Goth","ArabicD")
 End Sub
 
+Sub badGothToArabicD
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+ReplAttributes(0).Name = "CharFontName"
+ReplAttributes(0).Value = "ArabicD"
+
+SearchString = "\uF0D4"
+ReplaceString = "̱"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+
+SearchString = "\uF0D6"
+ReplaceString = "̣"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+
+SearchString = "\uF0F4"
+ReplaceString = "̄"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+
+SearchString = "\uF0F1"
+ReplaceString = "́"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes)
+End Sub
+
 Sub executeArabicDToGoth
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
