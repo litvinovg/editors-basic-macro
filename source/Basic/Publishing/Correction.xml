@@ -294,15 +294,9 @@ ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, tru
 substituteCharNameInStyles( "WL LatinAllIn1Goth","ArabicD")
 End Sub
 
-Sub fixSpaces
+Sub fixNBSpaces
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-ReplAttributes(0).Name = "CharFontName"
-ReplAttributes(0).Value = "Times New Roman"
-SearchString = "\u0020"
-oReplaceString = " "
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 
 ReplAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Value = "Times New Roman"
