@@ -2,10 +2,10 @@
 <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:grddl="http://www.w3.org/2003/g/data-view#" office:version="1.2">
   <office:meta>
     <meta:creation-date>2017-02-27T12:20:56.477198793</meta:creation-date>
-    <meta:editing-duration>P1DT9H16M11S</meta:editing-duration>
-    <meta:editing-cycles>519</meta:editing-cycles>
-    <meta:generator>LibreOffice/5.4.4.2$Linux_X86_64 LibreOffice_project/2524958677847fb3bb44820e40380acbe820f960</meta:generator>
-    <dc:date>2018-01-11T15:17:59.016378155</dc:date>
-    <meta:document-statistic meta:table-count="2" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="135" meta:word-count="905" meta:character-count="7565" meta:non-whitespace-character-count="6801"/>
+    <meta:editing-duration>P1DT10H12M47S</meta:editing-duration>
+    <meta:editing-cycles>535</meta:editing-cycles>
+    <meta:generator>LibreOffice/6.0.1.1$Linux_X86_64 LibreOffice_project/60bfb1526849283ce2491346ed2aa51c465abfe6</meta:generator>
+    <dc:date>2018-06-24T15:57:04.042213144</dc:date>
+    <meta:document-statistic meta:table-count="2" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="135" meta:word-count="905" meta:character-count="7577" meta:non-whitespace-character-count="6801"/>
   </office:meta>
 </office:document-meta>

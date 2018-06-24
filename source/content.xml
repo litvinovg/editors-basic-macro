@@ -13,52 +13,52 @@
   </office:font-face-decls>
   <office:automatic-styles>
     <style:style style:name="Таблица1" style:family="table">
-      <style:table-properties style:width="17cm" table:align="margins"/>
+      <style:table-properties style:width="170mm" table:align="margins"/>
     </style:style>
     <style:style style:name="Таблица1.A" style:family="table-column">
-      <style:table-column-properties style:column-width="2.801cm" style:rel-column-width="10797*"/>
+      <style:table-column-properties style:column-width="28.01mm" style:rel-column-width="10797*"/>
     </style:style>
     <style:style style:name="Таблица1.B" style:family="table-column">
-      <style:table-column-properties style:column-width="8.532cm" style:rel-column-width="32889*"/>
+      <style:table-column-properties style:column-width="85.32mm" style:rel-column-width="32889*"/>
     </style:style>
     <style:style style:name="Таблица1.C" style:family="table-column">
-      <style:table-column-properties style:column-width="5.667cm" style:rel-column-width="21849*"/>
+      <style:table-column-properties style:column-width="56.67mm" style:rel-column-width="21849*"/>
     </style:style>
     <style:style style:name="Таблица1.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2" style:family="table">
-      <style:table-properties style:width="17cm" table:align="margins"/>
+      <style:table-properties style:width="170mm" table:align="margins"/>
     </style:style>
     <style:style style:name="Таблица2.A" style:family="table-column">
-      <style:table-column-properties style:column-width="2.801cm" style:rel-column-width="10797*"/>
+      <style:table-column-properties style:column-width="28.01mm" style:rel-column-width="10797*"/>
     </style:style>
     <style:style style:name="Таблица2.B" style:family="table-column">
-      <style:table-column-properties style:column-width="8.532cm" style:rel-column-width="32889*"/>
+      <style:table-column-properties style:column-width="85.32mm" style:rel-column-width="32889*"/>
     </style:style>
     <style:style style:name="Таблица2.C" style:family="table-column">
-      <style:table-column-properties style:column-width="5.667cm" style:rel-column-width="21849*"/>
+      <style:table-column-properties style:column-width="56.67mm" style:rel-column-width="21849*"/>
     </style:style>
     <style:style style:name="Таблица2.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="P1" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1"/>
     <style:style style:name="P2" style:family="paragraph">
@@ -76,47 +76,47 @@
       </text:list-level-style-number>
       <text:list-level-style-number text:level="2" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="1.905cm" fo:text-indent="-0.635cm" fo:margin-left="1.905cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="19.05mm" fo:text-indent="-6.35mm" fo:margin-left="19.05mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="3" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="2.54cm" fo:text-indent="-0.635cm" fo:margin-left="2.54cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="25.4mm" fo:text-indent="-6.35mm" fo:margin-left="25.4mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="4" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.175cm" fo:text-indent="-0.635cm" fo:margin-left="3.175cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="31.75mm" fo:text-indent="-6.35mm" fo:margin-left="31.75mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="5" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.81cm" fo:text-indent="-0.635cm" fo:margin-left="3.81cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="38.1mm" fo:text-indent="-6.35mm" fo:margin-left="38.1mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="6" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="4.445cm" fo:text-indent="-0.635cm" fo:margin-left="4.445cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="44.45mm" fo:text-indent="-6.35mm" fo:margin-left="44.45mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="7" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.08cm" fo:text-indent="-0.635cm" fo:margin-left="5.08cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="50.8mm" fo:text-indent="-6.35mm" fo:margin-left="50.8mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="8" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.715cm" fo:text-indent="-0.635cm" fo:margin-left="5.715cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="57.15mm" fo:text-indent="-6.35mm" fo:margin-left="57.15mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="9" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.35cm" fo:text-indent="-0.635cm" fo:margin-left="6.35cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="63.5mm" fo:text-indent="-6.35mm" fo:margin-left="63.5mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="10" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.985cm" fo:text-indent="-0.635cm" fo:margin-left="6.985cm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="69.85mm" fo:text-indent="-6.35mm" fo:margin-left="69.85mm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
     </text:list-style>
@@ -165,13 +165,13 @@
       </text:sequence-decls>
       <text:p text:style-name="Text_20_body">Данный файл содержит макросы, нажмите на кнопки для их установки</text:p>
       <text:p text:style-name="Standard">
-        <draw:control text:anchor-type="as-char" svg:y="-0.381cm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="4.261cm" svg:height="0.595cm" draw:control="control1"/>
-        <text:s text:c="5"/>
+        <draw:control text:anchor-type="as-char" svg:y="-3.81mm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="42.61mm" svg:height="5.95mm" draw:control="control1"/>
+        <text:s text:c="9"/>
       </text:p>
       <text:p text:style-name="Text_20_body">Панель с макросами для редактора</text:p>
       <text:p text:style-name="Text_20_body">
-        <draw:control text:anchor-type="as-char" svg:y="-0.4cm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="6.347cm" svg:height="0.595cm" draw:control="control2"/>
-        <text:s text:c="3"/>
+        <draw:control text:anchor-type="as-char" svg:y="-4mm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="63.47mm" svg:height="5.95mm" draw:control="control2"/>
+        <text:s text:c="7"/>
       </text:p>
       <text:p text:style-name="Text_20_body">Если после нажатия на кнопки «Установить макросы» и «Установить панель» ничего не происходит (не появляется новая панель наверху), то необходимо разрешить макросы.</text:p>
       <text:p text:style-name="Text_20_body">Сделать это можно так:</text:p>
@@ -179,8 +179,8 @@
       <text:p text:style-name="Text_20_body">После этого закройте данный документ и откройте его снова. При открытии возникнет предупреждение о безопасности. Нажмите «Включить макросы». После этого еще раз нажмите на кнопки«Установить макросы» и «Установить панель»</text:p>
       <text:p text:style-name="Text_20_body">Панель со всеми доступными макросами</text:p>
       <text:p text:style-name="Text_20_body">
-        <draw:control text:anchor-type="as-char" svg:y="-0.383cm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="9.771cm" svg:height="0.595cm" draw:control="control3"/>
-        <text:s text:c="3"/>
+        <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P2" svg:width="97.71mm" svg:height="5.95mm" draw:control="control3"/>
+        <text:s text:c="7"/>
       </text:p>
       <text:h text:style-name="Heading_20_1" text:outline-level="1">Документация по макросам</text:h>
       <text:h text:style-name="Heading_20_2" text:outline-level="2">Макросы на панели редактора</text:h>
@@ -227,7 +227,7 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list3275997851" text:style-name="L1">
+            <text:list xml:id="list3554698714" text:style-name="L1">
               <text:list-item>
                 <text:p text:style-name="P1">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
@@ -335,7 +335,7 @@
             <text:p text:style-name="Table_20_Contents">__</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151759785625382" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155706300911370" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-header>
@@ -362,7 +362,7 @@
             <text:p text:style-name="Table_20_Contents">_!</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151761254526030" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155705526259113" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-header>
@@ -377,7 +377,7 @@
             <text:p text:style-name="Table_20_Contents">№-№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760868637156" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155706324206400" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-header>
@@ -392,7 +392,7 @@
             <text:p text:style-name="Table_20_Contents">а - а</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151761209745037" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155705226163009" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Тире между словами заменяется на среднее тире</text:p>
               </text:list-header>
@@ -407,7 +407,7 @@
             <text:p text:style-name="Table_20_Contents">(_</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760753945989" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155704283212829" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-header>
@@ -422,7 +422,7 @@
             <text:p text:style-name="Table_20_Contents">Фам_И.О.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151759798011544" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155704243550914" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-header>
@@ -437,7 +437,7 @@
             <text:p text:style-name="Table_20_Contents">И.О._Фам</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760667290424" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155705084044242" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-header>
@@ -452,7 +452,7 @@
             <text:p text:style-name="Table_20_Contents">и_т._д.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760840701940" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155705348197770" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-header>
@@ -467,7 +467,7 @@
             <text:p text:style-name="Table_20_Contents">с|том</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760434027697" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155705670351133" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-header>
@@ -482,7 +482,7 @@
             <text:p text:style-name="Table_20_Contents">т._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760535008685" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155704990221020" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между том. 7 заменяется на неразрывный</text:p>
               </text:list-header>
@@ -497,7 +497,7 @@
             <text:p text:style-name="Table_20_Contents">с._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760641194907" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155706060941606" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между с. 7 и серия 7 заменяются на неразрывные</text:p>
               </text:list-header>
@@ -512,7 +512,7 @@
             <text:p text:style-name="Table_20_Contents">ч._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760109909495" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155704344787460" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробелы между ч. 7 и часть 7 заменяются на неразрывные</text:p>
               </text:list-header>
@@ -527,7 +527,7 @@
             <text:p text:style-name="Table_20_Contents">г._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list151760020988525" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list155706017311558" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
                 <text:p text:style-name="P1">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
               </text:list-header>
@@ -576,7 +576,7 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list151761016669086" text:continue-list="list151760020988525" text:style-name="L1">
+            <text:list xml:id="list155706055159013" text:continue-list="list155706017311558" text:style-name="L1">
               <text:list-item text:start-value="1">
                 <text:p text:style-name="P1"><text:soft-page-break/>Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
