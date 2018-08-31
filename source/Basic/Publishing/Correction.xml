@@ -423,29 +423,7 @@ dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 
 end Sub
 
-sub substituteCharNameInStyles(oldFont,newFont)
-Dim oDoc as Object
-Dim fontNames As String
-fontNames = ""
-oDoc = ThisComponent
-oFamilies = thiscomponent.StyleFamilies
-sElements() = oFamilies.getElementNames()
-For i = 0 to uBound(sElements()) -5
-  oFamily = oFamilies.getByName(sElements(i))
-nameff = sElements(i)
-  For j = 0 to oFamily.getCount -1
-    oStyle = oFamily.getByIndex(j)
-    fontName = oStyle.CharFontName
-    fontNames = fontNames + fontName
-    If fontName = oldFont Then
-    oStyle.CharFontName = newFont
 
-    Endif
-
-  
-  Next
-Next
-End Sub
 
 
 Sub TimesArabicToAriabicD
@@ -534,5 +512,136 @@ args1(1).Value = sFont
 
 dispatcher.executeDispatch(document, ".uno:InsertSymbol", "", 0, args1())
 
-end sub
+end Sub
+
+Sub toPT
+'Replace Times New Roman to PT Serif in styles
+substituteCharNameInStyles( "Times New Roman","PT Serif")
+'Replace Arial to PT Sans in styles
+substituteCharNameInStyles( "Arial","PT Sans")
+
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = "CharFontName"
+ReplAttributes(0).Name = "CharFontName"
+SearchString = ""
+ReplaceString = ""
+
+'Replace Times New Roman to PT Serif in direct formatting
+SrchAttributes(0).Value = "Times New Roman"
+ReplAttributes(0).Value = "PT Serif"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'Replace Arial to PT Sans in direct formatting
+SrchAttributes(0).Value = "Arial"
+ReplAttributes(0).Value = "PT Sans"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'Remove fontnames from search &amp; replace params
+SrchAttributes(0).Value = Empty
+ReplAttributes(0).Value = Empty
+
+replaceFontToStyle("ArabicD")
+replaceFontToStyle("WL LatinAllIn1Goth")
+
+'WL
+SearchString = "(.)\uF0D4"
+ReplaceString = "$1̱"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+
+SearchString = "(.)\uF0D6"
+ReplaceString = "$1̣"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+
+SearchString = "(.)\uF0F4"
+ReplaceString = "$1̄"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+
+SearchString = "(.)\uF0F1"
+ReplaceString = "$1́"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'ArabicD
+ReplaceString = "$1"
+SearchString = "(.\u0304)"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+SearchString = "(.\u0323)"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+SearchString = "(.\u0331)"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+SearchString = "(.\u0341)"
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+
+RemoveStyleByName("ArabicD")
+RemoveStyleByName("WL LatinAllIn1Goth")
+'Remove ArabicD
+'Remove WL LatinAllIn1Goth
+
+End Sub
+
+sub substituteCharNameInStyles(oldFont,newFont)
+Dim oDoc as Object
+Dim propertySetInfo As Object
+oDoc = ThisComponent
+oFamilies = thiscomponent.StyleFamilies
+sElements() = oFamilies.getElementNames()
+For i = 0 to oFamilies.count -1 
+  oFamily = oFamilies.getByName(sElements(i))
+  For j = 0 to oFamily.getCount -1
+    oStyle = oFamily.getByIndex(j)
+	propertySetInfo = oStyle.getPropertySetInfo()
+    If propertySetInfo.hasPropertyByName("CharFontName") And oStyle.isInUse Then
+      fontName = oStyle.getPropertyValue("CharFontName")
+      If fontName = oldFont Then
+        oStyle.CharFontName = newFont
+      EndIf
+    EndIf
+
+  
+  Next
+Next
+End Sub
+
+Sub replaceFontToStyle(fontName As String)
+Dim oDoc
+oDoc = Thiscomponent
+Dim srch(0) as new com.sun.star.beans.PropertyValue
+SDesc = Thiscomponent.createSearchDescriptor()
+  SDesc.SearchAll = true
+  SDesc.ValueSearch = false
+  SDesc.SearchStyles = false 
+  SDesc.SearchRegularExpression = false
+  SDesc.SearchString = "" 
+  srch(0).Name = "CharFontName"
+  SDesc.SetSearchAttributes(srch())
+  founds = Thiscomponent.findFirst(SDesc)
+  do while not isNull(founds)
+    curFont = founds.CharFontName
+    If curFont = fontName Then
+
+      If Not DocHasCharStyle(oDoc,curFont) Then
+        oProps() = Array(CreateProperty("CharFontName", curFont))
+        CreateCharacterStyle(curFont, oProps())
+      End If
+      founds.CharStyleNames = Array(curFont)
+    End If
+    founds = Thiscomponent.findNext(founds.getend, SDesc)
+  loop
+End Sub
+
+sub RemoveStyleByName(styleName As String)
+Dim oDoc as Object
+Dim propertySetInfo As Object
+oDoc = ThisComponent
+oFamilies = thiscomponent.StyleFamilies
+sElements() = oFamilies.getElementNames()
+For i = 0 to oFamilies.count -1 
+  oFamily = oFamilies.getByName(sElements(i))
+  For j = 0 to oFamily.getCount -1
+    oStyle = oFamily.getByIndex(j)
+
+    If oStyle.Name = styleName Then
+      oFamily.removeByName(oStyle.Name)
+      Exit For
+    EndIf
+  Next
+Next
+End Sub
 </script:module>

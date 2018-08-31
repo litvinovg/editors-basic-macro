@@ -262,7 +262,7 @@ toStyleItalic
 toStyleBold
 End Sub
 
-
+'Replaces manual formatting text with font into character style with assigned font
 Sub executeReplaceFonts
 Dim oDoc
 oDoc = Thiscomponent
