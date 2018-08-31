@@ -530,11 +530,11 @@ ReplaceString = ""
 'Replace Times New Roman to PT Serif in direct formatting
 SrchAttributes(0).Value = "Times New Roman"
 ReplAttributes(0).Value = "PT Serif"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, true)
 'Replace Arial to PT Sans in direct formatting
 SrchAttributes(0).Value = "Arial"
 ReplAttributes(0).Value = "PT Sans"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, true)
 'Remove fontnames from search &amp; replace params
 SrchAttributes(0).Value = Empty
 ReplAttributes(0).Value = Empty
@@ -542,38 +542,61 @@ ReplAttributes(0).Value = Empty
 replaceFontToStyle("ArabicD")
 replaceFontToStyle("WL LatinAllIn1Goth")
 
-'WL
+
+'Replace macron below
 SearchString = "(.)\uF0D4"
 ReplaceString = "$1̱"
+'from WL
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+SearchString = "(.)\u0331"
+'from unicode to remove direct formatting
+searchAndRemoveDirectFormatting(SearchString)
 
+'Replace dot below
 SearchString = "(.)\uF0D6"
 ReplaceString = "$1̣"
+'from WL
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'from unicode to remove direct formatting
+SearchString = "(.)\u0323"
+searchAndRemoveDirectFormatting(SearchString)
 
+'replace macron
 SearchString = "(.)\uF0F4"
 ReplaceString = "$1̄"
+'from WL
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'from unicode to remove direct formatting
+SearchString = "(.)\u0304"
+searchAndRemoveDirectFormatting(SearchString)
 
+'replace accent
 SearchString = "(.)\uF0F1"
 ReplaceString = "$1́"
 ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
-'ArabicD
-ReplaceString = "$1"
-SearchString = "(.\u0304)"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
-SearchString = "(.\u0323)"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
-SearchString = "(.\u0331)"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
-SearchString = "(.\u0341)"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+'from unicode to remove direct formatting
+SearchString = "(.)\u0341"
+searchAndRemoveDirectFormatting(SearchString)
 
 RemoveStyleByName("ArabicD")
 RemoveStyleByName("WL LatinAllIn1Goth")
 'Remove ArabicD
 'Remove WL LatinAllIn1Goth
+End Sub
 
+Sub searchAndRemoveDirectFormatting(searchString)
+oVC = thisComponent.getCurrentController.getViewCursor
+oVC.jumpToFirstPage
+oSearch = ThisComponent.createSearchDescriptor()
+oSearch.SearchString = searchString
+oSearch.SearchRegularExpression=True
+oSearch.searchAll=True
+oFound = ThisComponent.findFirst(oSearch)
+Do While Not IsNull(oFound)
+  oTextCursor = oFound.Text.createTextCursor()
+  oFound.setString(oFound.getString)
+  oFound = ThisComponent.findNext(oFound.End, oSearch)
+Loop
 End Sub
 
 sub substituteCharNameInStyles(oldFont,newFont)
