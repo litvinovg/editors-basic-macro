@@ -514,6 +514,22 @@ dispatcher.executeDispatch(document, ".uno:InsertSymbol", "", 0, args1())
 
 end Sub
 
+Sub U2Serif
+substituteCharNameInStyles( "Universalia","PT Serif")
+substituteCharNameInStyles( "Universalia, sans-serif","PT Serif")
+Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
+SrchAttributes(0).Name = "CharFontName"
+ReplAttributes(0).Name = "CharFontName"
+String oSearchString = ""
+String oReplaceString = ""
+SrchAttributes(0).Value = "Universalia"
+ReplAttributes(0).Value = "PT Serif"
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+SrchAttributes(0).Value = "Universalia, sans-serif"
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+end Sub
+
 Sub toPT
 'Replace Times New Roman to PT Serif in styles
 substituteCharNameInStyles( "Times New Roman","PT Serif")
@@ -524,17 +540,17 @@ Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 SrchAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Name = "CharFontName"
-SearchString = ""
-ReplaceString = ""
+String oSearchString = ""
+String oReplaceString = ""
 
 'Replace Times New Roman to PT Serif in direct formatting
 SrchAttributes(0).Value = "Times New Roman"
 ReplAttributes(0).Value = "PT Serif"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, true)
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 'Replace Arial to PT Sans in direct formatting
 SrchAttributes(0).Value = "Arial"
 ReplAttributes(0).Value = "PT Sans"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, true)
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 'Remove fontnames from search &amp; replace params
 SrchAttributes(0).Value = Empty
 ReplAttributes(0).Value = Empty
@@ -544,39 +560,39 @@ replaceFontToStyle("WL LatinAllIn1Goth")
 
 
 'Replace macron below
-SearchString = "(.)\uF0D4"
-ReplaceString = "$1̱"
+oSearchString = "(.)\uF0D4"
+oReplaceString = "$1̱"
 'from WL
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
-SearchString = "(.)\u0331"
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
+oSearchString = "(.)\u0331"
 'from unicode to remove direct formatting
-searchAndRemoveDirectFormatting(SearchString)
+searchAndRemoveDirectFormatting(oSearchString)
 
 'Replace dot below
-SearchString = "(.)\uF0D6"
-ReplaceString = "$1̣"
+oSearchString = "(.)\uF0D6"
+oReplaceString = "$1̣"
 'from WL
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 'from unicode to remove direct formatting
-SearchString = "(.)\u0323"
-searchAndRemoveDirectFormatting(SearchString)
+oSearchString = "(.)\u0323"
+searchAndRemoveDirectFormatting(oSearchString)
 
 'replace macron
-SearchString = "(.)\uF0F4"
-ReplaceString = "$1̄"
+oSearchString = "(.)\uF0F4"
+oReplaceString = "$1̄"
 'from WL
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 'from unicode to remove direct formatting
-SearchString = "(.)\u0304"
-searchAndRemoveDirectFormatting(SearchString)
+oSearchString = "(.)\u0304"
+searchAndRemoveDirectFormatting(oSearchString)
 
 'replace accent
-SearchString = "(.)\uF0F1"
-ReplaceString = "$1́"
-ReplaceFormatting(SearchString,ReplaceString,SrchAttributes,ReplAttributes, false)
+oSearchString = "(.)\uF0F1"
+oReplaceString = "$1́"
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 'from unicode to remove direct formatting
-SearchString = "(.)\u0341"
-searchAndRemoveDirectFormatting(SearchString)
+oSearchString = "(.)\u0341"
+searchAndRemoveDirectFormatting(oSearchString)
 
 RemoveStyleByName("ArabicD")
 RemoveStyleByName("WL LatinAllIn1Goth")
