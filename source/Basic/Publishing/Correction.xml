@@ -515,26 +515,58 @@ dispatcher.executeDispatch(document, ".uno:InsertSymbol", "", 0, args1())
 end Sub
 
 Sub U2Serif
-substituteCharNameInStyles( "Universalia","PT Serif")
-substituteCharNameInStyles( "Universalia, sans-serif","PT Serif")
+
+Dim oldFontName as String  
+oldFontName = "Universalia"
+Dim newFontName as String  
+newFontName = "PT Serif"
+substituteStylesFontNameStartsWith(oldFontName, newFontName)
+substituteDirectFromatFontNameStartsWith(oldFontName, newFontName)
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 SrchAttributes(0).Name = "CharFontName"
 ReplAttributes(0).Name = "CharFontName"
+SrchAttributes(0).Value = oldFontName
+ReplAttributes(0).Value = newFontName
 String oSearchString = ""
 String oReplaceString = ""
-SrchAttributes(0).Value = "Universalia"
-ReplAttributes(0).Value = "PT Serif"
-ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
-SrchAttributes(0).Value = "Universalia, sans-serif"
-ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 end Sub
+
+Sub substituteDirectFromatFontNameStartsWith(oldFontName,newFontName)
+Dim oSearch
+Dim oTextCursor As Object 
+Dim oViewCursor As Object
+Dim SrchName(0) as new com.sun.star.beans.PropertyValue
+Dim curFontName
+oSearch = ThisComponent.createSearchDescriptor()
+SrchName(0).Name = "CharFontName"
+oSearch.SetSearchAttributes(SrchName())
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+oSearch.searchAll=True
+oSearch.ValueSearch=False
+oSearch.searchStyles=False
+oFound = ThisComponent.findFirst(oSearch)
+Do While Not IsNull(oFound)
+	curFontName = oFound.CharFontName
+    If IsEmpty(curFontName) Then
+  	  curFontName = oFound.CharFontNameComplex
+    EndIf
+	oPositionOfMatch = InStr(curFontName, oldFontName)
+    If oPositionOfMatch = 1 Then
+    	oFound.CharFontName = newFontName
+    EndIf
+    oFound = ThisComponent.findNext(oFound.End, oSearch)
+Loop
+End Sub
 
 Sub toPT
 'Replace Times New Roman to PT Serif in styles
-substituteCharNameInStyles( "Times New Roman","PT Serif")
+substituteStylesFontNameStartsWith( "Times New Roman","PT Serif")
+substituteDirectFromatFontNameStartsWith( "Times New Roman","PT Serif")
 'Replace Arial to PT Sans in styles
-substituteCharNameInStyles( "Arial","PT Sans")
+substituteStylesFontNameStartsWith( "Arial","PT Sans")
+substituteDirectFromatFontNameStartsWith( "Arial","PT Sans")
 
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
@@ -543,15 +575,6 @@ ReplAttributes(0).Name = "CharFontName"
 String oSearchString = ""
 String oReplaceString = ""
 
-'Replace Times New Roman to PT Serif in direct formatting
-SrchAttributes(0).Value = "Times New Roman"
-ReplAttributes(0).Value = "PT Serif"
-ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
-'Replace Arial to PT Sans in direct formatting
-SrchAttributes(0).Value = "Arial"
-ReplAttributes(0).Value = "PT Sans"
-ReplaceFormatting(oSearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
-'Remove fontnames from search &amp; replace params
 SrchAttributes(0).Value = Empty
 ReplAttributes(0).Value = Empty
 
@@ -618,6 +641,7 @@ End Sub
 sub substituteCharNameInStyles(oldFont,newFont)
 Dim oDoc as Object
 Dim propertySetInfo As Object
+Dim oPositionOfMatch As Long
 oDoc = ThisComponent
 oFamilies = thiscomponent.StyleFamilies
 sElements() = oFamilies.getElementNames()
@@ -629,6 +653,32 @@ For i = 0 to oFamilies.count -1
     If propertySetInfo.hasPropertyByName("CharFontName") And oStyle.isInUse Then
       fontName = oStyle.getPropertyValue("CharFontName")
       If fontName = oldFont Then
+        oStyle.CharFontName = newFont
+      EndIf
+    EndIf
+
+  
+  Next
+Next
+End Sub
+
+sub substituteStylesFontNameStartsWith(oldFont,newFont)
+' Substitutes font names starts with oldFont value with newFont value
+Dim oDoc as Object
+Dim propertySetInfo As Object
+Dim oPositionOfMatch As Long
+oDoc = ThisComponent
+oFamilies = thiscomponent.StyleFamilies
+sElements() = oFamilies.getElementNames()
+For i = 0 to oFamilies.count -1 
+  oFamily = oFamilies.getByName(sElements(i))
+  For j = 0 to oFamily.getCount -1
+    oStyle = oFamily.getByIndex(j)
+	propertySetInfo = oStyle.getPropertySetInfo()
+    If propertySetInfo.hasPropertyByName("CharFontName") And oStyle.isInUse Then
+      fontName = oStyle.getPropertyValue("CharFontName")
+      oPositionOfMatch = InStr(fontName, oldFont)
+      If oPositionOfMatch = 1 Then
         oStyle.CharFontName = newFont
       EndIf
     EndIf
