@@ -519,7 +519,7 @@ Sub U2Serif
 Dim oldFontName as String  
 oldFontName = "Universalia"
 Dim newFontName as String  
-newFontName = "PT Serif"
+newFontName = "IPH Serif"
 substituteStylesFontNameStartsWith(oldFontName, newFontName)
 substituteDirectFromatFontNameStartsWith(oldFontName, newFontName)
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
@@ -560,13 +560,13 @@ Do While Not IsNull(oFound)
 Loop
 End Sub
 
-Sub toPT
-'Replace Times New Roman to PT Serif in styles
-substituteStylesFontNameStartsWith( "Times New Roman","PT Serif")
-substituteDirectFromatFontNameStartsWith( "Times New Roman","PT Serif")
-'Replace Arial to PT Sans in styles
-substituteStylesFontNameStartsWith( "Arial","PT Sans")
-substituteDirectFromatFontNameStartsWith( "Arial","PT Sans")
+Sub toIPH
+'Replace Times New Roman to IPH Serif in styles
+substituteStylesFontNameStartsWith( "Times New Roman","IPH Serif")
+substituteDirectFromatFontNameStartsWith( "Times New Roman","IPH Serif")
+'Replace Arial to IPH Sans in styles
+substituteStylesFontNameStartsWith( "Arial","IPH Sans")
+substituteDirectFromatFontNameStartsWith( "Arial","IPH Sans")
 
 Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue

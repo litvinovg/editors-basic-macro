@@ -179,8 +179,8 @@ Sub CreateWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
-  sCmdID   = "vnd.sun.star.script:Publishing.Correction.toPT?language=Basic&amp;location=application"
-  sCmdLable = "toPT"
+  sCmdID   = "vnd.sun.star.script:Publishing.Correction.toIPH?language=Basic&amp;location=application"
+  sCmdLable = "toIPH"
   nCount = 16
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
