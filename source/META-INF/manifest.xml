@@ -14,12 +14,17 @@
   <manifest:file-entry manifest:full-path="settings.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/script-lc.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/script-lb.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/Indd.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/unusedStyles.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/CleanManualFormat.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/pageBreaks.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/Toolbars.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/Libraries.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/replaceFonts.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/cursorHelpers.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/Correction.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Libraries.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/pageBreaks.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/pageHelpers.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/CleanManualFormat.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/unusedStyles.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Toolbars.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Indd.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/journals.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/stringHelpers.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Standard/script-lb.xml" manifest:media-type="text/xml"/>
 </manifest:manifest>

@@ -8,4 +8,9 @@
   <library:element library:name="CleanManualFormat"/>
   <library:element library:name="unusedStyles"/>
   <library:element library:name="Indd"/>
+  <library:element library:name="journals"/>
+  <library:element library:name="pageHelpers"/>
+  <library:element library:name="stringHelpers"/>
+  <library:element library:name="cursorHelpers"/>
+  <library:element library:name="replaceFonts"/>
 </library:library>

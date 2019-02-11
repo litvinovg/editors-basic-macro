@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Function findFirstPageWithStyle(pageStyleName)
+	Dim oViewCursor As Object
+	Dim curPage As String
+	Dim prevPage As String
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToFirstPage()
+	curPage = oViewCursor.getPage()
+	
+	Do While curPage &lt;&gt; prevPage
+		curStyleName = oViewCursor.PageStyleName
+		If pageStyleName = curStyleName Then
+			findFirstPageWithStyle = curPage
+			Exit Function
+		EndIf
+		prevPage = curPage
+		oViewCursor.jumpToNextPage()
+		curPage = oViewCursor.getPage()
+	Loop 
+	findFirstPageWithStyle = -1
+End Function
+
+
+
+Sub createPageStyleByExample(newName)
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dim args1(1) as new com.sun.star.beans.PropertyValue
+	args1(0).Name = "Param"
+	args1(0).Value = newName
+	args1(1).Name = "Family"
+	args1(1).Value = 8
+	dispatcher.executeDispatch(document, ".uno:StyleNewByExample", "", 0, args1())
+end Sub
+
+sub addTextVar(varName,varValue)
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dim args1(5) as new com.sun.star.beans.PropertyValue
+	args1(0).Name = "Type"
+	args1(0).Value = 20
+	args1(1).Name = "SubType"
+	args1(1).Value = 1
+	args1(2).Name = "Name"
+	args1(2).Value = varName
+	args1(3).Name = "Content"
+	args1(3).Value = varValue
+	args1(4).Name = "Format"
+	args1(4).Value = -1
+	args1(5).Name = "Separator"
+	args1(5).Value = " "
+	dispatcher.executeDispatch(document, ".uno:InsertField", "", 0, args1())
+end Sub
+
+Sub modifyVar(varName,varValue)
+dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dim args1(5) as new com.sun.star.beans.PropertyValue
+	args1(0).Name = "Type"
+	args1(0).Value = 20
+	args1(1).Name = "SubType"
+	args1(1).Value = 1
+	args1(2).Name = "Name"
+	args1(2).Value = varName
+	args1(3).Name = "Content"
+	args1(3).Value = varValue
+	args1(4).Name = "Format"
+	args1(4).Value = -1
+	args1(5).Name = "Separator"
+	args1(5).Value = " "
+	dispatcher.executeDispatch(document, ".uno:InsertField", "", 0, args1())
+	backspace
+	dispatcher.executeDispatch(document, ".uno:UpdateFields", "", 0, args1())
+End Sub
+
+
+
+</script:module>

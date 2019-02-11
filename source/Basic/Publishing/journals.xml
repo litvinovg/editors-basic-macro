@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">Sub makeUpIssue
+
+Dim oViewCursor As Object
+Dim oTextCursor As Object
+Dim articleEndPosition As Object
+Dim oText As Object
+oText = ThisComponent.Text
+oViewCursor = ThisComponent.CurrentController.getViewCursor()
+Dim page As String
+Dim path As String
+Dim tmp As String
+Dim sectionName As String
+sectionName = ""
+Dim nSections As Long 
+oFilename = ThisComponent.Location
+
+'Exit if no sections in document or document not saved
+If oFilename = "" Then
+	MsgBox "Сначала сохраните выпуск в папке с файлами статьей"
+	Exit Sub
+End If
+
+Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+
+GlobalScope.BasicLibraries.loadLibrary("Tools")
+path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
+
+
+' Add article for each section
+'Go to article first page
+	page = findFirstPageWithStyle("Первая страница статьи")
+	oViewCursor.jumpToPage(page)
+	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+For i = 1 To 25
+'Find section file
+	FilePath = findArticleFile(path,i)
+	If FilePath="" Then
+		Exit For
+	EndIF 
+
+	'Add Article 
+	If FileExists(FilePath) Then 
+		oViewCursor.goToRange(oTextCursor,false)
+		'Вставить разрыв страницы, если его не было.
+		oTextCursor.BreakType = 4
+		'Задать стиль первой страницы
+		setArticlePageStyles(i)
+		page = oViewCursor.getPage()
+		InsertArticle(FilePath)
+		oTextCursor = oText.createTextCursorByRange(oViewCursor)
+		oText.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+		oTextCursor.collapseToEnd()
+		
+	'set page to next article page number
+		'oViewCursor.goToRange(oTextCursor,false)
+  	End If
+  	
+  	fileType = Right(FilePath, 3)
+  	'Go to first page
+  	oViewCursor.jumpToPage(page)
+	If fileType = "doc" Then
+		'Remove blank page at start
+		sendRM()
+	End If
+
+	setArticleUniqPageStyles(i)
+	oViewCursor.jumpToPage(page)
+	setAtricleVars(i)
+	oViewCursor.jumpToPage(page)
+	takeWidowLinesIn()
+	oViewCursor.jumpToPage(page)
+'	takeWidowOrphans()
+
+	'Set section name
+'	sectionName = getSectionX(sectionName)
+'	modifyVar("leftHeader" + i , sectionName )
+Next i
+'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+' Mri oViewCursor
+'Задать нумерацию сносок на каждую главу
+ThisComponent.FootnoteSettings.FootnoteCounting=1
+End Sub
+
+Sub setAtricleVars(i)
+	modifyVar("article" + i + "LastPage", CStr(getLastPage()) )
+	'modifyVar("article" + i + "UDK", getUDK())
+	modifyVar("author" + i + "Copyright", getCopyright() )
+	'modifyVar("leftHeader" + i , getSection() )
+	'modifyVar("rightHeader" + i , getTitleHeader() )
+End Sub
+
+Function getLastPage()
+	getLastPage = ThisComponent.CurrentController.PageCount - 4
+End Function
+
+Function getUDK()
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim title As String
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	
+	getFirstTextInStyle("Заголовок 2")
+	title = oViewCursor.getString()
+	oViewCursor.goToRange(oSavePosition, false)
+	getUDK = Left(title,11)
+End Function
+
+Function getCopyright()
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim authors As String
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	getFirstTextInStyle("Автор")
+	authors = oViewCursor.getString()
+	If authors &lt;&gt; "" Then 
+		leftSide = Right(authors,Len(authors)-4)
+		rightSide =  Left(authors,4)
+		getCopyright = "© " + Trim(leftSide) + " " + rightSide
+		oViewCursor.goToRange(oSavePosition, false)
+	End If
+End Function
+
+Function getSectionX(curSection)
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim section As String
+	Dim startPage As String
+	Dim endPage As String
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	startPage = oViewcursor.getPage()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	getFirstTextInStyle("Заголовок 1")
+	section = oViewCursor.getString()
+	endPage = oViewCursor.getPage()
+	If CInt(startPage) &lt;= CInt(endPage) Then
+		getSectionX =  Left(authors,1 )+  LCase(Right(section,Len(section)-1))
+		Exit Function
+	End If
+	getSectionX = curSection
+	oViewCursor.goToRange(oSavePosition, false)
+End Function
+
+Function getTitleHeader()
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim title As String
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	getFirstTextInStyle("Автор")
+	authors = oViewCursor.getString()
+	getFirstTextInStyle("Заголовок 2")
+	title = oViewCursor.getString()
+	getTitleHeader = authors + " " + title
+	oViewCursor.goToRange(oSavePosition, false)
+	getUDK = title
+End Function
+
+
+
+Sub setArticlePageStyles(i)
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	Dim oText As Object
+	Dim page As String
+	Dim pageNum As Long
+	Dim pageStyles As Object
+	Dim articleFirstPageStyle As Object
+	Dim firstPageStyleName As String 
+	Dim leftPageStyleName As String
+	Dim rightPageStyleName As String
+	Dim newPageStyleName As String
+	Dim articleFirstPageStyleName As String 
+	Dim curStyle As Object
+	Dim tmpStyleName As String
+	oText = ThisComponent.Text
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	firstPageStyleName = "Первая страница статьи"
+	leftPageStyleName = "Левая страница статьи"
+	rightPageStyleName = "Правая страница статьи"
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oTextCursor =  oText.createTextCursorByRange(oViewCursor)
+	'set starndard first page style name (need for cloning)
+	oTextCursor.PageDescName = firstPageStyleName
+	'clone starndard first page style
+	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
+	' set cloned style to first page
+	oTextCursor.PageDescName = oViewCursor.pageStyleName + " " + CStr(i)
+	'get current first page style name
+	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+	setFirstPageMetadata(curStyle,i)
+	'1 left/right style
+	' create new para for next page
+	oText.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+	oTextCursor.BreakType = 4
+	'clone 1 left/right style
+	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
+	'set followStyle to previous style
+	curStyle.FollowStyle = oViewCursor.pageStyleName + " " + CStr(i)
+	'set new curStyle	
+	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+	setBroadSideMetadata(curStyle,i)
+	'create new para for next page
+	oText.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+	'insert page break
+	oTextCursor.BreakType = 4
+	'clone left/right page style
+	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
+	'set followStyle to previous style (apply cloned style to current page)
+	curStyle.FollowStyle = oViewCursor.pageStyleName + " " + CStr(i)
+	'make styles loop
+	tmpStyleName = curStyle.getName
+	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+	setBroadSideMetadata(curStyle,i)
+	curStyle.FollowStyle = tmpStyleName
+	oViewCursor.jumpToPreviousPage()
+	oViewCursor.jumpToPreviousPage()
+	sendRM()
+	sendRM()
+		
+End Sub
+
+Sub setFirstPageMetadata(curStyle,i)
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim oHeaderTable As Object
+	Dim rightHeaderCell As Object
+	Dim leftHeaderCell As Object
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)
+	'curStyle.HeaderText
+	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
+	'leftHeaderCell
+	leftHeaderCell = oHeaderTable.getCellByPosition(0,0).getStart()
+	oViewCursor.goToRange(leftHeaderCell, false)
+	'go to page number place
+	oViewCursor.gotoEndOfLine(false)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	addTextVar("article" + i + "LastPage","00" )
+	oViewCursor.goright(1,false)
+	'Добавить УДК
+	addTextVar("article" + i + "UDK","УДК "+ i + "." + i)
+	'rightHeaderCell
+	rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
+	oViewCursor.goToRange(rightHeaderCell, false)
+	'go to page number 1st place
+	oViewCursor.gotoEndOfLine(false)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	addTextVar("article" + i + "LastPage","00" )
+	' go to page number 2nd place
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	addTextVar("article" + i + "LastPage","00" )
+	
+	'Footer without table
+	oViewCursor.goToRange(curStyle.FooterText.End, false)
+	addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+	oViewCursor.goToRange(oSavePosition, false)
+End Sub
+
+Sub setBroadSideMetadata(curStyle,i)
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim oText As Object
+	Dim oHeaderTable As Object
+	Dim headerCell As Object
+	Dim leftHeaderCell As Object
+	Dim curStyleName As String
+	oText = ThisComponent.Text
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oText.createTextCursorByRange(oViewCursor)
+	curStyleName = curStyle.getName()
+	'curStyle.HeaderText
+	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
+	
+	If InStr(curStyleName,"Левая страница статьи") = 1 Then
+		'rightHeaderCell
+		rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
+		oViewCursor.goToRange(rightHeaderCell, false)
+		addTextVar("leftHeader" + i ,"Раздел" + i )
+	ElseIf InStr(curStyleName,"Правая страница статьи") = 1 Then
+		'leftHeaderCell
+		leftHeaderCell = oHeaderTable.getCellByPosition(0,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+	End If
+	oViewCursor.goToRange(oSavePosition, false)
+End Sub
+
+Sub	setArticleUniqPageStyles(i)
+	Dim firstPageStyleName As String 
+	Dim leftPageStyleName As String
+	Dim rightPageStyleName As String
+	Dim curPageNum As Integer
+	Dim prevPageNum As String
+	Dim leftPageNum As Long
+	Dim docPages As Long
+	Dim articlePages As Long
+	Dim previousPageStyle As Object
+	Dim pageStyles As Object
+	Dim curPageStyle As Object
+	Dim curPageStyleName As String
+	Dim nextStyle As Object
+	Dim clonedStyle As Object
+	Dim clonedStyleName As String
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	'Constants
+	articlePageNum = 1
+	firstPageStyleName = "Первая страница статьи " + CStr(i)
+	leftPageStyleName = "Левая страница статьи " + CStr(i)
+	rightPageStyleName = "Правая страница статьи " + CStr(i)
+	'
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	
+	curPageStyleName = oViewCursor.PageStyleName
+
+	Do Until  InStr(curPageStyleName,"статьи") = 0
+		
+		curPageNum = CInt(oViewCursor.getPage())
+		' Если мы находимся на первой странице статьи
+		If InStr(curPageStyleName,firstPageStyleName) = 1 Then
+			curPageStyle = pageStyles.getByName(curPageStyleName)
+			'Если текущая правая
+			If CLng(curPageNum) Mod 2 = 1 Then
+				curPageStyle.FollowStyle = leftPageStyleName
+			Else
+				curPageStyle.FollowStyle = rightPageStyleName
+			EndIf
+			'Получаем объект стиля сраницы предыдущей для следующей итерации
+			previousPageStyle = curPageStyle
+		ElseIf InStr(curPageStyleName,leftPageStyleName) = 1 Then
+			clonedStyleName = leftPageStyleName + "." + CStr(articlePageNum)
+			createPageStyleByExample(clonedStyleName)
+			previousPageStyle.FollowStyle = clonedStyleName
+			'Получаем объект стиля сраницы предыдущей для следующей итерации
+			previousPageStyle = pageStyles.getByName(clonedStyleName)
+		ElseIf InStr(curPageStyleName,rightPageStyleName) = 1 Then
+			clonedStyleName = rightPageStyleName + "." + CStr(articlePageNum)
+			createPageStyleByExample(clonedStyleName)
+			previousPageStyle.FollowStyle = clonedStyleName
+			'Получаем объект стиля сраницы предыдущей для следующей итерации
+			previousPageStyle = pageStyles.getByName(clonedStyleName)
+
+		ElseIf oViewCursor.getPage() &lt;&gt; curPageNum Then
+			'Прили в конец.
+			MsgBox "Статья закончилась!"
+			Exit Sub
+		Else 
+			Exit Sub
+		End If
+		'Iterate article page number
+		articlePageNum = articlePageNum + 1
+		'GO TO NEXT PAGE
+		oViewCursor.jumpToNextPage()
+		curPageStyleName = getNextPageStyleName()
+	Loop
+	
+End Sub
+
+Sub takeWidowLinesIn
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	curPageStyleName = getNextPageStyleName()
+	Do Until  InStr(curPageStyleName,"статьи") = 0
+		takeLineIn
+		oViewCursor.jumpToNextPage()
+		curPageStyleName = getNextPageStyleName()
+	Loop
+End Sub
+
+Sub takeDownOrpahns
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	curPageStyleName = getNextPageStyleName()
+	Do Until  InStr(curPageStyleName,"статьи") = 0
+		takeLineIn
+		oViewCursor.jumpToNextPage()
+		curPageStyleName = getNextPageStyleName()
+	Loop
+End Sub
+
+Sub takeLineIn
+	Globalscope.BasicLibraries.LoadLibrary( "Publishing" )
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	dim oEndPage As Object
+	Dim lineCounter As Integer
+	lineCounter = 0
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	'If page is less than 4 rows then shrink content
+	oViewCursor.jumpToEndOfPage()
+	oEnd = oViewCursor.getPosition()
+	oViewCursor.jumpToStartOfPage()
+	' Идем конец строки, закончился ли параграф
+	lineCounter = lineCounter + 1
+	Do Until lineCounter = 4
+		'Test for empty line at 3 row
+		oViewCursor.goToEndOfLine(false)
+		If oEnd.X = oViewCursor.getPosition().X AND oEnd.Y = oViewCursor.getPosition().Y Then
+			shrinkPageContent()
+			Exit Sub
+		End If
+		oViewCursor.goRight(1,false)
+		'If empty para then remove it and shrink content
+		If oEnd.X = oViewCursor.getPosition().X AND oEnd.Y = oViewCursor.getPosition().Y Then
+			oViewCursor.goLeft(1,false)
+			'sendRM()
+			shrinkPageContent()
+			Exit Sub
+		End If
+		lineCounter = lineCounter + 1
+	Loop
+	'Count page lines
+	
+	oViewCursor.jumpToStartOfPage()
+	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	'If It is a start of paragraph then there is no line to take in
+	If oTextCursor.isStartOfParagraph() Then
+		'Nothing to Do
+		Exit Sub
+	End If
+	oViewCursor.goToEndOfLine(false)
+	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	'If it is a last line of paragraph
+		If oTextCursor.isEndOfParagraph() Then
+			shrinkPageContent()
+			Exit Sub
+		End If
+	oViewCursor.goToEndOfLine(false)
+	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	'If it is a last line of paragraph
+	If oTextCursor.isEndOfParagraph() Then
+		shrinkPageContent()
+		Exit Sub
+	End If
+End Sub
+
+Function getNextPageStyleName()
+	dim curPageStyleName as String 
+	dim startPageStyleName as String 
+	dim startPageStyle as Object
+	dim pageStyles as Object
+	dim followStyle as String
+	dim oViewCursor as Object
+	dim oTextCursor as Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	startPageStyleName = oViewCursor.PageStyleName
+	startPageStyle = pageStyles.getByName(startPageStyleName)
+	followStyle = startPageStyle.FollowStyle
+	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	If oTextCursor.isStartOfParagraph() Then
+		getNextPageStyleName = oViewCursor.PageStyleName
+		Exit Function
+	EndIf
+	ThisComponent.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oViewCursor.goRight(1,false)
+	getNextPageStyleName = oViewCursor.PageStyleName
+	oViewCursor.goLeft(1,false)
+	backspace()
+End Function
+
+Function findArticleFile(path,i)
+Dim NextFile As String
+Dim TestName As String
+Dim endChars(2) As String
+endChars(0) = "_"
+endChars(1) = "."
+endChars(2) = " "
+Dim FoundPosition As Long
+Dim EndChar As String 
+NextFile = Dir(path+"/", 0)
+  While NextFile  &lt;&gt; ""
+  	For j = LBound(endChars) To UBound(endChars)
+  		TestName = CStr(i)+endChars(j)
+  		FoundPosition = InStr(NextFile, TestName)
+  		If FoundPosition = 1 Then
+ 			findArticleFile = path+"/"+NextFile
+ 			Exit Function
+ 		End If
+  	Next
+    NextFile = Dir
+  Wend
+'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+' Mri 
+findArticleFile = ""
+End Function
+
+Function InsertArticle(oFileName)
+	Dim document   as Object
+	Dim dispatcher as object
+	Dim fileType   as String
+	Dim oFilter    as String 
+	Dim args2(1)   as new com.sun.star.beans.PropertyValue
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	fileType = Right(oFileName, 3)
+	If fileType = "odt" Then
+		oFilter  = "writer8"
+	ElseIf fileType = "doc" Then
+		oFilter = "MS Word 97"
+	End If
+	args2(0).Name = "Name"
+	args2(0).Value = oFileName
+	args2(1).Name = "Filter"
+	args2(1).Value = oFilter
+	dispatcher.executeDispatch(document, ".uno:InsertDoc", "", 0, args2())
+End Function
+
+
+
+Sub getChapter
+	 Dim testText As String
+	 testText = getFirstTextInStyle("Заголовок 1")
+End Sub
+
+
+Function getFirstTextInStyle(styleName)
+	Dim oViewCursor As Object
+	Dim curPage As Long
+	Dim foundPage As Long
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	curPage = oViewCursor.getPage
+	getFirstTextInStyleDispatch(styleName)
+	foundPage = oViewCursor.getPage
+	If foundPage &gt;= curPage Then
+		getFirstTextInStyle = oViewCursor.String
+		Exit Function
+	End If
+	getFirstTextInStyle = ""
+End Function
+
+
+sub getFirstTextInStyleDispatch(styleName)
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dim args1(21) as new com.sun.star.beans.PropertyValue
+	args1(0).Name = "SearchItem.StyleFamily"
+	args1(0).Value = 2
+	args1(1).Name = "SearchItem.CellType"
+	args1(1).Value = 0
+	args1(2).Name = "SearchItem.RowDirection"
+	args1(2).Value = true
+	args1(3).Name = "SearchItem.AllTables"
+	args1(3).Value = false
+	args1(4).Name = "SearchItem.SearchFiltered"
+	args1(4).Value = false
+	args1(5).Name = "SearchItem.Backward"
+	args1(5).Value = false
+	args1(6).Name = "SearchItem.Pattern"
+	args1(6).Value = true
+	args1(7).Name = "SearchItem.Content"
+	args1(7).Value = false
+	args1(8).Name = "SearchItem.AsianOptions"
+	args1(8).Value = false
+	args1(9).Name = "SearchItem.AlgorithmType"
+	args1(9).Value = 0
+	args1(10).Name = "SearchItem.SearchFlags"
+	args1(10).Value = 65536
+	args1(11).Name = "SearchItem.SearchString"
+	args1(11).Value = styleName
+	args1(12).Name = "SearchItem.ReplaceString"
+	args1(12).Value = styleName
+	args1(13).Name = "SearchItem.Locale"
+	args1(13).Value = 255
+	args1(14).Name = "SearchItem.ChangedChars"
+	args1(14).Value = 2
+	args1(15).Name = "SearchItem.DeletedChars"
+	args1(15).Value = 2
+	args1(16).Name = "SearchItem.InsertedChars"
+	args1(16).Value = 2
+	args1(17).Name = "SearchItem.TransliterateF	Mri ThisComponentlags"
+	args1(17).Value = 1280
+	args1(18).Name = "SearchItem.Command"
+	args1(18).Value = 0
+	args1(19).Name = "SearchItem.SearchFormatted"
+	args1(19).Value = false
+	args1(20).Name = "SearchItem.AlgorithmType2"
+	args1(20).Value = 1
+	args1(21).Name = "Quiet"
+	args1(21).Value = true
+	dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
+end Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script:module>

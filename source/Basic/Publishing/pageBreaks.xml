@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageBreaks" script:language="StarBasic">
-Sub ExecuteShrinkPageContent
+Sub shrinkPageContent
 Dim oViewCursor As Object 'View cursor
 Dim oTextCursor 'Text cursor
 Dim oSaveEndSelection 'Text cursor
@@ -117,7 +117,7 @@ End If
 
 End Sub
 
-Sub ExecuteSplitPages
+Sub splitPages
 Dim oViewCursor As Object 'View cursor
 Dim oText 'Text object in current document
 Dim oSaveEndSelection 'Text cursor
