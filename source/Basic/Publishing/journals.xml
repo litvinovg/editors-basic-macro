@@ -5,8 +5,6 @@
 Dim oViewCursor As Object
 Dim oTextCursor As Object
 Dim articleEndPosition As Object
-Dim oText As Object
-oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 Dim page As String
 Dim path As String
@@ -22,7 +20,7 @@ If oFilename = "" Then
 	Exit Sub
 End If
 
-Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 
 GlobalScope.BasicLibraries.loadLibrary("Tools")
 path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
@@ -32,7 +30,7 @@ path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
 'Go to article first page
 	page = findFirstPageWithStyle("Первая страница статьи")
 	oViewCursor.jumpToPage(page)
-	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 For i = 1 To 25
 'Find section file
 	FilePath = findArticleFile(path,i)
@@ -49,8 +47,8 @@ For i = 1 To 25
 		setArticlePageStyles(i)
 		page = oViewCursor.getPage()
 		InsertArticle(FilePath)
-		oTextCursor = oText.createTextCursorByRange(oViewCursor)
-		oText.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+		oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+		oViewCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
 		oTextCursor.collapseToEnd()
 		
 	'set page to next article page number
@@ -98,11 +96,9 @@ End Function
 Function getUDK()
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
 	Dim title As String
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	
 	getFirstTextInStyle("Заголовок 2")
 	title = oViewCursor.getString()
@@ -113,11 +109,9 @@ End Function
 Function getCopyright()
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
 	Dim authors As String
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
 	authors = oViewCursor.getString()
 	If authors &lt;&gt; "" Then 
@@ -131,14 +125,12 @@ End Function
 Function getSectionX(curSection)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
 	Dim section As String
 	Dim startPage As String
 	Dim endPage As String
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	startPage = oViewcursor.getPage()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Заголовок 1")
 	section = oViewCursor.getString()
 	endPage = oViewCursor.getPage()
@@ -153,11 +145,9 @@ End Function
 Function getTitleHeader()
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
 	Dim title As String
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)	
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
 	authors = oViewCursor.getString()
 	getFirstTextInStyle("Заголовок 2")
@@ -184,13 +174,12 @@ Sub setArticlePageStyles(i)
 	Dim articleFirstPageStyleName As String 
 	Dim curStyle As Object
 	Dim tmpStyleName As String
-	oText = ThisComponent.Text
 	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
 	firstPageStyleName = "Первая страница статьи"
 	leftPageStyleName = "Левая страница статьи"
 	rightPageStyleName = "Правая страница статьи"
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oTextCursor =  oText.createTextCursorByRange(oViewCursor)
+	oTextCursor =  oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'set starndard first page style name (need for cloning)
 	oTextCursor.PageDescName = firstPageStyleName
 	'clone starndard first page style
@@ -202,8 +191,8 @@ Sub setArticlePageStyles(i)
 	setFirstPageMetadata(curStyle,i)
 	'1 left/right style
 	' create new para for next page
-	oText.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	oTextCursor.BreakType = 4
 	'clone 1 left/right style
 	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
@@ -213,8 +202,8 @@ Sub setArticlePageStyles(i)
 	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
 	setBroadSideMetadata(curStyle,i)
 	'create new para for next page
-	oText.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-	oTextCursor = oText.createTextCursorByRange(oViewCursor)
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'insert page break
 	oTextCursor.BreakType = 4
 	'clone left/right page style
@@ -240,9 +229,8 @@ Sub setFirstPageMetadata(curStyle,i)
 	Dim oHeaderTable As Object
 	Dim rightHeaderCell As Object
 	Dim leftHeaderCell As Object
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'curStyle.HeaderText
 	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
 	'leftHeaderCell
@@ -278,14 +266,12 @@ End Sub
 Sub setBroadSideMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
 	Dim oHeaderTable As Object
 	Dim headerCell As Object
 	Dim leftHeaderCell As Object
 	Dim curStyleName As String
-	oText = ThisComponent.Text
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oSavePosition = oText.createTextCursorByRange(oViewCursor)
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	curStyleName = curStyle.getName()
 	'curStyle.HeaderText
 	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
@@ -409,6 +395,12 @@ Sub takeLineIn
 	oViewCursor.jumpToEndOfPage()
 	oEnd = oViewCursor.getPosition()
 	oViewCursor.jumpToStartOfPage()
+	'Если в таблице - выходим
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	If NOT IsNull(oTextCursor.TextTable) Then
+		Exit Sub
+	End If
+	oViewCursor.jumpToStartOfPage()
 	' Идем конец строки, закончился ли параграф
 	lineCounter = lineCounter + 1
 	Do Until lineCounter = 4
@@ -431,27 +423,35 @@ Sub takeLineIn
 	'Count page lines
 	
 	oViewCursor.jumpToStartOfPage()
-	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'If It is a start of paragraph then there is no line to take in
 	If oTextCursor.isStartOfParagraph() Then
 		'Nothing to Do
 		Exit Sub
 	End If
 	oViewCursor.goToEndOfLine(false)
-	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'If it is a last line of paragraph
 		If oTextCursor.isEndOfParagraph() Then
 			shrinkPageContent()
 			Exit Sub
 		End If
 	oViewCursor.goToEndOfLine(false)
-	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'If it is a last line of paragraph
 	If oTextCursor.isEndOfParagraph() Then
 		shrinkPageContent()
 		Exit Sub
 	End If
 End Sub
+
+Sub test
+	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+'	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	Mri oViewCursor
+End Sub
+
 
 Function getNextPageStyleName()
 	dim curPageStyleName as String 
@@ -466,12 +466,12 @@ Function getNextPageStyleName()
 	startPageStyleName = oViewCursor.PageStyleName
 	startPageStyle = pageStyles.getByName(startPageStyleName)
 	followStyle = startPageStyle.FollowStyle
-	oTextCursor = ThisComponent.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	If oTextCursor.isStartOfParagraph() Then
 		getNextPageStyleName = oViewCursor.PageStyleName
 		Exit Function
 	EndIf
-	ThisComponent.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
 	oViewCursor.goRight(1,false)
 	getNextPageStyleName = oViewCursor.PageStyleName
 	oViewCursor.goLeft(1,false)

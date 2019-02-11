@@ -178,12 +178,12 @@ End Sub
 
 
 Sub ReplaceEverywhere(SearchString,oReplaceString)
-Dim oDoc,oText,oVC,oStart,oEnd,oFind,FandR
+Dim oDoc,oText,oViewCursor,oStart,oEnd,oFind,FandR As Object
 oDoc = ThisComponent 
 oText = oDoc.Text
 Footnotes = oDoc.Footnotes
-oVC = oDoc.CurrentController.getViewCursor
-oStart = oText.createTextCursorByRange(oVC.Start)
+oViewCursor = oDoc.CurrentController.getViewCursor
+oStart = oViewCursor.Text.createTextCursorByRange(oViewCursor.Start)
 FandR = oDoc.createReplaceDescriptor
 With FandR
   .SearchString = SearchString
@@ -191,8 +191,8 @@ With FandR
   .SearchRegularExpression=True
   .searchAll=True
 End With
-If Not oVC.isCollapsed then 
-  oEnd = oText.createTextCursorByRange(oVC.End)
+If Not oViewCursor.isCollapsed then 
+  oEnd = oViewCursor.Text.createTextCursorByRange(oViewCursor.End)
 End If
 If isEmpty(oEnd) then 'Do whole document.
   oDoc.replaceAll(FandR)
@@ -202,7 +202,7 @@ Else 'Do selection.
     If isNull(oFind) then
       Exit Do
     End If
-    If oText.compareRegionEnds(oFind,oEnd) &lt; 0 then 
+    If oViewCursor.Text.compareRegionEnds(oFind,oEnd) &lt; 0 then 
       Exit Do
     End If
     oFind.setString(FandR.ReplaceString)
@@ -352,8 +352,8 @@ end Sub
 
 
 Sub searchAndRemoveDirectFormatting(searchString)
-oVC = thisComponent.getCurrentController.getViewCursor
-oVC.jumpToFirstPage
+oViewCursor = thisComponent.getCurrentController.getViewCursor
+oViewCursor.jumpToFirstPage
 oSearch = ThisComponent.createSearchDescriptor()
 oSearch.SearchString = searchString
 oSearch.SearchRegularExpression=True

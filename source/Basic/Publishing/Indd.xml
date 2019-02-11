@@ -105,8 +105,8 @@ End Function
 sub executeInsertINDDPageBreaks
 document   = ThisComponent.CurrentController.Frame
 dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-oVC = thisComponent.getCurrentController.getViewCursor
-oVC.jumpToFirstPage
+oViewCursor = thisComponent.getCurrentController.getViewCursor
+oViewCursor.jumpToFirstPage
 Dim args(0) as new com.sun.star.beans.PropertyValue
 
 rem Turn off tracking changes to prevent infinite

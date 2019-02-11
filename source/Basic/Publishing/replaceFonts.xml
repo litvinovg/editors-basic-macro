@@ -208,10 +208,14 @@ Sub IPH2Goth
 End Sub
 
 Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPart  As String)
+	Dim oSearch
+	Dim oTextCursor As Object 
+	Dim oViewCursor As Object
+	Dim lineIndent
 	document   = ThisComponent.CurrentController.Frame
 	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-	oVC = thisComponent.getCurrentController.getViewCursor
-	oVC.jumpToFirstPage
+	oViewCursor = thisComponent.getCurrentController.getViewCursor
+	oViewCursor.jumpToFirstPage
 	Dim args(0) as new com.sun.star.beans.PropertyValue
 	
 	rem Turn off tracking changes to prevent infinite
@@ -219,10 +223,7 @@ Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPar
 	args(0).Value = false
 	dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
 	
-	Dim oSearch
-	Dim oTextCursor As Object 
-	Dim oViewCursor As Object
-	Dim lineIndent
+
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSearch = ThisComponent.createSearchDescriptor()
 	oSearch.SearchString = badSymbol

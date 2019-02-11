@@ -6,7 +6,6 @@ Dim oViewCursor As Object 'View cursor
 Dim oTextCursor 'Text cursor
 Dim oSaveEndSelection 'Text cursor
 Dim oEnum 'Cursor enumeration
-Dim oText 'Text object in current document
 Dim oPar 'Current paragraph 
 Dim sTextContent$ 'Service name for text content.
 Dim scaleWidthShrinkValue As Integer
@@ -18,11 +17,10 @@ scaleWidthShrinkValue = 7
 scaleCharHeight = 2
 scaleIntervalHeight = 3
 sTextContent = "com.sun.star.text.TextContent"
-oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 
 'Check if we are at start of paragraph go to the end of previous paragraph
-If oText.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
+If oViewCursor.Text.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
  oViewCursor.goLeft(1,false)
   If Len(oViewCursor.String) &lt;&gt; 1 Then
  	oViewCursor.goRight(1,false)
@@ -32,11 +30,11 @@ End If
 
 'Move right to select left and right characters and save position to the right
 oViewCursor.goRight(1,false)
-oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+oSaveEndSelection = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 'Select last 2 characters
 oViewCursor.goLeft(2,true)
 If Len(oViewCursor.String) = 2 Then
-oLastChars = oText.createTextCursorByRange(oViewCursor)
+oLastChars = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 'Insert hyphen if needed
 insertHyphen(oLastChars,oViewCursor)
 End If
@@ -44,18 +42,18 @@ End If
 oViewCursor.gotoRange(oSaveEndSelection,false) 'Go to end of text to check page changes
 oViewCursor.goLeft(1,false)
 'Set saved position to initial state
-oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+oSaveEndSelection = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 
 
 oViewCursor.jumpToPreviousPage() 
 oViewCursor.jumpToStartOfPage()
-oTextCursor = oText.createTextCursorByRange(oViewCursor)
+oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 oTextCursor.gotoRange(oSaveEndSelection,true)
 oViewCursor.gotoRange(oSaveEndSelection,false) 'Go to end of text to check page changes
 'MsgBox oTextCursor.ParaFirstLineIndent
 '  Exit Sub
 If shrinkIntervalHeight(oTextCursor,oViewCursor,scaleIntervalHeight) Then 
-  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
   If oTextCursor.isEndOfParagraph() Then
     pos1 = oViewCursor.getPage()
     oViewCursor.goRight(1,false)
@@ -75,7 +73,7 @@ If shrinkIntervalHeight(oTextCursor,oViewCursor,scaleIntervalHeight) Then
   Exit Sub
 End If
 If shrinkCharHeight(oTextCursor,oViewCursor,scaleCharHeight) Then 
-  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
   If oTextCursor.isEndOfParagraph() Then
     pos1 = oViewCursor.getPage()
     oViewCursor.goRight(1,false)
@@ -95,7 +93,7 @@ If shrinkCharHeight(oTextCursor,oViewCursor,scaleCharHeight) Then
   Exit Sub
 End If
 If shrinkScaleWidth(oTextCursor,oViewCursor,scaleWidthShrinkValue) Then 
-  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
   If oTextCursor.isEndOfParagraph() Then
     pos1 = oViewCursor.getPage()
     oViewCursor.goRight(1,false)
@@ -122,28 +120,27 @@ Dim oViewCursor As Object 'View cursor
 Dim oText 'Text object in current document
 Dim oSaveEndSelection 'Text cursor
 'saveCurrentVersion
-oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 Dim saveFirstLineIndent As Boolean
 
 'Check if we are at start of paragraph go to the end of previous paragraph
-If oText.createTextCursorByRange(oViewCursor).isEndOfParagraph() Then
+If oViewCursor.Text.createTextCursorByRange(oViewCursor).isEndOfParagraph() Then
   oViewCursor.goRight(1,false)
 End If
-If oText.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
+If oViewCursor.Text.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
   saveFirstLineIndent = true
 Else 
   saveFirstLineIndent = false
 End If
 
 oViewCursor.goRight(1,false)
-oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+oSaveEndSelection = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 'Select last 2 characters
 oViewCursor.goLeft(2,true)
 
 If Len(oViewCursor.String) = 2 Then
 	'Insert hyphen if needed
-	oLastChars = oText.createTextCursorByRange(oViewCursor)
+	oLastChars = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	insertHyphen(oLastChars,oViewCursor)
 End If
 'Return to initial position
@@ -151,7 +148,7 @@ oViewCursor.gotoRange(oSaveEndSelection,false) 'Go to end of text to check page 
 oViewCursor.goLeft(1,false)
 insertPageBreak
 If Not saveFirstLineIndent Then
-  oTextCursor = oText.createTextCursorByRange(oViewCursor)
+  oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
   If Not IsNull(oTextCursor.ParaFirstLineIndent) Then
     oTextCursor.ParaFirstLineIndent = 0
   End If
@@ -318,9 +315,8 @@ Dim oText 'Text object in current document
 Dim oPar 'Current paragraph 
 Dim sTextContent$ 'Service name for text content.
 sTextContent = "com.sun.star.text.TextContent"
-oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
-oSaveEndSelection = oText.createTextCursorByRange(oViewCursor)
+oSaveEndSelection = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 REM oViewCursor.getText.insertString(oViewCursor.getStart(), CHR$(257), False)
 'If Not oViewCursor.jumpToPreviousPage() Then Exit Sub
 oViewCursor.jumpToPreviousPage() 
@@ -328,7 +324,7 @@ oViewCursor.jumpToStartOfPage()
 
 'oViewCursor.goUp(10,true)
 'oViewCursor.getPage()
-oTextCursor = oText.createTextCursorByRange(oViewCursor)
+oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 'oTextCursor.gotoStart(false)
 oTextCursor.gotoRange(oSaveEndSelection,true)
 

@@ -34,9 +34,8 @@ Sub getAttINfo
 Dim oViewCursor As Object
 Dim oText
 Dim oTextCursor
-oText = ThisComponent.Text
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
-oTextCursor = oText.createTextCursorByRange(oViewCursor)
+oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 MsgBox "CharKerning " &amp; oTextCursor.CharKerning
 'MsgBox "CharBackTransparent " &amp; oTextCursor.CharBackTransparent
 End Sub
