@@ -52,30 +52,6 @@
     <style:style style:name="Таблица1.C2" style:family="table-cell">
       <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
-    <style:style style:name="Таблица2" style:family="table">
-      <style:table-properties style:width="277mm" table:align="margins"/>
-    </style:style>
-    <style:style style:name="Таблица2.A" style:family="table-column">
-      <style:table-column-properties style:column-width="45.63mm" style:rel-column-width="10797*"/>
-    </style:style>
-    <style:style style:name="Таблица2.B" style:family="table-column">
-      <style:table-column-properties style:column-width="139.01mm" style:rel-column-width="32889*"/>
-    </style:style>
-    <style:style style:name="Таблица2.C" style:family="table-column">
-      <style:table-column-properties style:column-width="92.36mm" style:rel-column-width="21849*"/>
-    </style:style>
-    <style:style style:name="Таблица2.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
-    </style:style>
-    <style:style style:name="Таблица2.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
-    </style:style>
-    <style:style style:name="Таблица2.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
-    </style:style>
-    <style:style style:name="Таблица2.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
-    </style:style>
     <style:style style:name="Таблица4" style:family="table">
       <style:table-properties style:width="276.93mm" table:align="left"/>
     </style:style>
@@ -98,6 +74,30 @@
       <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица4.C2" style:family="table-cell">
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+    </style:style>
+    <style:style style:name="Таблица2" style:family="table">
+      <style:table-properties style:width="277mm" table:align="margins"/>
+    </style:style>
+    <style:style style:name="Таблица2.A" style:family="table-column">
+      <style:table-column-properties style:column-width="45.63mm" style:rel-column-width="10797*"/>
+    </style:style>
+    <style:style style:name="Таблица2.B" style:family="table-column">
+      <style:table-column-properties style:column-width="139.01mm" style:rel-column-width="32889*"/>
+    </style:style>
+    <style:style style:name="Таблица2.C" style:family="table-column">
+      <style:table-column-properties style:column-width="92.36mm" style:rel-column-width="21849*"/>
+    </style:style>
+    <style:style style:name="Таблица2.A1" style:family="table-cell">
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+    </style:style>
+    <style:style style:name="Таблица2.C1" style:family="table-cell">
+      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
+    </style:style>
+    <style:style style:name="Таблица2.A2" style:family="table-cell">
+      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+    </style:style>
+    <style:style style:name="Таблица2.C2" style:family="table-cell">
       <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="P1" style:family="paragraph" style:parent-style-name="Standard">
@@ -128,58 +128,58 @@
     <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Table_20_Contents">
       <style:text-properties fo:font-size="10pt" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
     </style:style>
-    <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1"/>
-    <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Text_20_body">
+    <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties fo:font-size="10pt" officeooo:paragraph-rsid="02ec13ce" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
+    </style:style>
+    <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
+    </style:style>
+    <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+    </style:style>
+    <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+    </style:style>
+    <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+    </style:style>
+    <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Text_20_body">
       <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false">
         <style:tab-stops/>
       </style:paragraph-properties>
       <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
     </style:style>
-    <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
-      <style:paragraph-properties style:page-number="auto"/>
-      <style:text-properties officeooo:paragraph-rsid="02d82664"/>
-    </style:style>
-    <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Heading_20_1">
-      <style:paragraph-properties fo:break-before="page"/>
-    </style:style>
-    <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties fo:font-size="10pt" officeooo:paragraph-rsid="02ec13ce" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
-    </style:style>
-    <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
-    </style:style>
-    <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+    <style:style style:name="P15" style:family="paragraph" style:parent-style-name="First_20_line_20_indent">
+      <style:paragraph-properties fo:margin-top="8.01mm" fo:margin-bottom="2.47mm" loext:contextual-spacing="false"/>
+      <style:text-properties officeooo:paragraph-rsid="02d964f6"/>
     </style:style>
     <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L1">
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+      <style:text-properties officeooo:rsid="02ed919d" officeooo:paragraph-rsid="02eda724"/>
     </style:style>
-    <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
-    </style:style>
-    <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
+    <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
       <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
       <style:text-properties officeooo:paragraph-rsid="02eda724"/>
     </style:style>
-    <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
-    </style:style>
-    <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Heading_20_2" style:master-page-name="">
+    <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1"/>
+    <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Heading_20_2" style:master-page-name="">
       <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page">
         <style:tab-stops/>
       </style:paragraph-properties>
       <style:text-properties officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
     </style:style>
-    <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Heading_20_2">
+    <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Heading_20_2">
       <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false">
         <style:tab-stops/>
       </style:paragraph-properties>
       <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
     </style:style>
-    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="First_20_line_20_indent">
-      <style:paragraph-properties fo:margin-top="8.01mm" fo:margin-bottom="2.47mm" loext:contextual-spacing="false"/>
-      <style:text-properties officeooo:paragraph-rsid="02d964f6"/>
+    <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
+      <style:paragraph-properties style:page-number="auto"/>
+      <style:text-properties officeooo:paragraph-rsid="02d82664"/>
+    </style:style>
+    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Heading_20_1">
+      <style:paragraph-properties fo:break-before="page"/>
     </style:style>
     <style:style style:name="P23" style:family="paragraph">
       <style:paragraph-properties fo:text-align="center"/>
@@ -208,6 +208,12 @@
     </style:style>
     <style:style style:name="T8" style:family="text">
       <style:text-properties officeooo:rsid="02ef36c4"/>
+    </style:style>
+    <style:style style:name="T9" style:family="text">
+      <style:text-properties fo:background-color="#fff200" loext:char-shading-value="0"/>
+    </style:style>
+    <style:style style:name="T10" style:family="text">
+      <style:text-properties fo:background-color="#fff200" loext:char-shading-value="0"/>
     </style:style>
     <text:list-style style:name="L1">
       <text:list-level-style-number text:level="1" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
@@ -358,10 +364,10 @@
         <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
         <text:sequence-decl text:display-outline-level="0" text:name="Figure"/>
       </text:sequence-decls>
-      <text:h text:style-name="P11" text:outline-level="1">Данный файл содержит<text:span text:style-name="T2"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
+      <text:h text:style-name="P21" text:outline-level="1">Данный файл содержит<text:span text:style-name="T2"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
       <text:p text:style-name="Text_20_body">Чтобы Вы могли их установить, Вам прежде всего необходимо разрешить их установку в <text:span text:style-name="T2">Lib</text:span>reOffice:</text:p>
-      <text:p text:style-name="P3">1. Зайдите в меню Сервис → пункт Параметры → в левой части нового окна выберите пункт Безопасность → в правой части окна нажмите кнопку «Безопасность макросов». В открывшемся окна выберите средний уровень безопасности. Нажмите Ок в открытых окнах.</text:p>
-      <text:p text:style-name="P4">2. Закройте и откройте этот документ снова. При отрытии Вы увидите предупреждение безопасности. Нажмите разрешить макросы. Теперь Вы можете выбрать, какую панель с программами Вы хотите установить. Для этого нажмите на соответствующую кнопку ниже. Можно установить все панели, а потом просто закрыть ненужные.</text:p>
+      <text:p text:style-name="P3">1. Зайдите в меню <text:span text:style-name="T10">Сервис</text:span> → пункт <text:span text:style-name="T10">Параметры</text:span> → в левой части нового окна выберите пункт <text:span text:style-name="T10">Безопасность</text:span> → в правой части окна нажмите кнопку «<text:span text:style-name="T10">Безопасность макросов</text:span>». В открывшемся окна выберите <text:span text:style-name="T10">средний уровень</text:span> безопасности. Нажмите Ок в открытых окнах.</text:p>
+      <text:p text:style-name="P4">2. Закройте и откройте этот документ снова. При отрытии Вы увидите предупреждение. Нажмите разрешить макросы. Теперь Вы можете выбрать, какую панель с программами Вы хотите установить. Для этого нажмите на соответствующую кнопку ниже. Можно установить все панели, а потом просто закрыть ненужные.</text:p>
       <table:table table:name="Таблица3" table:style-name="Таблица3">
         <table:table-column table:style-name="Таблица3.A"/>
         <table:table-column table:style-name="Таблица3.B"/>
@@ -404,9 +410,9 @@
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:p text:style-name="P22">Если <text:span text:style-name="T3">после нажатия на кнопки панели не появляются, то видимо Вы не разрешили макросы (как это сделать описано выше)</text:span></text:p>
+      <text:p text:style-name="P15">Если <text:span text:style-name="T3">после нажатия на кнопки панели не появляются, то видимо Вы не разрешили макросы (как это сделать описано выше)</text:span></text:p>
       <text:p text:style-name="P5">На следующих страницах приведено описание устанавливаемых программ</text:p>
-      <text:h text:style-name="P12" text:outline-level="1">Документация по <text:span text:style-name="T5">программам (макросам)</text:span></text:h>
+      <text:h text:style-name="P22" text:outline-level="1">Документация по <text:span text:style-name="T5">программам (макросам)</text:span></text:h>
       <text:h text:style-name="Heading_20_2" text:outline-level="2">Макросы <text:span text:style-name="T5">для</text:span> редактор<text:span text:style-name="T5">ов</text:span></text:h>
       <table:table table:name="Таблица1" table:style-name="Таблица1">
         <table:table-column table:style-name="Таблица1.A"/>
@@ -451,42 +457,40 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list4129375862" text:style-name="L1">
+            <text:list xml:id="list507482451" text:style-name="L1">
               <text:list-item>
-                <text:p text:style-name="P9">Множество последовательных пробелов заменяется на единственный</text:p>
+                <text:p text:style-name="P18">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Удаляются пробелы перед знаками пунктуации</text:p>
+                <text:p text:style-name="P18">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Тире между цифрами заменяется на цифровое тире</text:p>
+                <text:p text:style-name="P18">Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Тире между словами заменяется на среднее тире</text:p>
+                <text:p text:style-name="P18">Тире между словами заменяется на среднее тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробелы после открывания скобок или кавычек удаляются</text:p>
+                <text:p text:style-name="P18">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
+                <text:p text:style-name="P18">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
-                <text:p text:style-name="P16">
-                  <text:span text:style-name="T6">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:span>
-                </text:p>
+                <text:p text:style-name="P18">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
+                <text:p text:style-name="P16">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:p>
               </text:list-item>
             </text:list>
           </table:table-cell>
@@ -499,31 +503,31 @@
             <text:p text:style-name="Table_20_Contents">Формат</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="P17">Очищает ручное форматирование, кроме <text:span text:style-name="T7">следующего</text:span>: </text:p>
-            <text:list xml:id="list1241644383" text:style-name="L2">
+            <text:p text:style-name="P12">Очищает ручное форматирование, кроме <text:span text:style-name="T7">следующего</text:span>: </text:p>
+            <text:list xml:id="list3150546757" text:style-name="L2">
               <text:list-item>
-                <text:p text:style-name="P18"><text:soft-page-break/><text:span text:style-name="T7">П</text:span>олужирного</text:p>
+                <text:p text:style-name="P17"><text:soft-page-break/><text:span text:style-name="T7">П</text:span>олужирного</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">К</text:span>урсива</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">К</text:span>урсива</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">П</text:span>одчеркивания</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">П</text:span>одчеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">З</text:span>ачеркивания</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">З</text:span>ачеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">В</text:span>ерхн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">В</text:span>ерхн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">Н</text:span>ижн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">Н</text:span>ижн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P18"><text:span text:style-name="T7">Р</text:span>астянут<text:span text:style-name="T7">ый</text:span> текст (2пт)</text:p>
+                <text:p text:style-name="P17"><text:span text:style-name="T7">Р</text:span>астянут<text:span text:style-name="T7">ый</text:span> текст (2пт)</text:p>
               </text:list-item>
             </text:list>
-            <text:p text:style-name="P19">Все шрифты, примененные к тексту, кроме <text:span text:style-name="T8">IPH Serif</text:span>, сохраняются в одноименные стили симолов для дальнейшего удобства работы с ними. Пустые пользовательские стили после выполнения этого макроса удаляются (кроме стилей из шаблона статьи)</text:p>
+            <text:p text:style-name="P13">Все шрифты, примененные к тексту, кроме <text:span text:style-name="T8">IPH Serif</text:span>, сохраняются в одноименные стили симолов для дальнейшего удобства работы с ними. Пустые пользовательские стили после выполнения этого макроса удаляются (кроме стилей из шаблона статьи)</text:p>
             <text:p text:style-name="Table_20_Contents">Все сноски переводятся в стиль Сноска.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
@@ -542,91 +546,91 @@
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:h text:style-name="P20" text:outline-level="2">Макросы для работы со шрифтами</text:h>
-      <text:p text:style-name="P10"/>
+      <text:h text:style-name="P19" text:outline-level="2">Макросы для работы со шрифтами</text:h>
+      <text:p text:style-name="P14"/>
       <table:table table:name="Таблица4" table:style-name="Таблица4">
         <table:table-column table:style-name="Таблица4.A"/>
         <table:table-column table:style-name="Таблица4.B"/>
         <table:table-column table:style-name="Таблица4.C"/>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A1" office:value-type="string">
-            <text:p text:style-name="P15">Название</text:p>
+            <text:p text:style-name="P11">Название</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A1" office:value-type="string">
-            <text:p text:style-name="P15">Описание</text:p>
+            <text:p text:style-name="P11">Описание</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C1" office:value-type="string">
-            <text:p text:style-name="P13">Путь макроса для выполнения по сочетанию клавиш</text:p>
+            <text:p text:style-name="P9">Путь макроса для выполнения по сочетанию клавиш</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P15">TNR2IPH</text:p>
+            <text:p text:style-name="P11">TNR2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Times New Roman</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Times New Roman</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TNR2IPH</text:span></text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TNR2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P15">Univ2IPH</text:p>
+            <text:p text:style-name="P11">Univ2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Universalia</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Universalia</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">Univ2IPH</text:span></text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">Univ2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14">Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
+            <text:p text:style-name="P10">Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> все символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">IPH Serif</text:span> в WL LatinAllIn1Goth </text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">IPH Serif</text:span> в WL LatinAllIn1Goth </text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P15">TimesAr2IPH</text:p>
+            <text:p text:style-name="P11">TimesAr2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> символы из <text:span text:style-name="T5">Times Arabic</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> символы из <text:span text:style-name="T5">Times Arabic</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TimesAr2IPH</text:span></text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TimesAr2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P15">badGoth2IPH</text:p>
+            <text:p text:style-name="P11">badGoth2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P14"><text:span text:style-name="T5">Преобразует</text:span> символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif, даже если для этих символов не установлен шрифт <text:s/>WL LatinAllIn1Goth. Если в документе есть другой нестандартный шрифт, то применение данного шрифта может испортить документ (символы другого шрифта будут неправильно преобразованы)</text:span></text:p>
+            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif, даже если для этих символов не установлен шрифт <text:s/>WL LatinAllIn1Goth. Если в документе есть другой нестандартный шрифт, то применение данного шрифта может испортить документ (символы другого шрифта будут неправильно преобразованы)</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">badGoth2IPH</text:span></text:p>
+            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">badGoth2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:h text:style-name="P21" text:outline-level="2">Макросы на панели со всеми макросами</text:h>
+      <text:h text:style-name="P20" text:outline-level="2">Макросы на панели со всеми макросами</text:h>
       <table:table table:name="Таблица2" table:style-name="Таблица2">
         <table:table-column table:style-name="Таблица2.A"/>
         <table:table-column table:style-name="Таблица2.B"/>
@@ -647,9 +651,9 @@
             <text:p text:style-name="Table_20_Contents">__</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209498654660" text:continue-list="list4129375862" text:style-name="L1">
+            <text:list xml:id="list154147974777196" text:continue-list="list507482451" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Множество последовательных пробелов заменяется на единственный</text:p>
+                <text:p text:style-name="P18">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -673,9 +677,9 @@
             <text:p text:style-name="Table_20_Contents">_!</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209738305803" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154147982927845" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Удаляются пробелы перед знаками пунктуации</text:p>
+                <text:p text:style-name="P18">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -688,9 +692,9 @@
             <text:p text:style-name="Table_20_Contents">№-№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153208519100272" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149676276252" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Тире между цифрами заменяется на цифровое тире</text:p>
+                <text:p text:style-name="P18">Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -703,9 +707,9 @@
             <text:p text:style-name="Table_20_Contents">а - а</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209059169109" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154148982463397" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Тире между словами заменяется на среднее тире</text:p>
+                <text:p text:style-name="P18">Тире между словами заменяется на среднее тире</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -719,9 +723,9 @@
             <text:p text:style-name="Table_20_Contents">(_</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209270018965" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154148395517846" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробелы после открывания скобок или кавычек удаляются</text:p>
+                <text:p text:style-name="P18">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -734,9 +738,9 @@
             <text:p text:style-name="Table_20_Contents">Фам_И.О.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209493268475" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154148380444819" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -749,9 +753,9 @@
             <text:p text:style-name="Table_20_Contents">И.О._Фам</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153208867651706" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149967299457" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -764,9 +768,9 @@
             <text:p text:style-name="Table_20_Contents">и_т._д.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153208058306723" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149383946447" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
+                <text:p text:style-name="P18">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -779,9 +783,9 @@
             <text:p text:style-name="Table_20_Contents">с|том</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153208105765846" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154148607806149" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -794,9 +798,9 @@
             <text:p text:style-name="Table_20_Contents">т._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153208636113190" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154148199721647" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробел между том. 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между том. 7 заменяется на неразрывный</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -809,9 +813,9 @@
             <text:p text:style-name="Table_20_Contents">с._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209552709910" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149293622129" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробелы между с. 7 и серия 7 заменяются на неразрывные</text:p>
+                <text:p text:style-name="P18">Пробелы между с. 7 и серия 7 заменяются на неразрывные</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -824,9 +828,9 @@
             <text:p text:style-name="Table_20_Contents">ч._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153209655705633" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149918657401" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробелы между ч. 7 и часть 7 заменяются на неразрывные</text:p>
+                <text:p text:style-name="P18">Пробелы между ч. 7 и часть 7 заменяются на неразрывные</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -839,9 +843,9 @@
             <text:p text:style-name="Table_20_Contents">г._№</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:list xml:id="list153207979552300" text:continue-numbering="true" text:style-name="L1">
+            <text:list xml:id="list154149672803562" text:continue-numbering="true" text:style-name="L1">
               <text:list-header>
-                <text:p text:style-name="P9">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
+                <text:p text:style-name="P18">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
               </text:list-header>
             </text:list>
           </table:table-cell>
@@ -888,39 +892,39 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
             <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list153208175841374" text:continue-list="list153207979552300" text:style-name="L1">
+            <text:list xml:id="list154149514847282" text:continue-list="list154149672803562" text:style-name="L1">
               <text:list-item text:start-value="1">
-                <text:p text:style-name="P9">Множество последовательных пробелов заменяется на единственный</text:p>
+                <text:p text:style-name="P18">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Удаляются пробелы перед знаками пунктуации</text:p>
+                <text:p text:style-name="P18">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9"><text:soft-page-break/>Тире между цифрами заменяется на цифровое тире</text:p>
+                <text:p text:style-name="P18"><text:soft-page-break/>Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Тире между словами заменяется на среднее тире</text:p>
+                <text:p text:style-name="P18">Тире между словами заменяется на среднее тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробелы после открывания скобок или кавычек удаляются</text:p>
+                <text:p text:style-name="P18">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
+                <text:p text:style-name="P18">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P18">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P9">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
+                <text:p text:style-name="P18">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
               </text:list-item>
             </text:list>
           </table:table-cell>
