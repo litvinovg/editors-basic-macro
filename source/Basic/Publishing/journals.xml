@@ -2,6 +2,8 @@
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">Sub makeUpIssue
 
+Dim statusIndicator as Object
+statusIndicator = ThisComponent.getCurrentController.StatusIndicator
 Dim oViewCursor As Object
 Dim oTextCursor As Object
 Dim articleEndPosition As Object
@@ -33,13 +35,13 @@ path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
 	firstPage = page
 	oViewCursor.jumpToPage(page)
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	statusIndicator.Start("Сборка выпуска начата, подождите",30)
 For i = 1 To 25
 'Find section file
 	FilePath = findArticleFile(path,i)
 	If FilePath="" Then
 		Exit For
 	EndIF 
-
 	'Add Article 
 	If FileExists(FilePath) Then 
 		oViewCursor.goToRange(oTextCursor,false)
@@ -49,6 +51,7 @@ For i = 1 To 25
 		setArticlePageStyles(i)
 		page = oViewCursor.getPage()
 		InsertArticle(FilePath)
+		statusIndicator.setValue(i)
 		oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 		oViewCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
 		oTextCursor.collapseToEnd()
@@ -76,17 +79,21 @@ For i = 1 To 25
 	sectionName = getSectionX(sectionName)
 	modifyVar("leftHeader" + i , sectionName )
 Next i
+	statusIndicator.setValue(26)
 	'remove last empty page
 	oViewCursor.jumpToPage(page)
 	oViewCursor.jumpToPage(getArticleLastPage())
 	removeEmptyPage()
+	statusIndicator.setValue(28)
 	'Set pageNums
 	setPageNumbers(firstPage)
+	statusIndicator.setValue(29)
 	
 'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 ' Mri oViewCursor
 'Задать нумерацию сносок на каждую главу
-ThisComponent.FootnoteSettings.FootnoteCounting=1
+	ThisComponent.FootnoteSettings.FootnoteCounting=1
+	statusIndicator.end()
 End Sub
 
 Sub setPageNumbers(firstPage)
