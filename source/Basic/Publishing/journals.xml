@@ -70,10 +70,9 @@ For i = 1 To 25
 	takeWidowLinesIn()
 	oViewCursor.jumpToPage(page)
 '	takeWidowOrphans()
-
 	'Set section name
-'	sectionName = getSectionX(sectionName)
-'	modifyVar("leftHeader" + i , sectionName )
+	sectionName = getSectionX(sectionName)
+	modifyVar("leftHeader" + i , sectionName )
 Next i
 'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 ' Mri oViewCursor
@@ -85,7 +84,6 @@ Sub setAtricleVars(i)
 	modifyVar("article" + i + "LastPage", CStr(getLastPage()) )
 	'modifyVar("article" + i + "UDK", getUDK())
 	modifyVar("author" + i + "Copyright", getCopyright() )
-	'modifyVar("leftHeader" + i , getSection() )
 	'modifyVar("rightHeader" + i , getTitleHeader() )
 End Sub
 
@@ -128,6 +126,9 @@ Function getSectionX(curSection)
 	Dim section As String
 	Dim startPage As String
 	Dim endPage As String
+	If curSection = "" Then
+		curSection = "Задайте название радела!"
+	End If
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	startPage = oViewcursor.getPage()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
@@ -135,7 +136,7 @@ Function getSectionX(curSection)
 	section = oViewCursor.getString()
 	endPage = oViewCursor.getPage()
 	If CInt(startPage) &lt;= CInt(endPage) Then
-		getSectionX =  Left(authors,1 )+  LCase(Right(section,Len(section)-1))
+		getSectionX =  UCase(Left(section, 1)) +  LCase(Right(section,Len(section)-1))
 		Exit Function
 	End If
 	getSectionX = curSection
