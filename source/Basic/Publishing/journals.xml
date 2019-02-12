@@ -7,6 +7,7 @@ Dim oTextCursor As Object
 Dim articleEndPosition As Object
 oViewCursor = ThisComponent.CurrentController.getViewCursor()
 Dim page As String
+Dim firstPage As String
 Dim path As String
 Dim tmp As String
 Dim sectionName As String
@@ -29,6 +30,7 @@ path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
 ' Add article for each section
 'Go to article first page
 	page = findFirstPageWithStyle("Первая страница статьи")
+	firstPage = page
 	oViewCursor.jumpToPage(page)
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 For i = 1 To 25
@@ -74,9 +76,12 @@ For i = 1 To 25
 	sectionName = getSectionX(sectionName)
 	modifyVar("leftHeader" + i , sectionName )
 Next i
+	'remove last empty page
 	oViewCursor.jumpToPage(page)
 	oViewCursor.jumpToPage(getArticleLastPage())
 	removeEmptyPage()
+	'Set pageNums
+	setPageNumbers(firstPage)
 	
 'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 ' Mri oViewCursor
@@ -84,8 +89,22 @@ Next i
 ThisComponent.FootnoteSettings.FootnoteCounting=1
 End Sub
 
+Sub setPageNumbers(firstPage)
+	Dim oVeiwCursor As Object
+	Dim pageNum as Integer
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToPage(firstPage)
+	For i = 1 To 25 
+		pageNum = getArticleLastPage()
+		If pageNum = -1 Then
+			Exit For
+		End If
+		modifyVar("article" + i + "LastPage", CStr(pageNum) )
+	Next i
+End Sub
+
 Sub setAtricleVars(i)
-	modifyVar("article" + i + "LastPage", CStr(getArticleLastPage()) )
+	'modifyVar("article" + i + "LastPage", CStr(getArticleLastPage()) )
 	'modifyVar("article" + i + "UDK", getUDK())
 	modifyVar("author" + i + "Copyright", getCopyright() )
 	'modifyVar("rightHeader" + i , getTitleHeader() )
@@ -96,6 +115,7 @@ Function getArticleLastPage()
 	Dim docLastPage As Integer
 	Dim curPageNum As Integer
 	Dim oViewCursor As Object
+	curPageNum = -1
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	Dim oSavePosition As Object
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
@@ -103,8 +123,13 @@ Function getArticleLastPage()
 	oViewCursor.jumpToEndOfPage()
 	docLastPage = CInt(oViewCursor.getPage())
 	oViewCursor.goToRange(oSavePosition,false)
+	If CInt(oViewCursor.getPage()) = docLastPage Then
+		getArticleLastPage = -1
+		Exit Function
+	End If
 	Dim curPageStyleName As String
 	curPageStyleName = oViewCursor.PageStyleName
+
 	Do Until  InStr(curPageStyleName,"статьи") = 0
 		curPageNum = CInt(oViewCursor.getPage())
 		If curPageNum = docLastPage Then
@@ -156,7 +181,6 @@ End Function
 Function getSectionX(section)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim section As String
 	Dim startPage As String
 	Dim endPage As String
 	If section = "" Then
