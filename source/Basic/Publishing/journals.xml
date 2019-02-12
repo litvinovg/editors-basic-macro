@@ -81,14 +81,44 @@ ThisComponent.FootnoteSettings.FootnoteCounting=1
 End Sub
 
 Sub setAtricleVars(i)
-	modifyVar("article" + i + "LastPage", CStr(getLastPage()) )
+	modifyVar("article" + i + "LastPage", CStr(getArticleLastPage()) )
 	'modifyVar("article" + i + "UDK", getUDK())
 	modifyVar("author" + i + "Copyright", getCopyright() )
 	'modifyVar("rightHeader" + i , getTitleHeader() )
 End Sub
 
-Function getLastPage()
-	getLastPage = ThisComponent.CurrentController.PageCount - 4
+Function getArticleLastPage()
+	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim docLastPage As Integer
+	Dim curPageNum As Integer
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	Dim oSavePosition As Object
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
+	oViewCursor.jumpToLastPage()
+	oViewCursor.jumpToEndOfPage()
+	docLastPage = CInt(oViewCursor.getPage())
+	oViewCursor.goToRange(oSavePosition,false)
+	Dim curPageStyleName As String
+	curPageStyleName = oViewCursor.PageStyleName
+	Do Until  InStr(curPageStyleName,"статьи") = 0
+		curPageNum = CInt(oViewCursor.getPage())
+		If curPageNum = docLastPage Then
+			Exit Do
+		End If
+		If curPageNum = 0 Then
+			MsgBox "Произошла ошибка при нахождении последней страницы статьи"
+			Exit Do
+		End If
+				
+		oViewCursor.jumpToNextPage()
+		curPageStyleName = getNextPageStyleName()
+		If InStr(curPageStyleName,"Первая страница статьи") = 1 Then
+			Exit Do
+		End If
+	Loop
+	getArticleLastPage = curPageNum
+	MsgBox curPageNum
 End Function
 
 Function getUDK()
