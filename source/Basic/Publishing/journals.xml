@@ -86,7 +86,7 @@ Next i
 	removeEmptyPage()
 	statusIndicator.setValue(28)
 	'Set pageNums
-	setPageNumbers(firstPage)
+	setPageNumbers()
 	statusIndicator.setValue(29)
 	
 'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
@@ -96,13 +96,17 @@ Next i
 	statusIndicator.end()
 End Sub
 
-Sub setPageNumbers(firstPage)
+Sub setPageNumbers()
 	Dim oVeiwCursor As Object
 	Dim pageNum as Integer
+	Dim firstPage as String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToFirstPage()
+	firstPage =  findFirstPageWithStyle("Первая страница статьи 1")
 	oViewCursor.jumpToPage(firstPage)
 	For i = 1 To 25 
 		pageNum = getArticleLastPage()
+		'msgBox pageNum
 		If pageNum = -1 Then
 			Exit For
 		End If

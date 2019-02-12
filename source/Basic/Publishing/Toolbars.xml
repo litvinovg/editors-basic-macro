@@ -103,39 +103,46 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
+  sCmdID   = "vnd.sun.star.script:Publishing.journals.setPageNumbers?language=Basic&amp;location=application"
+  sCmdLable = "№стр.статей"
+  nCount = 1
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  
   sCmdID   = "vnd.sun.star.script:Publishing.pageBreaks.shrinkPageContent?language=Basic&amp;location=application"
   sCmdLable = "Разрыв со сжатием"
-  nCount = 1
+  nCount = 2
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
     sCmdID   = "vnd.sun.star.script:Publishing.pageBreaks.splitPages?language=Basic&amp;location=application"
   sCmdLable = "Разрыв"
-  nCount = 2
+  nCount = 3
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
 
   sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.executeReplaceFonts?language=Basic&amp;location=application"
   sCmdLable = "ШрифтыВстили"
-  nCount = 3
+  nCount = 4
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.NotesCleanStyle?language=Basic&amp;location=application"
   sCmdLable = "СтилиСносок"
-  nCount = 4
+  nCount = 5
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Indd.executeInsertINDDPageBreaks?language=Basic&amp;location=application"
   sCmdLable = "Indd"
-  nCount = 5
+  nCount = 6
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Indd.CreateBidirectionalLink?language=Basic&amp;location=application"
   sCmdLable = "CreateBidirectionalLink"
-  nCount = 6
+  nCount = 7
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
 
