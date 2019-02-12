@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Function findFirstPageWithStyle(pageStyleName)
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Sub removeEmptyPage
+	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToStartOfPage()
+	Dim oTextCursor As Object
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oViewCursor.jumpToEndOfPage()
+	oViewCursor.goToRange(oTextCursor,true)
+	
+	If oViewCursor.isCollapsed Then
+		oViewCursor.goLeft(1,false)
+		SendRM()
+	Else
+		oViewCursor.jumpToEndOfPage()
+	End If
+
+End Sub
+Function findFirstPageWithStyle(pageStyleName)
 	Dim oViewCursor As Object
 	Dim curPage As String
 	Dim prevPage As String

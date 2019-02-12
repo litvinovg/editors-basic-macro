@@ -74,6 +74,10 @@ For i = 1 To 25
 	sectionName = getSectionX(sectionName)
 	modifyVar("leftHeader" + i , sectionName )
 Next i
+	oViewCursor.jumpToPage(page)
+	oViewCursor.jumpToPage(getArticleLastPage())
+	removeEmptyPage()
+	
 'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 ' Mri oViewCursor
 'Задать нумерацию сносок на каждую главу
@@ -118,7 +122,6 @@ Function getArticleLastPage()
 		End If
 	Loop
 	getArticleLastPage = curPageNum
-	MsgBox curPageNum
 End Function
 
 Function getUDK()
@@ -150,26 +153,27 @@ Function getCopyright()
 	End If
 End Function
 
-Function getSectionX(curSection)
+Function getSectionX(section)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
 	Dim section As String
 	Dim startPage As String
 	Dim endPage As String
-	If curSection = "" Then
-		curSection = "Задайте название радела!"
+	If section = "" Then
+		section = "Задайте название радела!"
 	End If
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	startPage = oViewcursor.getPage()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Заголовок 1")
-	section = oViewCursor.getString()
 	endPage = oViewCursor.getPage()
 	If CInt(startPage) &lt;= CInt(endPage) Then
-		getSectionX =  UCase(Left(section, 1)) +  LCase(Right(section,Len(section)-1))
-		Exit Function
+		If Len(oViewCursor.getString()) &gt; 1 Then
+			section = oViewCursor.getString()	
+		End If
+		section =  UCase(Left(section, 1)) +  LCase(Right(section,Len(section)-1))
 	End If
-	getSectionX = curSection
+	getSectionX = section
 	oViewCursor.goToRange(oSavePosition, false)
 End Function
 
@@ -397,7 +401,7 @@ Sub takeWidowLinesIn
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	curPageStyleName = getNextPageStyleName()
 	Do Until  InStr(curPageStyleName,"статьи") = 0
-		takeLineIn
+		takeLineIn()
 		oViewCursor.jumpToNextPage()
 		curPageStyleName = getNextPageStyleName()
 	Loop
@@ -428,7 +432,7 @@ Sub takeLineIn
 	oViewCursor.jumpToStartOfPage()
 	'Если в таблице - выходим
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-	If NOT IsNull(oTextCursor.TextTable) Then
+	If NOT IsEmpty(oTextCursor.TextTable) Then
 		Exit Sub
 	End If
 	oViewCursor.jumpToStartOfPage()
