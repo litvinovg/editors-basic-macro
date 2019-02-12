@@ -15,179 +15,191 @@
   </office:font-face-decls>
   <office:automatic-styles>
     <style:style style:name="Таблица3" style:family="table">
-      <style:table-properties style:width="277mm" table:align="margins"/>
+      <style:table-properties style:width="27.7cm" table:align="margins"/>
     </style:style>
     <style:style style:name="Таблица3.A" style:family="table-column">
-      <style:table-column-properties style:column-width="138.5mm" style:rel-column-width="32767*"/>
+      <style:table-column-properties style:column-width="13.85cm" style:rel-column-width="32767*"/>
     </style:style>
     <style:style style:name="Таблица3.B" style:family="table-column">
-      <style:table-column-properties style:column-width="138.5mm" style:rel-column-width="32768*"/>
+      <style:table-column-properties style:column-width="13.85cm" style:rel-column-width="32768*"/>
     </style:style>
     <style:style style:name="Таблица3.A1" style:family="table-cell">
-      <style:table-cell-properties fo:background-color="transparent" fo:padding="0.97mm" fo:border="none" style:writing-mode="page">
+      <style:table-cell-properties fo:background-color="transparent" fo:padding="0.097cm" fo:border="none" style:writing-mode="page">
         <style:background-image/>
       </style:table-cell-properties>
     </style:style>
     <style:style style:name="Таблица1" style:family="table">
-      <style:table-properties style:width="277mm" table:align="margins"/>
+      <style:table-properties style:width="27.7cm" table:align="margins"/>
     </style:style>
     <style:style style:name="Таблица1.A" style:family="table-column">
-      <style:table-column-properties style:column-width="33.99mm" style:rel-column-width="8041*"/>
+      <style:table-column-properties style:column-width="3.399cm" style:rel-column-width="8041*"/>
     </style:style>
     <style:style style:name="Таблица1.B" style:family="table-column">
-      <style:table-column-properties style:column-width="141.04mm" style:rel-column-width="33368*"/>
+      <style:table-column-properties style:column-width="14.104cm" style:rel-column-width="33368*"/>
     </style:style>
     <style:style style:name="Таблица1.C" style:family="table-column">
-      <style:table-column-properties style:column-width="101.97mm" style:rel-column-width="24126*"/>
+      <style:table-column-properties style:column-width="10.197cm" style:rel-column-width="24126*"/>
     </style:style>
     <style:style style:name="Таблица1.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица1.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица4" style:family="table">
-      <style:table-properties style:width="276.93mm" table:align="left"/>
+      <style:table-properties style:width="27.693cm" table:align="left"/>
     </style:style>
     <style:style style:name="Таблица4.A" style:family="table-column">
-      <style:table-column-properties style:column-width="33.97mm"/>
+      <style:table-column-properties style:column-width="3.397cm"/>
     </style:style>
     <style:style style:name="Таблица4.B" style:family="table-column">
-      <style:table-column-properties style:column-width="151.02mm"/>
+      <style:table-column-properties style:column-width="15.102cm"/>
     </style:style>
     <style:style style:name="Таблица4.C" style:family="table-column">
-      <style:table-column-properties style:column-width="91.93mm"/>
+      <style:table-column-properties style:column-width="9.193cm"/>
     </style:style>
     <style:style style:name="Таблица4.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица4.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица4.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица4.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2" style:family="table">
-      <style:table-properties style:width="277mm" table:align="margins"/>
+      <style:table-properties style:width="27.7cm" table:align="margins"/>
     </style:style>
     <style:style style:name="Таблица2.A" style:family="table-column">
-      <style:table-column-properties style:column-width="45.63mm" style:rel-column-width="10797*"/>
+      <style:table-column-properties style:column-width="4.563cm" style:rel-column-width="10797*"/>
     </style:style>
     <style:style style:name="Таблица2.B" style:family="table-column">
-      <style:table-column-properties style:column-width="139.01mm" style:rel-column-width="32889*"/>
+      <style:table-column-properties style:column-width="13.901cm" style:rel-column-width="32889*"/>
     </style:style>
     <style:style style:name="Таблица2.C" style:family="table-column">
-      <style:table-column-properties style:column-width="92.36mm" style:rel-column-width="21849*"/>
+      <style:table-column-properties style:column-width="9.236cm" style:rel-column-width="21849*"/>
     </style:style>
     <style:style style:name="Таблица2.1" style:family="table-row">
       <style:table-row-properties fo:keep-together="always"/>
     </style:style>
     <style:style style:name="Таблица2.A1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.C1" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.A2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="Таблица2.C2" style:family="table-cell">
-      <style:table-cell-properties fo:padding="0.97mm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
+      <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000"/>
     </style:style>
     <style:style style:name="P1" style:family="paragraph" style:parent-style-name="Standard">
       <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
+      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="02d964f6" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
     </style:style>
     <style:style style:name="P2" style:family="paragraph" style:parent-style-name="Standard">
       <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="02d964f6" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
+      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
     </style:style>
-    <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Text_20_body">
-      <style:text-properties officeooo:rsid="02d82664" officeooo:paragraph-rsid="02d82664"/>
+    <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+      <style:text-properties style:font-name="Liberation Serif"/>
     </style:style>
     <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Text_20_body">
-      <style:text-properties officeooo:rsid="02d82664" officeooo:paragraph-rsid="02d84541"/>
+      <style:text-properties style:font-name="Liberation Serif"/>
     </style:style>
     <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Text_20_body">
-      <style:text-properties officeooo:rsid="02d84541" officeooo:paragraph-rsid="02d84541"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02d82664" officeooo:paragraph-rsid="02d82664"/>
     </style:style>
     <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Text_20_body">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02d82664" officeooo:paragraph-rsid="02d84541"/>
+    </style:style>
+    <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Text_20_body">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02d84541" officeooo:paragraph-rsid="02d84541"/>
+    </style:style>
+    <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Text_20_body">
+      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="02d964f6" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
+    </style:style>
+    <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Text_20_body">
       <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
       <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
     </style:style>
-    <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Text_20_body">
-      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-      <style:text-properties fo:color="#000000" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Serif" fo:font-size="12pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="02d964f6" officeooo:paragraph-rsid="02d964f6" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-overline-style="none" style:text-overline-color="font-color"/>
-    </style:style>
-    <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties fo:font-size="10pt" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
-    </style:style>
-    <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties fo:font-size="10pt" officeooo:paragraph-rsid="02ec13ce" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
-    </style:style>
-    <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
+    <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Text_20_body">
+      <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false">
+        <style:tab-stops/>
+      </style:paragraph-properties>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02ec13ce"/>
     </style:style>
     <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+      <style:text-properties style:font-name="Liberation Serif"/>
     </style:style>
     <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+      <style:text-properties style:font-name="Liberation Serif" fo:font-size="10pt" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
     </style:style>
     <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+      <style:text-properties style:font-name="Liberation Serif" fo:font-size="10pt" officeooo:paragraph-rsid="02ec13ce" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
     </style:style>
-    <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-      <style:text-properties officeooo:rsid="02f1fe37" officeooo:paragraph-rsid="02f1fe37"/>
+    <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L1">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02ed919d" officeooo:paragraph-rsid="02eda724"/>
     </style:style>
-    <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Text_20_body">
-      <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false">
-        <style:tab-stops/>
-      </style:paragraph-properties>
-      <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
+    <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02eda724"/>
     </style:style>
-    <style:style style:name="P16" style:family="paragraph" style:parent-style-name="First_20_line_20_indent">
-      <style:paragraph-properties fo:margin-top="8.01mm" fo:margin-bottom="2.47mm" loext:contextual-spacing="false"/>
-      <style:text-properties officeooo:paragraph-rsid="02d964f6"/>
-    </style:style>
-    <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1"/>
-    <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
-      <style:paragraph-properties style:page-number="auto"/>
-      <style:text-properties officeooo:paragraph-rsid="02d82664"/>
-    </style:style>
-    <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Heading_20_1">
-      <style:paragraph-properties fo:break-before="page"/>
-    </style:style>
-    <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L1">
-      <style:text-properties officeooo:rsid="02ed919d" officeooo:paragraph-rsid="02eda724"/>
-    </style:style>
-    <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
+    <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
       <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-      <style:text-properties officeooo:paragraph-rsid="02eda724"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02eda724"/>
     </style:style>
-    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Heading_20_2" style:master-page-name="">
-      <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page">
-        <style:tab-stops/>
-      </style:paragraph-properties>
-      <style:text-properties officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+    <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02eda724"/>
+    </style:style>
+    <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+    </style:style>
+    <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02ec13ce"/>
+    </style:style>
+    <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02f1fe37" officeooo:paragraph-rsid="02f1fe37"/>
+    </style:style>
+    <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Heading_20_1">
+      <style:paragraph-properties fo:break-before="page"/>
+      <style:text-properties style:font-name="Liberation Serif"/>
+    </style:style>
+    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
+      <style:paragraph-properties style:page-number="auto"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02d82664"/>
     </style:style>
     <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Heading_20_2">
-      <style:paragraph-properties fo:margin-left="0mm" fo:margin-right="0mm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0mm" style:auto-text-indent="false">
+      <style:text-properties style:font-name="Liberation Serif"/>
+    </style:style>
+    <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Heading_20_2">
+      <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false">
         <style:tab-stops/>
       </style:paragraph-properties>
-      <style:text-properties officeooo:paragraph-rsid="02ec13ce"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02ec13ce"/>
     </style:style>
-    <style:style style:name="P24" style:family="paragraph">
+    <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Heading_20_2" style:master-page-name="">
+      <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" style:page-number="auto" fo:break-before="page">
+        <style:tab-stops/>
+      </style:paragraph-properties>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02ec13ce" officeooo:paragraph-rsid="02ec13ce"/>
+    </style:style>
+    <style:style style:name="P26" style:family="paragraph" style:parent-style-name="First_20_line_20_indent">
+      <style:paragraph-properties fo:margin-top="0.801cm" fo:margin-bottom="0.247cm" loext:contextual-spacing="false"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02d964f6"/>
+    </style:style>
+    <style:style style:name="P27" style:family="paragraph">
       <style:paragraph-properties fo:text-align="center"/>
       <style:text-properties style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="12pt" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal"/>
     </style:style>
@@ -221,6 +233,9 @@
     <style:style style:name="T10" style:family="text">
       <style:text-properties officeooo:rsid="02f316d5"/>
     </style:style>
+    <style:style style:name="T11" style:family="text">
+      <style:text-properties style:font-name="Liberation Serif" fo:language="ru" fo:country="RU"/>
+    </style:style>
     <text:list-style style:name="L1">
       <text:list-level-style-number text:level="1" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
@@ -229,99 +244,99 @@
       </text:list-level-style-number>
       <text:list-level-style-number text:level="2" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="19.05mm" fo:text-indent="-6.35mm" fo:margin-left="19.05mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="1.905cm" fo:text-indent="-0.635cm" fo:margin-left="1.905cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="3" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="25.4mm" fo:text-indent="-6.35mm" fo:margin-left="25.4mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="2.54cm" fo:text-indent="-0.635cm" fo:margin-left="2.54cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="4" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="31.75mm" fo:text-indent="-6.35mm" fo:margin-left="31.75mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.175cm" fo:text-indent="-0.635cm" fo:margin-left="3.175cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="5" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="38.1mm" fo:text-indent="-6.35mm" fo:margin-left="38.1mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.81cm" fo:text-indent="-0.635cm" fo:margin-left="3.81cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="6" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="44.45mm" fo:text-indent="-6.35mm" fo:margin-left="44.45mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="4.445cm" fo:text-indent="-0.635cm" fo:margin-left="4.445cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="7" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="50.8mm" fo:text-indent="-6.35mm" fo:margin-left="50.8mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.08cm" fo:text-indent="-0.635cm" fo:margin-left="5.08cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="8" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="57.15mm" fo:text-indent="-6.35mm" fo:margin-left="57.15mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.715cm" fo:text-indent="-0.635cm" fo:margin-left="5.715cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="9" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="63.5mm" fo:text-indent="-6.35mm" fo:margin-left="63.5mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.35cm" fo:text-indent="-0.635cm" fo:margin-left="6.35cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="10" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="69.85mm" fo:text-indent="-6.35mm" fo:margin-left="69.85mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.985cm" fo:text-indent="-0.635cm" fo:margin-left="6.985cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
     </text:list-style>
     <text:list-style style:name="L2">
       <text:list-level-style-number text:level="1" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="12.7mm" fo:text-indent="-6.35mm" fo:margin-left="12.7mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="1.27cm" fo:text-indent="-0.635cm" fo:margin-left="1.27cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="2" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="19.05mm" fo:text-indent="-6.35mm" fo:margin-left="19.05mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="1.905cm" fo:text-indent="-0.635cm" fo:margin-left="1.905cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="3" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="25.4mm" fo:text-indent="-6.35mm" fo:margin-left="25.4mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="2.54cm" fo:text-indent="-0.635cm" fo:margin-left="2.54cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="4" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="31.75mm" fo:text-indent="-6.35mm" fo:margin-left="31.75mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.175cm" fo:text-indent="-0.635cm" fo:margin-left="3.175cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="5" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="38.1mm" fo:text-indent="-6.35mm" fo:margin-left="38.1mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="3.81cm" fo:text-indent="-0.635cm" fo:margin-left="3.81cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="6" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="44.45mm" fo:text-indent="-6.35mm" fo:margin-left="44.45mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="4.445cm" fo:text-indent="-0.635cm" fo:margin-left="4.445cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="7" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="50.8mm" fo:text-indent="-6.35mm" fo:margin-left="50.8mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.08cm" fo:text-indent="-0.635cm" fo:margin-left="5.08cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="8" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="57.15mm" fo:text-indent="-6.35mm" fo:margin-left="57.15mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="5.715cm" fo:text-indent="-0.635cm" fo:margin-left="5.715cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="9" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="63.5mm" fo:text-indent="-6.35mm" fo:margin-left="63.5mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.35cm" fo:text-indent="-0.635cm" fo:margin-left="6.35cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
       <text:list-level-style-number text:level="10" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
         <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
-          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="69.85mm" fo:text-indent="-6.35mm" fo:margin-left="69.85mm"/>
+          <style:list-level-label-alignment text:label-followed-by="listtab" text:list-tab-stop-position="6.985cm" fo:text-indent="-0.635cm" fo:margin-left="6.985cm"/>
         </style:list-level-properties>
       </text:list-level-style-number>
     </text:list-style>
@@ -370,370 +385,370 @@
         <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
         <text:sequence-decl text:display-outline-level="0" text:name="Figure"/>
       </text:sequence-decls>
-      <text:h text:style-name="P18" text:outline-level="1">Данный файл содержит<text:span text:style-name="T2"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
-      <text:p text:style-name="Text_20_body">Чтобы Вы могли их установить, Вам прежде всего необходимо разрешить их установку в <text:span text:style-name="T2">Lib</text:span>reOffice:</text:p>
-      <text:p text:style-name="P3">1. Зайдите в меню <text:span text:style-name="T9">Сервис</text:span> → пункт <text:span text:style-name="T9">Параметры</text:span> → в левой части нового окна выберите пункт <text:span text:style-name="T9">Безопасность</text:span> → в правой части окна нажмите кнопку «<text:span text:style-name="T9">Безопасность макросов</text:span>». В открывшемся окна выберите <text:span text:style-name="T9">средний уровень</text:span> безопасности. Нажмите Ок в открытых окнах.</text:p>
-      <text:p text:style-name="P4">2. Закройте и откройте этот документ снова. При отрытии Вы увидите предупреждение. Нажмите разрешить макросы. Теперь Вы можете выбрать, какую панель с программами Вы хотите установить. Для этого нажмите на соответствующую кнопку ниже. Можно установить все панели, а потом просто закрыть ненужные.</text:p>
+      <text:h text:style-name="P22" text:outline-level="1">Данный файл содержит<text:span text:style-name="T2"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
+      <text:p text:style-name="P4">Чтобы Вы могли их установить, Вам прежде всего необходимо разрешить их установку в <text:span text:style-name="T2">Lib</text:span>reOffice:</text:p>
+      <text:p text:style-name="P5">1. Зайдите в меню <text:span text:style-name="T9">Сервис</text:span> → пункт <text:span text:style-name="T9">Параметры</text:span> → в левой части нового окна выберите пункт <text:span text:style-name="T9">Безопасность</text:span> → в правой части окна нажмите кнопку «<text:span text:style-name="T9">Безопасность макросов</text:span>». В открывшемся окна выберите <text:span text:style-name="T9">средний уровень</text:span> безопасности. Нажмите Ок в открытых окнах.</text:p>
+      <text:p text:style-name="P6">2. Закройте и откройте этот документ снова. При отрытии Вы увидите предупреждение. Нажмите разрешить макросы. Теперь Вы можете выбрать, какую панель с программами Вы хотите установить. Для этого нажмите на соответствующую кнопку ниже. Можно установить все панели, а потом просто закрыть ненужные.</text:p>
       <table:table table:name="Таблица3" table:style-name="Таблица3">
         <table:table-column table:style-name="Таблица3.A"/>
         <table:table-column table:style-name="Таблица3.B"/>
         <table:table-row>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P7">Кому может быть полезна</text:p>
+            <text:p text:style-name="P8">Кому может быть полезна</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P2">Кнопки установки панелей</text:p>
+            <text:p text:style-name="P1">Кнопки установки панелей</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P6">Панель с макросами для редактор<text:span text:style-name="T4">ов</text:span></text:p>
+            <text:p text:style-name="P9">Панель с макросами для редактор<text:span text:style-name="T4">ов</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P1">
-              <draw:control text:anchor-type="as-char" svg:y="-4mm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P24" svg:width="63.47mm" svg:height="5.95mm" draw:control="control1"/>
+            <text:p text:style-name="P2">
+              <draw:control text:anchor-type="as-char" svg:y="-0.4cm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P27" svg:width="6.347cm" svg:height="0.595cm" draw:control="control1"/>
             </text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P7">Панель для работы со шрифтами</text:p>
+            <text:p text:style-name="P8">Панель для работы со шрифтами</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P1">
-              <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P24" svg:width="97.71mm" svg:height="5.95mm" draw:control="control3"/>
+            <text:p text:style-name="P2">
+              <draw:control text:anchor-type="as-char" svg:y="-0.383cm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P27" svg:width="9.771cm" svg:height="0.595cm" draw:control="control3"/>
             </text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P6">Панель <text:span text:style-name="T4">для правки содержимого документов</text:span></text:p>
+            <text:p text:style-name="P9">Панель <text:span text:style-name="T4">для правки содержимого документов</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
-            <text:p text:style-name="P1">
-              <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P24" svg:width="121.35mm" svg:height="5.95mm" draw:control="control2"/>
+            <text:p text:style-name="P2">
+              <draw:control text:anchor-type="as-char" svg:y="-0.383cm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P27" svg:width="12.135cm" svg:height="0.595cm" draw:control="control2"/>
             </text:p>
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:p text:style-name="P16">Если <text:span text:style-name="T3">после нажатия на кнопки панели не появляются, то видимо Вы не разрешили макросы (как это сделать описано выше)</text:span></text:p>
-      <text:p text:style-name="P5">На следующих страницах приведено описание устанавливаемых программ</text:p>
-      <text:h text:style-name="P19" text:outline-level="1">Документация по <text:span text:style-name="T5">программам (макросам)</text:span></text:h>
-      <text:h text:style-name="Heading_20_2" text:outline-level="2">Макросы <text:span text:style-name="T5">для</text:span> редактор<text:span text:style-name="T5">ов</text:span></text:h>
+      <text:p text:style-name="P26">Если <text:span text:style-name="T3">после нажатия на кнопки панели не появляются, то видимо Вы не разрешили макросы (как это сделать описано выше)</text:span></text:p>
+      <text:p text:style-name="P7">На следующих страницах приведено описание устанавливаемых программ</text:p>
+      <text:h text:style-name="P21" text:outline-level="1">Документация по <text:span text:style-name="T5">программам (макросам)</text:span></text:h>
+      <text:h text:style-name="P23" text:outline-level="2">Макросы <text:span text:style-name="T5">для</text:span> редактор<text:span text:style-name="T5">ов</text:span></text:h>
       <table:table table:name="Таблица1" table:style-name="Таблица1">
         <table:table-column table:style-name="Таблица1.A"/>
         <table:table-column table:style-name="Таблица1.B"/>
         <table:table-column table:style-name="Таблица1.C"/>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A1" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Название</text:p>
+            <text:p text:style-name="P11">Название</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A1" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Описание</text:p>
+            <text:p text:style-name="P11">Описание</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C1" office:value-type="string">
-            <text:p text:style-name="P8">Путь макроса для выполнения по сочетанию клавиш</text:p>
+            <text:p text:style-name="P12">Путь макроса для выполнения по сочетанию клавиш</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Не юникод</text:p>
+            <text:p text:style-name="P11">Не юникод</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents"><text:span text:style-name="T6">Предлагает к удалению</text:span><text:span text:style-name="T6">все </text:span>нестандартные символы. <text:span text:style-name="T6">Посмотреть список предлагаемых к удалению символов можно через меню Правка→ Отслеживать изменения → Управление</text:span></text:p>
+            <text:p text:style-name="P11"><text:span text:style-name="T6">Предлагает к удалению</text:span><text:span text:style-name="T6">все </text:span>нестандартные символы. <text:span text:style-name="T6">Посмотреть список предлагаемых к удалению символов можно через меню Правка→ Отслеживать изменения → Управление</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.Correction.executeRemoveBadCharacters</text:p>
+            <text:p text:style-name="P12">Publishing.Correction.executeRemoveBadCharacters</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Фон</text:p>
+            <text:p text:style-name="P11">Фон</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Заменяет белый фон символов на прозрачный во всем документе</text:p>
+            <text:p text:style-name="P11">Заменяет белый фон символов на прозрачный во всем документе</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.Correction.executeRemoveWhiteBackground</text:p>
+            <text:p text:style-name="P12">Publishing.Correction.executeRemoveWhiteBackground</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Ошибки</text:p>
+            <text:p text:style-name="P11">Ошибки</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list3318373872" text:style-name="L1">
+            <text:p text:style-name="P11">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
+            <text:list xml:id="list1510485745" text:style-name="L1">
               <text:list-item>
-                <text:p text:style-name="P17">Множество последовательных пробелов заменяется на единственный</text:p>
+                <text:p text:style-name="P3">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Удаляются пробелы перед знаками пунктуации</text:p>
+                <text:p text:style-name="P3">Удаляются пробелы перед знаками пунктуации</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Тире между цифрами заменяется на цифровое тире</text:p>
+                <text:p text:style-name="P3">Тире между цифрами заменяется на цифровое тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Тире между словами заменяется на среднее тире</text:p>
+                <text:p text:style-name="P3">Тире между словами заменяется на среднее тире</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробелы после открывания скобок или кавычек удаляются</text:p>
+                <text:p text:style-name="P3">Пробелы после открывания скобок или кавычек удаляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
+                <text:p text:style-name="P3">Пробел между фамилией и последующими инициалами заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
+                <text:p text:style-name="P3">Пробел между инициалами и последующей фамилией заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
+                <text:p text:style-name="P3">Пробелы между и т. д., и т. п., т. к., т. п., т. е., т. н., заменяются на неразрывные. При отсутствии пробелов между т.д. т.п. т.к. т.е. т. н. они вставляются</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P3">Пробел между с. 7 и т. 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
+                <text:p text:style-name="P3">Пробел между серия 7, часть 7, том 7 заменяется на неразрывный</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P17">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
-                <text:p text:style-name="P20">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:p>
+                <text:p text:style-name="P3">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
+                <text:p text:style-name="P14">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:p>
               </text:list-item>
             </text:list>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.Correction.executeMakeMeHappy</text:p>
+            <text:p text:style-name="P12">Publishing.Correction.executeMakeMeHappy</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Формат</text:p>
+            <text:p text:style-name="P11">Формат</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="P12">Очищает ручное форматирование, кроме <text:span text:style-name="T7">следующего</text:span>: </text:p>
-            <text:list xml:id="list1269252111" text:style-name="L2">
+            <text:p text:style-name="P15">Очищает ручное форматирование, кроме <text:span text:style-name="T7">следующего</text:span>: </text:p>
+            <text:list xml:id="list2820549152" text:style-name="L2">
               <text:list-item>
-                <text:p text:style-name="P21"><text:soft-page-break/><text:span text:style-name="T7">П</text:span>олужирного</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">П</text:span>олужирного</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">К</text:span>урсива</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">К</text:span>урсива</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">П</text:span>одчеркивания</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">П</text:span>одчеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">З</text:span>ачеркивания</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">З</text:span>ачеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">В</text:span>ерхн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">В</text:span>ерхн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">Н</text:span>ижн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P16"><text:soft-page-break/><text:span text:style-name="T7">Н</text:span>ижн<text:span text:style-name="T7">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P21"><text:span text:style-name="T7">Р</text:span>астянут<text:span text:style-name="T7">ый</text:span> текст (2пт)</text:p>
+                <text:p text:style-name="P16"><text:span text:style-name="T7">Р</text:span>астянут<text:span text:style-name="T7">ый</text:span> текст (2пт)</text:p>
               </text:list-item>
             </text:list>
-            <text:p text:style-name="P13">Все шрифты, примененные к тексту, кроме <text:span text:style-name="T8">IPH Serif</text:span>, сохраняются в одноименные стили симолов для дальнейшего удобства работы с ними. Пустые пользовательские стили после выполнения этого макроса удаляются (кроме стилей из шаблона статьи)</text:p>
-            <text:p text:style-name="Table_20_Contents">Все сноски переводятся в стиль Сноска.</text:p>
+            <text:p text:style-name="P17">Все шрифты, примененные к тексту, кроме <text:span text:style-name="T8">IPH Serif</text:span>, сохраняются в одноименные стили симолов для дальнейшего удобства работы с ними. Пустые пользовательские стили после выполнения этого макроса удаляются (кроме стилей из шаблона статьи)</text:p>
+            <text:p text:style-name="P11">Все сноски переводятся в стиль Сноска.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.CleanManualFormat.executeClean</text:p>
+            <text:p text:style-name="P12">Publishing.CleanManualFormat.executeClean</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Пустые стили</text:p>
+            <text:p text:style-name="P11">Пустые стили</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Удаляет неиспользуемые пользовательские стили, кроме стилей из шаблона статьи.</text:p>
+            <text:p text:style-name="P11">Удаляет неиспользуемые пользовательские стили, кроме стилей из шаблона статьи.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.unusedStyles.executeRemoveUnusedStyles</text:p>
+            <text:p text:style-name="P12">Publishing.unusedStyles.executeRemoveUnusedStyles</text:p>
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:h text:style-name="P22" text:outline-level="2">Макросы для работы со шрифтами</text:h>
-      <text:p text:style-name="P15"/>
+      <text:h text:style-name="P25" text:outline-level="2">Макросы для работы со шрифтами</text:h>
+      <text:p text:style-name="P10"/>
       <table:table table:name="Таблица4" table:style-name="Таблица4">
         <table:table-column table:style-name="Таблица4.A"/>
         <table:table-column table:style-name="Таблица4.B"/>
         <table:table-column table:style-name="Таблица4.C"/>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A1" office:value-type="string">
-            <text:p text:style-name="P11">Название</text:p>
+            <text:p text:style-name="P18">Название</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A1" office:value-type="string">
-            <text:p text:style-name="P11">Описание</text:p>
+            <text:p text:style-name="P18">Описание</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C1" office:value-type="string">
-            <text:p text:style-name="P9">Путь макроса для выполнения по сочетанию клавиш</text:p>
+            <text:p text:style-name="P13">Путь макроса для выполнения по сочетанию клавиш</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P11">TNR2IPH</text:p>
+            <text:p text:style-name="P18">TNR2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Times New Roman</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Times New Roman</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TNR2IPH</text:span></text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TNR2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P11">Univ2IPH</text:p>
+            <text:p text:style-name="P18">Univ2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Universalia</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">Universalia</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">Univ2IPH</text:span></text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">Univ2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10">Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
+            <text:p text:style-name="P19">Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> все символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.Goth2<text:span text:style-name="T5">IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">IPH Serif</text:span> в WL LatinAllIn1Goth </text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> все символы из <text:span text:style-name="T5">IPH Serif</text:span> в WL LatinAllIn1Goth </text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">IPH</text:span>2Goth</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P11">TimesAr2IPH</text:p>
+            <text:p text:style-name="P18">TimesAr2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> символы из <text:span text:style-name="T5">Times Arabic</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> символы из <text:span text:style-name="T5">Times Arabic</text:span> в <text:span text:style-name="T5">IPH Serif</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TimesAr2IPH</text:span></text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">TimesAr2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P11">badGoth2IPH</text:p>
+            <text:p text:style-name="P18">badGoth2IPH</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.A2" office:value-type="string">
-            <text:p text:style-name="P10"><text:span text:style-name="T5">Преобразует</text:span> символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif, даже если для этих символов не установлен шрифт <text:s/>WL LatinAllIn1Goth. Если в документе есть другой нестандартный шрифт, то применение данного шрифта может испортить документ (символы другого шрифта будут неправильно преобразованы)</text:span></text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T5">Преобразует</text:span> символы из WL LatinAllIn1Goth в <text:span text:style-name="T5">IPH Serif, даже если для этих символов не установлен шрифт <text:s/>WL LatinAllIn1Goth. Если в документе есть другой нестандартный шрифт, то применение данного шрифта может испортить документ (символы другого шрифта будут неправильно преобразованы)</text:span></text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица4.C2" office:value-type="string">
-            <text:p text:style-name="P9">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">badGoth2IPH</text:span></text:p>
+            <text:p text:style-name="P13">Publishing.<text:span text:style-name="T5">replaceFonts</text:span>.<text:span text:style-name="T5">badGoth2IPH</text:span></text:p>
           </table:table-cell>
         </table:table-row>
       </table:table>
-      <text:h text:style-name="P23" text:outline-level="2">Макросы на панели со всеми макросами</text:h>
+      <text:h text:style-name="P24" text:outline-level="2">Макросы на панели со всеми макросами</text:h>
       <table:table table:name="Таблица2" table:style-name="Таблица2">
         <table:table-column table:style-name="Таблица2.A"/>
         <table:table-column table:style-name="Таблица2.B"/>
         <table:table-column table:style-name="Таблица2.C"/>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A1" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Название</text:p>
+            <text:p text:style-name="P11">Название</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A1" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Описание</text:p>
+            <text:p text:style-name="P11">Описание</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C1" office:value-type="string">
-            <text:p text:style-name="P8">Путь макроса для выполнения по сочетанию клавиш</text:p>
+            <text:p text:style-name="P12">Путь макроса для выполнения по сочетанию клавиш</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">Сверстать выпуск</text:p>
+            <text:p text:style-name="P20">Сверстать выпуск</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">Макрос применяется совместно с шаблоном журнала. Он <text:span text:style-name="T10">последовательно </text:span>добавляет все пронумерованные статьи в той же папке, что и <text:span text:style-name="T10">открытый документ-шаблон выпуска</text:span>. Корректирует расположение текстовых блоков на страницах и задаёт переменные в колонтитулах.</text:p>
+            <text:p text:style-name="P20">Макрос применяется совместно с шаблоном журнала. Он <text:span text:style-name="T10">последовательно </text:span>добавляет все пронумерованные статьи в той же папке, что и <text:span text:style-name="T10">открытый документ-шаблон выпуска</text:span>. Корректирует расположение текстовых блоков на страницах и задаёт переменные в колонтитулах.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8"/>
+            <text:p text:style-name="P12"/>
           </table:table-cell>
         </table:table-row>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Разрыв со сжатием</text:p>
+            <text:p text:style-name="P11">Разрыв со сжатием</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Сжимает текст на текущей и предыдущей странице (от курсора) для умещения текста на одной странице. Убирает отступ, если разрыв происходит внутри абзаца, ставит тире, если разрыв происходит внутри слова</text:p>
+            <text:p text:style-name="P11">Сжимает текст на текущей и предыдущей странице (от курсора) для умещения текста на одной странице. Убирает отступ, если разрыв происходит внутри абзаца, ставит тире, если разрыв происходит внутри слова</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.pageBreaks.executeShrinkPageContent</text:p>
+            <text:p text:style-name="P12">Publishing.pageBreaks.executeShrinkPageContent</text:p>
           </table:table-cell>
         </table:table-row>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Разрыв</text:p>
+            <text:p text:style-name="P11">Разрыв</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Вставляет разрвы страниц, убирает отступ, если разрыв происходит внутри абзаца, ставит тире, если разрыв происходит внутри слова</text:p>
+            <text:p text:style-name="P11">Вставляет разрвы страниц, убирает отступ, если разрыв происходит внутри абзаца, ставит тире, если разрыв происходит внутри слова</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.pageBreaks.executeSplitPages</text:p>
+            <text:p text:style-name="P12">Publishing.pageBreaks.executeSplitPages</text:p>
+          </table:table-cell>
+        </table:table-row>
+        <table:table-row table:style-name="Таблица2.1">
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P11">ШрифтыВстили</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P11">Переводит все шрифты, установленные ручным форматированием в соответствующие стили символов</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
+            <text:p text:style-name="P12">Publishing.CleanManualFormat.executeReplaceFonts</text:p>
+          </table:table-cell>
+        </table:table-row>
+        <table:table-row table:style-name="Таблица2.1">
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P11">СтилиСносок</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P11">Назначить всем сноскам стиль Сноска</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
+            <text:p text:style-name="P12">Publishing.CleanManualFormat.NotesCleanStyle</text:p>
+          </table:table-cell>
+        </table:table-row>
+        <table:table-row table:style-name="Таблица2.1">
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P20">InDD</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
+            <text:p text:style-name="P20">Импорт документа из In Design</text:p>
+          </table:table-cell>
+          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
+            <text:p text:style-name="P12"/>
           </table:table-cell>
         </table:table-row>
         <text:soft-page-break/>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">ШрифтыВстили</text:p>
+            <text:p text:style-name="P20">CreateBidirectionalLink</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Переводит все шрифты, установленные ручным форматированием в соответствующие стили символов</text:p>
+            <text:p text:style-name="P20">Создаёт двунаправленную ссылку между двумя элементами. Удобен для связывания нестандартных сносок</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.CleanManualFormat.executeReplaceFonts</text:p>
-          </table:table-cell>
-        </table:table-row>
-        <table:table-row table:style-name="Таблица2.1">
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">СтилиСносок</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="Table_20_Contents">Назначить всем сноскам стиль Сноска</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8">Publishing.CleanManualFormat.NotesCleanStyle</text:p>
-          </table:table-cell>
-        </table:table-row>
-        <table:table-row table:style-name="Таблица2.1">
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">InDD</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">Импорт документа из In Design</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8"/>
-          </table:table-cell>
-        </table:table-row>
-        <table:table-row table:style-name="Таблица2.1">
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">CreateBidirectionalLink</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P14">Создаёт двунаправленную ссылку между двумя элементами. Удобен для связывания нестандартных сносок</text:p>
-          </table:table-cell>
-          <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
-            <text:p text:style-name="P8"/>
+            <text:p text:style-name="P12"/>
           </table:table-cell>
         </table:table-row>
       </table:table>
       <text:p text:style-name="Standard">
         <text:span text:style-name="Strong_20_Emphasis">
-          <text:span text:style-name="T1"/>
+          <text:span text:style-name="T11"/>
         </text:span>
       </text:p>
     </office:text>
