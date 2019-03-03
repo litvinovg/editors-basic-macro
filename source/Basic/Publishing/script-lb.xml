@@ -13,4 +13,5 @@
   <library:element library:name="stringHelpers"/>
   <library:element library:name="cursorHelpers"/>
   <library:element library:name="replaceFonts"/>
+  <library:element library:name="makeUpToolbar"/>
 </library:library>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="makeUpToolbar" script:language="StarBasic" script:moduleType="normal">Sub incrementCharWidth()
+	changeCharWidth(1)
+End Sub
+
+Sub decrementCharWidth()
+	changeCharWidth(-1)
+End Sub
+
+Sub incrementKern()
+	changeKern(2)
+End Sub
+
+Sub decrementKern()
+	changeKern(-2)
+End Sub
+
+
+Function changeCharWidth(delta) As Boolean
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	Dim charScale As Integer
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	If(IsEmpty(oViewCursor.charScaleWidth)) Then 
+		charScale = 100
+	Else 	
+		charScale = oViewCursor.charScaleWidth
+	End If
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.charScaleWidth = charScale + delta
+End Function
+
+Function changeKern(delta) As Boolean
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	Dim kerning As Integer
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	If(IsEmpty(oViewCursor.CharKerning)) Then 
+		kerning = 0
+	Else 	
+		kerning = oViewCursor.CharKerning
+	End If
+	oViewCursor.CharKerning = kerning + delta
+End Function
+</script:module>

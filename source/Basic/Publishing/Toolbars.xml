@@ -24,6 +24,17 @@ Sub createFontsToolbar
 
 End Sub
 
+Sub createMakeUpToolbar
+	Dim toolbarName$
+	Dim tollbarDescription$
+	toolbarName = "makeUpToolbar"
+	toolbarDescription = "Инструменты верстки"
+	addMakeUpToolbar(toolbarName,toolbarDescription)
+	'Copy macro
+	copyCorrectionToGlobal (document, Basic)
+
+End Sub
+
 Sub createCorrectionToolbarForEditors
 
 	Dim toolbarName$
@@ -315,6 +326,67 @@ Sub addFontsToolbar(toolbarName,toolbarDescription)
   sCmdID   = "vnd.sun.star.script:Publishing.replaceFonts.badGoth2IPH?language=Basic&amp;location=application"
   sCmdLable = "badGoth2IPH"
   nCount = 5
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  REM *** Set the settings for our new custom toolbar. (replace/insert)
+  If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
+    oModuleCfgMgr.replaceSettings( sToolbarURL, oTBSettings )
+  Else
+    oModuleCfgMgr.insertSettings( sToolbarURL, oTBSettings )
+  End If
+   
+  oModuleCfgMgr.store()
+   
+End Sub
+
+Sub addMakeUpToolbar(toolbarName,toolbarDescription)
+  Dim sToolbarURL$  ' URL of the custom toolbar.
+  Dim sCmdID$       ' Command for a single toolbar button.
+  Dim sCmdLable     ' Lable for a single toolbar button.
+  Dim sDocType$     ' Component type that will containt the toolbar.
+  Dim sSupplier$    ' ModuleUIConfigurationManagerSupplier
+  Dim oSupplier     ' ModuleUIConfigurationManagerSupplier
+  Dim sConfManager$ ' ModuleUIConfigurationManager
+  Dim oConfManager  ' ModuleUIConfigurationManager
+  Dim oModuleCfgMgr ' Module manager.
+  Dim oTBSettings   ' Settings that comprise the toolbar.
+  Dim oToolbarItem  ' Single toolbar button.
+  Dim nCount%
+
+  REM Name of the custom toolbar; must start with "custom_".
+  sToolbarURL = "private:resource/toolbar/custom_toolbar_" &amp; toolbarName
+  REM central module configuration manager supplier
+  sSupplier = "com.sun.star.ui.ModuleUIConfigurationManagerSupplier"
+  oSupplier = CreateUnoService(sSupplier)
+  
+  REM Specify the document type associated with this toolbar.
+  sDocType = "com.sun.star.text.TextDocument"
+  oModuleCfgMgr = oSupplier.getUIConfigurationManager( sDocType )
+  oTBSettings = oModuleCfgMgr.createSettings()
+  oTBSettings.UIName = toolbarDescription
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.makeUpToolbar.incrementCharWidth?language=Basic&amp;location=application"
+  sCmdLable = "%+"
+  nCount = 0
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  sCmdID   = "vnd.sun.star.script:Publishing.makeUpToolbar.decrementCharWidth?language=Basic&amp;location=application"
+  sCmdLable = "%‒"
+  nCount = 1
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.makeUpToolbar.incrementKern?language=Basic&amp;location=application"
+  sCmdLable = "K+"
+  nCount = 2
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.makeUpToolbar.decrementKern?language=Basic&amp;location=application"
+  sCmdLable = "K‒"
+  nCount = 3
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
