@@ -46,6 +46,7 @@ Sub executeRemoveBadCharacters
 	StartTracking
 	    AskAndReplace("[\uE000-\uF8FF]+","")
 	StopTracking
+	showTrackedChanges
 End Sub
 
 Sub executeRemoveSpacesBeforeStops
@@ -385,4 +386,17 @@ For i = 0 to oFamilies.count -1
   Next
 Next
 End Sub
+
+sub showTrackedChanges
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:AcceptTrackedChanges", "", 0, Array())
+	dim args2(0) as new com.sun.star.beans.PropertyValue
+	args2(0).Name = "ShowTrackedChanges"
+	args2(0).Value = true
+	dispatcher.executeDispatch(document, ".uno:ShowTrackedChanges", "", 0, args2())
+
+end sub
 </script:module>
