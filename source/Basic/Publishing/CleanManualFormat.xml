@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="CleanManualFormat" script:language="StarBasic">Sub ExecuteClean
+	StopTracking
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
 	statusIndicator.Start("Очистка форматирования начата, подождите",30)
@@ -226,7 +227,7 @@ End Sub
 
 Sub toTextSparce
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	For i=35 To 71 
+	For i=70 To 70 
 		SrchAttributes(0).Name = "CharKerning"
 		SrchAttributes(0).Value = i
 		convertFormatToEnclosure(CHR(873) &amp; i, SrchAttributes)
