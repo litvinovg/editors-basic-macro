@@ -128,15 +128,15 @@ End Sub
 
 
 Function compileSearchString(identifier)
-	compileSearchString = "&lt;"+identifier+"&gt;"+"(.*?)"+"&lt;"+"/"+identifier+"&gt;"
+	compileSearchString = CHR(852)+identifier+CHR(853)+"(.*?)"+CHR(854)+identifier+CHR(853)
 End Function
 
 Function compileLeftEnclosure(identifier)
-	compileLeftEnclosure = "&lt;"+identifier+"&gt;"
+	compileLeftEnclosure = CHR(852)+identifier+CHR(853)
 End Function
 
 Function compileRightEnclosure(identifier)
-	compileRightEnclosure = "&lt;"+"/"+identifier+"&gt;"
+	compileRightEnclosure = CHR(854)+identifier+CHR(853)
 End Function
 
 
