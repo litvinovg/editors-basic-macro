@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="CleanManualFormat" script:language="StarBasic">Sub ExecuteClean
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Очистка форматирования начата, подождите",30)
+
 	convertFormattingToText
+	
 	executeReplaceFonts
+	
 	ClearDirectFormat
-	toStyleAll
+	
+	convertFormattingFromText
+	
 	NotesCleanStyle
+	
 	executeRemoveUnusedStyles
+
+	statusIndicator.end()
 End Sub
 
 Sub NotesCleanStyle
@@ -59,182 +70,179 @@ Sub ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes,
 	ThisComponent.replaceAll(oReplace)
 End Sub
 
-Sub ClearDirectFormat
-	Dim oDescriptor 'The search descriptor
-	dim dispatcher as Object
-	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-	dim document   as Object
-	document   = ThisComponent.CurrentController.Frame
-	Dim oViewCursor As Object 'View cursor
-	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oViewCursor.gotoStart(false)
-	oViewCursor.gotoEnd(true)
-	dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
-	allNotes= thisComponent.FootNotes
-	for x = 0 to allNotes.Count -1
-	  aNote = allNotes.getByIndex(x)
-	  footNoteText = aNote.getText()
-	  oTextcursor = footNoteText.createTextCursor()
-	  oViewCursor.gotoRange(oTextcursor.getStart(),false) 
-	  oViewCursor.gotoEnd(true)
-	  dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
-	next
-	oViewCursor.gotoStart(false)
+Sub convertFormatToEnclosure(identifier, SrchAttributes)
+	leftEnclosure = compileLeftEnclosure(identifier)
+	rightEnclosure = compileRightEnclosure(identifier)
+	Dim oTextCursor As Object
+	Dim startTextRange As Object
+	Dim endTextRange As Object
+	SDesc = Thiscomponent.createSearchDescriptor()
+	SDesc.SearchAll = true
+	SDesc.SearchRegularExpression = true
+	SDesc.SearchString = "(.*)"
+	SDesc.searchStyles = true
+	SDesc.SetSearchAttributes(SrchAttributes)
+	found = Thiscomponent.findFirst(SDesc)
+	  Do While not isNull(found)
+	  	oTextCursor = found.Text.createTextCursor()
+	  	oTextCursor.goToRange(found.Start, false)
+	  	oTextCursor.goToRange(found.End, true)
+		oTextCursor.collapseToEnd()
+		oTextCursor.String = rightEnclosure
+		endTextRange = oTextCursor.getEnd()
+		oTextCursor.goToRange(found.start,false)
+		oTextCursor.String = leftEnclosure
+		found = Thiscomponent.findNext(endTextRange, SDesc)
+	  Loop
 End Sub
+
+Sub convertEnclosuresToFormat(identifier, styleNames, styleValues)
+	Dim oTextCursor As Object
+	Dim startTextRange As Object
+	Dim endTextRange As Object
+	Dim leftEnclosure As String
+	Dim rightEnclosure As String
+	leftEnclosure = compileLeftEnclosure(identifier)
+	rightEnclosure = compileRightEnclosure(identifier)
+	SDesc = Thiscomponent.createSearchDescriptor()
+	SDesc.SearchAll = true
+	SDesc.SearchRegularExpression = true
+	SDesc.SearchString = leftEnclosure + "(.*?)" + rightEnclosure
+
+	found = Thiscomponent.findFirst(SDesc)
+	  Do While not isNull(found)
+	  	oTextCursor = found.Text.createTextCursor()
+	  	oTextCursor.goToRange(found.Start, false)
+	  	oTextCursor.goToRange(found.End, true)
+	  	oTextCursor.setPropertyValues(styleNames, styleValues)
+	  	oTextCursor.collapseToEnd()
+		oTextCursor.goLeft(Len(rightEnclosure), true)
+		oTextCursor.String = ""
+		endTextRange = oTextCursor.getEnd()
+		oTextCursor.goToRange(found.start,false)
+		oTextCursor.goRight(Len(leftEnclosure), true)
+		oTextCursor.String = ""
+		found = Thiscomponent.findNext(endTextRange, SDesc)
+	  Loop
+End Sub
+
+
+Function compileSearchString(identifier)
+	compileSearchString = "&lt;"+identifier+"&gt;"+"(.*?)"+"&lt;"+"/"+identifier+"&gt;"
+End Function
+
+Function compileLeftEnclosure(identifier)
+	compileLeftEnclosure = "&lt;"+identifier+"&gt;"
+End Function
+
+Function compileRightEnclosure(identifier)
+	compileRightEnclosure = "&lt;"+"/"+identifier+"&gt;"
+End Function
 
 
 Sub toTextBold
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharWeight"
 	SrchAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
-	SearchString = "(.*)"
-	oReplaceString = "&lt;bold&gt;$1&lt;/bold&gt;"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(867), SrchAttributes)
 End Sub
 
-Sub toStyleBold
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharWeight"
-	ReplAttributes(0).Value = com.sun.star.awt.FontWeight.BOLD
-	SearchString = "&lt;bold&gt;(.*?)&lt;/bold&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextBold
+	styleNames = Array("CharWeight")
+	styleValues = Array(com.sun.star.awt.FontWeight.BOLD)
+	convertEnclosuresToFormat(CHR(867), styleNames, styleValues)
 End Sub
 
 Sub toTextItalic
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharPosture"
 	SrchAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
-	SearchString = "(.*)"
-	oReplaceString = "&lt;italic&gt;$1&lt;/italic&gt;"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(868), SrchAttributes)
 End Sub
 
-Sub toStyleItalic
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharPosture"
-	ReplAttributes(0).Value = com.sun.star.awt.FontSlant.ITALIC
-	SearchString = "&lt;italic&gt;(.*?)&lt;/italic&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextItalic
+	styleNames = Array("CharPosture")
+	styleValues = Array(com.sun.star.awt.FontSlant.ITALIC)
+	convertEnclosuresToFormat(CHR(868), styleNames, styleValues)
 End Sub
 
 Sub toTextStrikeout
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharStrikeout"
 	SrchAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
-	SearchString = "(.*)"
-	oReplaceString = "&lt;strikeout&gt;$1&lt;/strikeout&gt;"
-ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(869), SrchAttributes)
+
 End Sub
 
-Sub toStyleStrikeout
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharStrikeout"
-	ReplAttributes(0).Value = com.sun.star.awt.FontStrikeout.SINGLE
-	SearchString = "&lt;strikeout&gt;(.*?)&lt;/strikeout&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextStrikeout
+	styleNames = Array("CharStrikeout")
+	styleValues = Array(com.sun.star.awt.FontStrikeout.SINGLE)
+	convertEnclosuresToFormat(CHR(869), styleNames, styleValues)
 End Sub
 
 
 Sub toTextUnderline
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharUnderline"
 	SrchAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
-	SearchString = "(.*)"
-	oReplaceString = "&lt;underline&gt;$1&lt;/underline&gt;"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(870), SrchAttributes)
 End Sub
 
-Sub toStyleUnderline
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharUnderline"
-	ReplAttributes(0).Value = com.sun.star.awt.FontUnderline.SINGLE
-	SearchString = "&lt;underline&gt;(.*?)&lt;/underline&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextUnderline
+	styleNames = Array("CharUnderline")
+	styleValues = Array(com.sun.star.awt.FontUnderline.SINGLE)
+	convertEnclosuresToFormat(CHR(870), styleNames, styleValues)
 End Sub
 
 Sub toTextSuperscript
 	Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharEscapementHeight"
 	SrchAttributes(0).Value = 58
 	SrchAttributes(1).Name = "CharEscapement"
 	SrchAttributes(1).Value = 101
-	SearchString = "(.*)"
-	oReplaceString = "&lt;superscript&gt;$1&lt;/superscript&gt;"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(871), SrchAttributes)
 End Sub
 
-Sub toStyleSuperscript
-	Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharEscapementHeight"
-	ReplAttributes(0).Value = 58
-	ReplAttributes(1).Name = "CharEscapement"
-	ReplAttributes(1).Value = 101
-	SearchString = "&lt;superscript&gt;(.*?)&lt;/superscript&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextSuperscript
+	styleNames = Array("CharEscapementHeight","CharEscapement")
+	styleValues = Array(58,101)
+	convertEnclosuresToFormat(CHR(871), styleNames, styleValues)
 End Sub
 
 Sub toTextSubscript
 	Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharEscapementHeight"
 	SrchAttributes(0).Value = 58
 	SrchAttributes(1).Name = "CharEscapement"
 	SrchAttributes(1).Value = -101
-	SearchString = "(.*)"
-	oReplaceString = "&lt;subscript&gt;$1&lt;/subscript&gt;"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+	convertFormatToEnclosure(CHR(872), SrchAttributes)
 End Sub
 
-Sub toStyleSubscript
-	Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharEscapementHeight"
-	ReplAttributes(0).Value = 58
-	ReplAttributes(1).Name = "CharEscapement"
-	ReplAttributes(1).Value = -101
-	SearchString = "&lt;subscript&gt;(.*?)&lt;/subscript&gt;"
-	oReplaceString = "$1"
-	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+Sub fromTextSubscript
+	styleNames = Array("CharEscapementHeight","CharEscapement")
+	styleValues = Array(58,-101)
+	convertEnclosuresToFormat(CHR(872), styleNames, styleValues)
 End Sub
 
 Sub toTextSparce
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	For i=35 To 71 
 		SrchAttributes(0).Name = "CharKerning"
-		SearchString = "(.*)"
 		SrchAttributes(0).Value = i
-		oReplaceString = "&lt;sparce" &amp; i &amp; "&gt;$1&lt;/sparce&gt;"
-		ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+		convertFormatToEnclosure(CHR(873) &amp; i, SrchAttributes)
 	Next
 End Sub
 
-Sub toStyleSparce
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "CharKerning"
+Sub fromTextSparce
+	styleNames = Array("CharKerning")
+	styleValues = "CharKerning"
 	oReplaceString = "$1"
 	For i=35 To 71 
-		ReplAttributes(0).Value = i
-		SearchString = "&lt;sparce" &amp; i &amp; "&gt;(.*?)&lt;/sparce&gt;"
-		ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
+		styleValues = Array(i)
+		convertEnclosuresToFormat(CHR(873) &amp; i, styleNames, styleValues)
 	Next 
 End Sub
+
 
 Sub convertFormattingToText
 	toTextBold
@@ -246,14 +254,14 @@ Sub convertFormattingToText
 	toTextSparce
 End Sub
 
-Sub toStyleAll
-	toStyleSparce
-	toStyleSuperscript
-	toStyleSubscript
-	toStyleUnderline
-	toStyleStrikeout
-	toStyleItalic
-	toStyleBold
+Sub convertFormattingFromText
+	fromTextSparce
+	fromTextSuperscript
+	fromTextSubscript
+	fromTextUnderline
+	fromTextStrikeout
+	fromTextItalic
+	fromTextBold
 End Sub
 
 'Replaces manual formatting text with font into character style with assigned font
@@ -328,5 +336,38 @@ Sub CreateCharacterStyle(sStyleName$, oProps())
 	  oStyle.setPropertyValue(oProps(i).Name, oProps(i).Value)
 	Next
 	oStyles.insertByName(sStyleName, oStyle)
+End Sub
+
+Sub ClearDirectFormat
+	Dim oDescriptor 'The search descriptor
+	dim dispatcher as Object
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dim document   as Object
+	document   = ThisComponent.CurrentController.Frame
+	Dim oViewCursor As Object 'View cursor
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.gotoStart(false)
+	oViewCursor.gotoEnd(true)
+	dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
+	footNotes = thisComponent.Footnotes
+	For x = 0 to footNotes.Count -1
+	  aNote = footNotes.getByIndex(x)
+	  footNoteText = aNote.getText()
+	  oTextcursor = footNoteText.createTextCursor()
+	  oViewCursor.gotoRange(oTextcursor.getStart(),false) 
+	  oViewCursor.gotoEnd(true)
+	  dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
+	Next
+	endNotes = thisComponent.Endnotes
+	for x = 0 to endNotes.Count -1
+	  aNote = endNotes.getByIndex(x)
+	  endNoteText = aNote.getText()
+	  oTextcursor = endNoteText.createTextCursor()
+	  oViewCursor.gotoRange(oTextcursor.getStart(),false) 
+	  oViewCursor.gotoEnd(true)
+	  dispatcher.executeDispatch(document, ".uno:ResetAttributes", "", 0, Array())
+	next
+	
+	oViewCursor.gotoStart(false)
 End Sub
 </script:module>
