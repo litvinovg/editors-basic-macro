@@ -4,9 +4,9 @@
 	'No tabs	
     AskAndReplace("^\t","")
     'No multiple spaces
-    AskAndReplace("[:space:]+","")
+    AskAndReplace("[:space:]+"," ")
 	'No paragraphs with one space
-    AskAndReplace("^[:space:]","")
+    AskAndReplace("^[:space:]+","")
     'No empty paragraphs
     AskAndReplace("^$","")
 
