@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Documents" script:language="StarBasic" script:moduleType="normal">sub saveAndreload()
-rem ----------------------------------------------------------------------
-rem define variables
-dim document   as object
-dim dispatcher as object
-rem ----------------------------------------------------------------------
-rem get access to the document
-document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-dispatcher.executeDispatch(document, ".uno:Save", "", 0, Array())
-dispatcher.executeDispatch(document, ".uno:Reload", "", 0, Array())
+	rem ----------------------------------------------------------------------
+	rem define variables
+	dim document   as object
+	dim dispatcher as object
+	rem ----------------------------------------------------------------------
+	rem get access to the document
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:Save", "", 0, Array())
+	dispatcher.executeDispatch(document, ".uno:Reload", "", 0, Array())
 
-end sub
+end Sub
+
+Sub setDimensions
+	Dim width As String
+	Dim height As String
+	Dim oStyles As Object
+	Dim curStyle As Object
+	width = InputBox("Введите ширину страниц:", "Установка ширины всех страниц документа", "210")
+	height = InputBox("Введите высоту страниц:", "Установка высоты всех страниц документа", "297")
+	oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
+	For i = 0  to oStyles.Count - 1
+		curStyle = oStyles.getByIndex(i)
+		curStyle.Width = CLng(width + "00")
+		curStyle.Height = CLng(height + "00")
+	Next
+End Sub
 </script:module>
