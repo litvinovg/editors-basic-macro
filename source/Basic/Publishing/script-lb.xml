@@ -14,4 +14,5 @@
   <library:element library:name="cursorHelpers"/>
   <library:element library:name="replaceFonts"/>
   <library:element library:name="makeUpToolbar"/>
+  <library:element library:name="Documents"/>
 </library:library>

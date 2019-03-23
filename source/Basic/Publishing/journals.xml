@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">Sub makeUpIssue
-
-Dim statusIndicator as Object
-statusIndicator = ThisComponent.getCurrentController.StatusIndicator
-Dim oViewCursor As Object
-Dim oTextCursor As Object
-Dim articleEndPosition As Object
-oViewCursor = ThisComponent.CurrentController.getViewCursor()
-Dim page As String
-Dim firstPage As String
-Dim path As String
-Dim tmp As String
-Dim sectionName As String
-sectionName = ""
-Dim nSections As Long 
-oFilename = ThisComponent.Location
-
-'Exit if no sections in document or document not saved
-If oFilename = "" Then
-	MsgBox "Сначала сохраните выпуск в папке с файлами статьей"
-	Exit Sub
-End If
-
-'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-
-GlobalScope.BasicLibraries.loadLibrary("Tools")
-path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
-
-
-' Add article for each section
-'Go to article first page
-	page = findFirstPageWithStyle("Первая страница статьи")
-	firstPage = page
-	oViewCursor.jumpToPage(page)
-	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-	statusIndicator.Start("Сборка выпуска начата, подождите",30)
-For i = 1 To 25
-'Find section file
-	FilePath = findArticleFile(path,i)
-	If FilePath="" Then
-		Exit For
-	EndIF 
-	'Add Article 
-	If FileExists(FilePath) Then 
-		oViewCursor.goToRange(oTextCursor,false)
-		'Вставить разрыв страницы, если его не было.
-		oTextCursor.BreakType = 4
-		'Задать стиль первой страницы
-		setArticlePageStyles(i)
-		page = oViewCursor.getPage()
-		InsertArticle(FilePath)
-		statusIndicator.setValue(i)
-		oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-		oViewCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-		oTextCursor.collapseToEnd()
-		
-	'set page to next article page number
-		'oViewCursor.goToRange(oTextCursor,false)
-  	End If
-  	
-  	fileType = Right(FilePath, 3)
-  	'Go to first page
-  	oViewCursor.jumpToPage(page)
-	If fileType = "doc" Then
-		'Remove blank page at start
-		sendRM()
-	End If
-
-	setArticleUniqPageStyles(i)
-	oViewCursor.jumpToPage(page)
-	setAtricleVars(i)
-	oViewCursor.jumpToPage(page)
-	takeWidowLinesIn()
-	oViewCursor.jumpToPage(page)
-'	takeWidowOrphans()
-	'Set section name
-	sectionName = getSectionX(sectionName)
-	modifyVar("leftHeader" + i , sectionName )
-Next i
-	statusIndicator.setValue(26)
-	'remove last empty page
-	oViewCursor.jumpToPage(page)
-	oViewCursor.jumpToPage(getArticleLastPage())
-	removeEmptyPage()
-	statusIndicator.setValue(28)
-	'Set pageNums
-	setPageNumbers()
-	statusIndicator.setValue(29)
 	
-'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-' Mri oViewCursor
-'Задать нумерацию сносок на каждую главу
-	ThisComponent.FootnoteSettings.FootnoteCounting=1
-	statusIndicator.end()
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	Dim articleEndPosition As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	Dim page As String
+	Dim firstPage As String
+	Dim path As String
+	Dim tmp As String
+	Dim sectionName As String
+	sectionName = ""
+	Dim nSections As Long 
+	oFilename = ThisComponent.Location
+	
+	'Exit if no sections in document or document not saved
+	If oFilename = "" Then
+		MsgBox "Сначала сохраните выпуск в папке с файлами статьей"
+		Exit Sub
+	End If
+	
+	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	
+	GlobalScope.BasicLibraries.loadLibrary("Tools")
+	path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
+	
+	
+	' Add article for each section
+	'Go to article first page
+		page = findFirstPageWithStyle("Первая страница статьи")
+		firstPage = page
+		oViewCursor.jumpToPage(page)
+		oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+		statusIndicator.Start("Сборка выпуска начата, подождите",30)
+	For i = 1 To 25
+	'Find section file
+		FilePath = findArticleFile(path,i)
+		If FilePath="" Then
+			Exit For
+		EndIF 
+		'Add Article 
+		If FileExists(FilePath) Then 
+			oViewCursor.goToRange(oTextCursor,false)
+			'Вставить разрыв страницы, если его не было.
+			oTextCursor.BreakType = 4
+			'Задать стиль первой страницы
+			setArticlePageStyles(i)
+			page = oViewCursor.getPage()
+			InsertArticle(FilePath)
+			statusIndicator.setValue(i)
+			oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+			oViewCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+			oTextCursor.collapseToEnd()
+			
+		'set page to next article page number
+			'oViewCursor.goToRange(oTextCursor,false)
+	  	End If
+	  	
+	  	fileType = Right(FilePath, 3)
+	  	'Go to first page
+	  	oViewCursor.jumpToPage(page)
+		If fileType = "doc" Then
+			'Remove blank page at start
+			sendRM()
+		End If
+	
+		setArticleUniqPageStyles(i)
+		oViewCursor.jumpToPage(page)
+		setAtricleVars(i)
+		oViewCursor.jumpToPage(page)
+		takeWidowLinesIn()
+		oViewCursor.jumpToPage(page)
+	'	takeWidowOrphans()
+		'Set section name
+		sectionName = getSectionX(sectionName)
+		modifyVar("leftHeader" + i , sectionName )
+	Next i
+		statusIndicator.setValue(26)
+		'remove last empty page
+		oViewCursor.jumpToPage(page)
+		oViewCursor.jumpToPage(getArticleLastPage())
+		removeEmptyPage()
+		statusIndicator.setValue(28)
+		'Set pageNums
+		setPageNumbers()
+		statusIndicator.setValue(29)
+		
+	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	' Mri oViewCursor
+	'Задать нумерацию сносок на каждую главу
+		ThisComponent.FootnoteSettings.FootnoteCounting=1
+		statusIndicator.end()
 End Sub
 
 Sub setPageNumbers()
@@ -122,7 +122,6 @@ Sub setAtricleVars(i)
 End Sub
 
 Function getArticleLastPage()
-	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	Dim docLastPage As Integer
 	Dim curPageNum As Integer
 	Dim oViewCursor As Object
@@ -516,10 +515,10 @@ Sub takeLineIn
 End Sub
 
 Sub test
-	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 '	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-	Mri oViewCursor
+
 End Sub
 
 
@@ -569,7 +568,7 @@ NextFile = Dir(path+"/", 0)
   	Next
     NextFile = Dir
   Wend
-'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+
 ' Mri 
 findArticleFile = ""
 End Function
