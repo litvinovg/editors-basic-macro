@@ -617,6 +617,29 @@ Function getFirstTextInStyle(styleName)
 	getFirstTextInStyle = ""
 End Function
 
+Sub setManualOutlineLevel
+
+	Dim targetStyleName As String 
+	Dim num As Integer
+	Dim oViewCursor As Object
+	Dim oText As Object
+	Dim curText As Object
+	num = 2
+	targetStyleName = "Заголовок 2"
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToFirstPage
+	getFirstTextInStyleDispatch(targetStyleName)
+	While True
+		curText = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+		If IsNull(oText) Then
+			oText = curText
+		ElseIf	oText.Text.compareRegionStarts(oText,curText) = 0 AND oText.Text.compareRegionEnds(oText,curText) = 0 Then
+			Exit Sub
+		End If
+		oViewCursor.OutlineLevel = num
+		getFirstTextInStyleDispatch(targetStyleName)
+  	Wend
+End Sub
 
 sub getFirstTextInStyleDispatch(styleName)
 	dim document   as object
