@@ -92,8 +92,9 @@
 	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	' Mri oViewCursor
 	'Задать нумерацию сносок на каждую главу
-		ThisComponent.FootnoteSettings.FootnoteCounting=1
-		statusIndicator.end()
+	ThisComponent.FootnoteSettings.FootnoteCounting=1
+	setManualOutlineLevel
+	statusIndicator.end()
 End Sub
 
 Sub setPageNumbers()
