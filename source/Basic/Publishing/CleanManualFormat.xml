@@ -7,6 +7,8 @@
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
 	statusIndicator.Start("Очистка форматирования начата, подождите",30)
 
+	fixFrequentMistakes
+
 	disposeAllBookmarks
 	
 	replaceBaseToStandard
@@ -23,9 +25,8 @@
 	
 	executeRemoveUnusedStyles
 	
-	fixFrequentMistakes
-
 	statusIndicator.end()
+	
 	saveAndreload()
 End Sub
 
