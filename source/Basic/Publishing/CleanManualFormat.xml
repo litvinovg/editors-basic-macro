@@ -76,6 +76,7 @@ Sub ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes,
 	oReplace.SearchString = SearchString
 	oReplace.ReplaceString = oReplaceString
 	oReplace.SearchRegularExpression=True
+	oReplace.SearchCaseSensitive = True
 	
 	oReplace.searchAll=True
 	If Not IsEmpty(SrchAttributes(0).Value) Then
