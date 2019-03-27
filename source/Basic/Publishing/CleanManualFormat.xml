@@ -7,7 +7,14 @@
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
 	statusIndicator.Start("Очистка форматирования начата, подождите",30)
 
-	fixFrequentMistakes
+	'Не должно быть символов табуляции
+    AskAndReplace("\t","")
+    'Не должно быть подряд больше одного пробела
+    AskAndReplace("(?&lt;=[:space:])[:space:]+","")
+	'Не должно быть ни одного пробела в начале абзацев
+    AskAndReplace("^[:space:]+","")
+    'Не должно быть пустых абзацев
+    AskAndReplace("^$","")
 
 	disposeAllBookmarks
 	
