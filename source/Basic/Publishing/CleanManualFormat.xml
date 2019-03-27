@@ -6,6 +6,8 @@
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
 	statusIndicator.Start("Очистка форматирования начата, подождите",30)
 
+	disposeAllBookmarks
+	
 	fixFrequentMistakes
 	
 	convertFormattingToText
@@ -22,6 +24,14 @@
 
 	statusIndicator.end()
 	saveAndreload()
+End Sub
+
+Sub disposeAllBookmarks()
+	bookmarks = ThisComponent.Links.getByName("Закладки")
+	While bookmarks.hasElements()
+		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))
+		bookmark.dispose()
+	Wend
 End Sub
 
 Sub NotesCleanStyle
