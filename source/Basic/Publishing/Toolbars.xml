@@ -232,7 +232,7 @@ Sub addWriterEditorToolbar(toolbarName,toolbarDescription)
   oTBSettings = oModuleCfgMgr.createSettings()
   oTBSettings.UIName = toolbarDescription
   
-  sCmdID   = "vnd.sun.star.script:Publishing.Correction.executeRemoveBadCharacters?language=Basic&amp;location=application"
+  sCmdID   = "vnd.sun.star.script:Publishing.Correction.removeBadCharacters?language=Basic&amp;location=application"
   sCmdLable = "Не юникод"
   nCount = 0
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
@@ -243,22 +243,16 @@ Sub addWriterEditorToolbar(toolbarName,toolbarDescription)
   nCount = 1
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
-
-  sCmdID   = "vnd.sun.star.script:Publishing.Correction.executeMakeMeHappy?language=Basic&amp;location=application"
-  sCmdLable = "Ошибки"
-  nCount = 2
-  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
-  oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.executeClean?language=Basic&amp;location=application"
   sCmdLable = "Формат"
-  nCount = 3
+  nCount = 2
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.unusedStyles.executeRemoveUnusedStyles?language=Basic&amp;location=application"
   sCmdLable = "Пустые стили"
-  nCount = 4
+  nCount = 3
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   

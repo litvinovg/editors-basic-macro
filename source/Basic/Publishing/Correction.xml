@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Correction" script:language="StarBasic">Sub fixFrequentMistakes
-	'No tabs	
-    AskAndReplace("^\t","")
-    'No multiple spaces
-    AskAndReplace("[:space:]+"," ")
-	'No paragraphs with one space
+	'Не должно быть символов табуляции
+    AskAndReplace("\t","")
+    'Не должно быть подряд больше одного пробела
+    AskAndReplace("(?&lt;=[:space:])[:space:]+","")
+	'Не должно быть ни одного пробела в начале абзаца
     AskAndReplace("^[:space:]+","")
-    'No empty paragraphs
+    'Не должно быть пустых абзацев
     AskAndReplace("^$","")
-
-End Sub
-
-Sub executeMakeMeHappy
-	StartTracking
-	AskAndReplace("(?&lt;=[:space:])[:space:]+","")
-'	AskAndReplace("[\uE000-\uF8FF]+","")
-	AskAndReplace("[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])","")
-	AskAndReplace("(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])","‒")
-	AskAndReplace("(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])","–")
-	AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
-	AskAndReplace("(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")
-	AskAndReplace("(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)"," ")
-    AskAndReplace("(?&lt;=\bи)\ (?=т\.)"," ")
-    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)",". ")
-'	AskAndReplace("(?&lt;=\b[сСтТ]\.)[:space:](?=[:digit:])"," ")
+    'Не должно быть пробелов перед знаками пунктуации .,;:?!)]}»¡¿”‘’
+   	AskAndReplace("[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])","")
+	'Заменить обычный пробел между том и цифрой на неразрывный
 	AskAndReplace("(?&lt;=\b[тТ](ом|\.))\ (?=[:digit:])"," ")
+	'Заменить обычный пробел между серия и цифрой на неразрывный
 	AskAndReplace("(?&lt;=\b[сС](ерия|\.))\ +(?=[:digit:])"," ")
+	'Заменить обычный пробел между часть и цифрой на неразрывный
 	AskAndReplace("(?&lt;=\b[чЧ](асть|\.))\ +(?=[:digit:])"," ")
+	'Заменить обычный пробел между 1985 и г. на неразрывный
 	AskAndReplace("(?&lt;=[0-9])[:space:]*г(?=\.)"," г")
-'citation correction	
-	AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
-    AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt; ")
-    AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
-'Empty par and leading spaces
-	StopTracking
-    AskAndReplace("^[\t\n\ ]+","")
-    AskAndReplace("^$","")
+	'Пробел между инициалами и последующей фамилией заменяется на неразрывный
+	AskAndReplace("(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)"," ")
+	'Не должно быть пробелов после скобок [({ и кавычек «„
+	AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
+	'Заменить пробел между "и" и "т." на неразрывный 	
+    AskAndReplace("(?&lt;=\bи)\ (?=т\.)"," ")
+   	'Заменить пробел между "т." и "ендпк" на неразрывный
+    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)",". ")
+    
+'  	AskAndReplace("(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])","‒")
+'	AskAndReplace("(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])","–")
+'	AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
+'	AskAndReplace("(?&lt;=[^.!?][:space:][:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")
+'
+'	'Вставить пробел между буквой и угловой открывающейся кавычкой
+'	AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
+'   AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt; ")
+'  AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
 End Sub
-
 
 Sub executeCitationCorrection
 	StartTracking
@@ -54,7 +53,7 @@ Sub executeRemoveConsequentSpaces
 	    AskAndReplace("(?&lt;=[:space:])[:space:]+","")
 	StopTracking
 End Sub
-Sub executeRemoveBadCharacters
+Sub removeBadCharacters
 	StartTracking
 	    AskAndReplace("[\uE000-\uF8FF]+","")
 	StopTracking
