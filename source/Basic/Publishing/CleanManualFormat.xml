@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="CleanManualFormat" script:language="StarBasic">Sub ExecuteClean
+	saveDocument()
 	StopTracking
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
@@ -9,8 +10,6 @@
 	disposeAllBookmarks
 	
 	replaceBaseToStandard
-	
-	fixFrequentMistakes
 	
 	convertFormattingToText
 	
@@ -23,6 +22,8 @@
 	NotesCleanStyle
 	
 	executeRemoveUnusedStyles
+	
+	fixFrequentMistakes
 
 	statusIndicator.end()
 	saveAndreload()

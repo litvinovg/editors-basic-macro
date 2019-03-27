@@ -14,6 +14,31 @@
 
 end Sub
 
+sub saveDocument()
+	rem ----------------------------------------------------------------------
+	rem define variables
+	dim document   as object
+	dim dispatcher as object
+	rem ----------------------------------------------------------------------
+	rem get access to the document
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:Save", "", 0, Array())
+
+end Sub
+
+sub reloadDocument()
+	rem ----------------------------------------------------------------------
+	rem define variables
+	dim document   as object
+	dim dispatcher as object
+	rem ----------------------------------------------------------------------
+	rem get access to the document
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:Reload", "", 0, Array())
+
+end Sub
 Sub setDimensions
 	Dim width As String
 	Dim height As String

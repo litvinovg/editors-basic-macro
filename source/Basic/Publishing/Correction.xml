@@ -39,6 +39,12 @@
 '  AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
 End Sub
 
+Sub test111
+	StartTracking
+	 AskAndReplace("\t","")
+	StopTracking
+End Sub
+
 Sub executeCitationCorrection
 	StartTracking
 	    AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
