@@ -46,11 +46,15 @@ Sub setDimensions
 	Dim curStyle As Object
 	width = InputBox("Введите ширину страниц:", "Установка ширины всех страниц документа", "210")
 	height = InputBox("Введите высоту страниц:", "Установка высоты всех страниц документа", "297")
-	oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
-	For i = 0  to oStyles.Count - 1
-		curStyle = oStyles.getByIndex(i)
-		curStyle.Width = CLng(width + "00")
-		curStyle.Height = CLng(height + "00")
-	Next
+	If Cint(width) &gt; 50 Or Cint(height) &gt; 50 Then
+		oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
+		For i = 0  to oStyles.Count - 1
+			curStyle = oStyles.getByIndex(i)
+			curStyle.Width = CLng(width + "00")
+			curStyle.Height = CLng(height + "00")
+		Next
+	EndIf
+	
+	Exit Sub
 End Sub
 </script:module>
