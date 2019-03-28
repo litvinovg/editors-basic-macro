@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">Sub makeUpIssue
-	
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+'	Mri curStyle
+
+Sub makeUpIssue
+
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
 	Dim oViewCursor As Object
@@ -23,7 +26,7 @@
 		Exit Sub
 	End If
 	
-	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+
 	
 	GlobalScope.BasicLibraries.loadLibrary("Tools")
 	path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
@@ -82,7 +85,7 @@
 		statusIndicator.setValue(26)
 		'remove last empty page
 		oViewCursor.jumpToPage(page)
-		oViewCursor.jumpToPage(getArticleLastPage())
+		oViewCursor.jumpToPage(lastPageNum(i))
 		removeEmptyPage()
 		statusIndicator.setValue(28)
 		'Set pageNums
@@ -103,10 +106,10 @@ Sub setPageNumbers()
 	Dim firstPage as String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oViewCursor.jumpToFirstPage()
-	firstPage =  findFirstPageWithStyle("Первая страница статьи 1")
+	firstPage =  findFirstPageWithStyle("Статья 1 стр.1")
 	oViewCursor.jumpToPage(firstPage)
 	For i = 1 To 25 
-		pageNum = getArticleLastPage()
+		pageNum = lastPageNum(i)
 		'msgBox pageNum
 		If pageNum = -1 Then
 			Exit For
@@ -122,7 +125,7 @@ Sub setAtricleVars(i)
 	'modifyVar("rightHeader" + i , getTitleHeader() )
 End Sub
 
-Function getArticleLastPage()
+Function lastPageNum(i)
 	Dim docLastPage As Integer
 	Dim curPageNum As Integer
 	Dim oViewCursor As Object
@@ -135,13 +138,13 @@ Function getArticleLastPage()
 	docLastPage = CInt(oViewCursor.getPage())
 	oViewCursor.goToRange(oSavePosition,false)
 	If CInt(oViewCursor.getPage()) = docLastPage Then
-		getArticleLastPage = -1
+		lastPageNum = -1
 		Exit Function
 	End If
 	Dim curPageStyleName As String
 	curPageStyleName = oViewCursor.PageStyleName
 
-	Do Until  InStr(curPageStyleName,"статьи") = 0
+	Do Until  InStr(curPageStyleName,"Статья " + CStr(i)) = 0
 		curPageNum = CInt(oViewCursor.getPage())
 		If curPageNum = docLastPage Then
 			Exit Do
@@ -153,11 +156,11 @@ Function getArticleLastPage()
 				
 		oViewCursor.jumpToNextPage()
 		curPageStyleName = getNextPageStyleName()
-		If InStr(curPageStyleName,"Первая страница статьи") = 1 Then
+		If InStr(curPageStyleName,"Статья " + CStr(i+1) + " стр.1") = 1 Then
 			Exit Do
 		End If
 	Loop
-	getArticleLastPage = curPageNum
+	lastPageNum = curPageNum
 End Function
 
 Function getUDK()
@@ -237,25 +240,26 @@ Sub setArticlePageStyles(i)
 	Dim pageNum As Long
 	Dim pageStyles As Object
 	Dim articleFirstPageStyle As Object
-	Dim firstPageStyleName As String 
-	Dim leftPageStyleName As String
-	Dim rightPageStyleName As String
 	Dim newPageStyleName As String
 	Dim articleFirstPageStyleName As String 
 	Dim curStyle As Object
 	Dim tmpStyleName As String
+	Dim firstName As String
+	Dim newName As String
+	Dim newFirstName As String
 	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
-	firstPageStyleName = "Первая страница статьи"
-	leftPageStyleName = "Левая страница статьи"
-	rightPageStyleName = "Правая страница статьи"
+	firstName = "Первая страница статьи"
+	newName = "Статья " + CStr(i)
+	newFirstName = newName + " стр.1"
+
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oTextCursor =  oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'set starndard first page style name (need for cloning)
-	oTextCursor.PageDescName = firstPageStyleName
+	oTextCursor.PageDescName = firstName
 	'clone starndard first page style
-	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
+	createPageStyleByExample(newFirstName)
 	' set cloned style to first page
-	oTextCursor.PageDescName = oViewCursor.pageStyleName + " " + CStr(i)
+	oTextCursor.PageDescName = newFirstName
 	'get current first page style name
 	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
 	setFirstPageMetadata(curStyle,i)
@@ -265,27 +269,21 @@ Sub setArticlePageStyles(i)
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	oTextCursor.BreakType = 4
 	'clone 1 left/right style
-	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
+	createPageStyleByExample(newName)
 	'set followStyle to previous style
-	curStyle.FollowStyle = oViewCursor.pageStyleName + " " + CStr(i)
+	curStyle.FollowStyle = newName
 	'set new curStyle	
 	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
-	setBroadSideMetadata(curStyle,i)
+
 	'create new para for next page
 	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'insert page break
 	oTextCursor.BreakType = 4
-	'clone left/right page style
-	createPageStyleByExample(oViewCursor.pageStyleName + " " + CStr(i))
-	'set followStyle to previous style (apply cloned style to current page)
-	curStyle.FollowStyle = oViewCursor.pageStyleName + " " + CStr(i)
-	'make styles loop
-	tmpStyleName = curStyle.getName
-	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
-	setBroadSideMetadata(curStyle,i)
-	curStyle.FollowStyle = tmpStyleName
+
+	setHeaderMetadata(curStyle,i)
 	oViewCursor.jumpToPreviousPage()
+
 	oViewCursor.jumpToPreviousPage()
 	sendRM()
 	sendRM()
@@ -333,37 +331,33 @@ Sub setFirstPageMetadata(curStyle,i)
 	oViewCursor.goToRange(oSavePosition, false)
 End Sub
 
-Sub setBroadSideMetadata(curStyle,i)
+Sub setHeaderMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oHeaderTable As Object
+	Dim rightHeaderTable As Object
+	Dim leftHeaderTable As Object
 	Dim headerCell As Object
 	Dim leftHeaderCell As Object
 	Dim curStyleName As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-	curStyleName = curStyle.getName()
-	'curStyle.HeaderText
-	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
+
+	rightHeaderTable = curStyle.HeaderTextRight.CreateEnumeration().nextElement
+	rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
+	oViewCursor.goToRange(rightHeaderCell, false)
+	addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
 	
-	If InStr(curStyleName,"Левая страница статьи") = 1 Then
-		'rightHeaderCell
-		rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
-		oViewCursor.goToRange(rightHeaderCell, false)
-		addTextVar("leftHeader" + i ,"Раздел" + i )
-	ElseIf InStr(curStyleName,"Правая страница статьи") = 1 Then
-		'leftHeaderCell
-		leftHeaderCell = oHeaderTable.getCellByPosition(0,0).getStart()
-		oViewCursor.goToRange(leftHeaderCell, false)
-		addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
-	End If
+	leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
+	leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
+	oViewCursor.goToRange(leftHeaderCell, false)
+	addTextVar("leftHeader" + i ,"Раздел" + i )
+
 	oViewCursor.goToRange(oSavePosition, false)
 End Sub
 
 Sub	setArticleUniqPageStyles(i)
-	Dim firstPageStyleName As String 
-	Dim leftPageStyleName As String
-	Dim rightPageStyleName As String
+	Dim firstPageName As String 
+	Dim pageName As String
 	Dim curPageNum As Integer
 	Dim prevPageNum As String
 	Dim leftPageNum As Long
@@ -378,43 +372,28 @@ Sub	setArticleUniqPageStyles(i)
 	Dim clonedStyleName As String
 	Dim oViewCursor As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
 	'Constants
 	articlePageNum = 1
-	firstPageStyleName = "Первая страница статьи " + CStr(i)
-	leftPageStyleName = "Левая страница статьи " + CStr(i)
-	rightPageStyleName = "Правая страница статьи " + CStr(i)
-	'
-	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
 	
+	pageName = "Статья " + CStr(i)
+	firstPageName = pageName + " стр.1"
+		
 	curPageStyleName = oViewCursor.PageStyleName
 
-	Do Until  InStr(curPageStyleName,"статьи") = 0
-		
+	Do Until  InStr(curPageStyleName,pageName) = 0
+		newPageName = pageName + " стр." + articlePageNum
 		curPageNum = CInt(oViewCursor.getPage())
 		' Если мы находимся на первой странице статьи
-		If InStr(curPageStyleName,firstPageStyleName) = 1 Then
+		If InStr(curPageStyleName, firstPageName) = 1 Then
 			curPageStyle = pageStyles.getByName(curPageStyleName)
-			'Если текущая правая
-			If CLng(curPageNum) Mod 2 = 1 Then
-				curPageStyle.FollowStyle = leftPageStyleName
-			Else
-				curPageStyle.FollowStyle = rightPageStyleName
-			EndIf
-			'Получаем объект стиля сраницы предыдущей для следующей итерации
 			previousPageStyle = curPageStyle
-		ElseIf InStr(curPageStyleName,leftPageStyleName) = 1 Then
-			clonedStyleName = leftPageStyleName + "." + CStr(articlePageNum)
-			createPageStyleByExample(clonedStyleName)
-			previousPageStyle.FollowStyle = clonedStyleName
-			'Получаем объект стиля сраницы предыдущей для следующей итерации
-			previousPageStyle = pageStyles.getByName(clonedStyleName)
-		ElseIf InStr(curPageStyleName,rightPageStyleName) = 1 Then
-			clonedStyleName = rightPageStyleName + "." + CStr(articlePageNum)
-			createPageStyleByExample(clonedStyleName)
-			previousPageStyle.FollowStyle = clonedStyleName
-			'Получаем объект стиля сраницы предыдущей для следующей итерации
-			previousPageStyle = pageStyles.getByName(clonedStyleName)
-
+		ElseIf InStr(curPageStyleName, pageName) = 1 Then
+			createPageStyleByExample(newPageName)
+			previousPageStyle.FollowStyle = newPageName
+			curPageStyle = pageStyles.getByName(newPageName)
+			curPageStyle.FollowStyle = pageName
+			previousPageStyle = curPageStyle
 		ElseIf oViewCursor.getPage() &lt;&gt; curPageNum Then
 			'Прили в конец.
 			MsgBox "Статья закончилась!"
@@ -435,7 +414,7 @@ Sub takeWidowLinesIn
 	Dim oViewCursor As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	curPageStyleName = getNextPageStyleName()
-	Do Until  InStr(curPageStyleName,"статьи") = 0
+	Do Until  InStr(curPageStyleName,"Статья") = 0
 		takeLineIn()
 		oViewCursor.jumpToNextPage()
 		curPageStyleName = getNextPageStyleName()
@@ -446,7 +425,7 @@ Sub takeDownOrpahns
 	Dim oViewCursor As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	curPageStyleName = getNextPageStyleName()
-	Do Until  InStr(curPageStyleName,"статьи") = 0
+	Do Until  InStr(curPageStyleName,"Статья") = 0
 		takeLineIn
 		oViewCursor.jumpToNextPage()
 		curPageStyleName = getNextPageStyleName()
