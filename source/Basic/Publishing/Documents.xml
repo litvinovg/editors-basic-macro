@@ -40,20 +40,96 @@ sub reloadDocument()
 
 end Sub
 Sub setDimensions
-	Dim width As String
-	Dim height As String
 	Dim oStyles As Object
 	Dim curStyle As Object
-	width = InputBox("Введите ширину страниц:", "Установка ширины всех страниц документа", "210")
-	height = InputBox("Введите высоту страниц:", "Установка высоты всех страниц документа", "297")
-	If Cint(width) &gt; 50 Or Cint(height) &gt; 50 Then
-		oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
-		For i = 0  to oStyles.Count - 1
-			curStyle = oStyles.getByIndex(i)
-			curStyle.Width = CLng(width + "00")
-			curStyle.Height = CLng(height + "00")
-		Next
-	EndIf
+	Dim inputHeight As String
+	Dim inputTopMargin As String
+	Dim inputBottomMargin As String
+	Dim inputLeftMargin As String
+	Dim inputRightMargin As String
+	
+	Dim newWidth As Long
+	Dim newHeight As Long
+	Dim newTopMargin As Long
+	Dim newBottomMargin As Long
+	Dim newLeftMargin As Long
+	Dim newRightMargin As Long
+	Dim textFieldHeight As Long
+	Dim textFieldWidth As Long
+	
+	oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
+	inputWidth = InputBox("Введите ширину страниц (в мм):", "Установка ширины всех страниц документа", "")
+	inputHeight = InputBox("Введите высоту страниц (в мм):", "Установка высоты всех страниц документа", "")
+	inputTopMargin = InputBox("Введите размер верхнего поля (в мм):", "Установка размера верхнего поля для всех страниц", "")
+	inputBottomMargin = InputBox("Введите резмер нижнего поля (в мм):", "Установка размера нижнего поля для всех страниц", "")
+	inputLeftMargin = InputBox("Введите размер левого поля (в мм):", "Установка размера левого поля для всех страниц", "")
+	inputRightMargin = InputBox("Введите размер правого поля (в мм):", "Установка размера правого поля для всех страниц", "")
+
+	For i = 0  to oStyles.Count - 1
+		curStyle = oStyles.getByIndex(i)
+		newWidth = curStyle.Width
+		newHeight = curStyle.height
+		newTopMargin = curStyle.TopMargin
+		newBottomMargin = curStyle.BottomMargin
+		newLeftMargin = curStyle.LeftMargin
+		newRightMargin = curStyle.RightMargin
+		
+		If curstyle.IsLandscape Then
+			If CLng(inputHeight) &gt; 0 Then
+				newWidth = CLng(inputHeight + "00")
+			EndIf
+			If CLng(inputWidth) &gt; 0 Then
+				newHeight = CLng(inputWidth + "00")
+			EndIf
+			
+			If CLng(inputLeftMargin) &gt; 0 Then
+				newTopMargin = CLng(inputLeftMargin + "00")
+			EndIf
+			If CLng(inputRightMargin) &gt; 0 Then
+				newBottomMargin = CLng(inputRightMargin + "00")
+			EndIf
+			If CLng(inputTopMargin) &gt; 0 Then
+				newLeftMargin = CLng(inputTopMargin + "00")
+			EndIf
+			If CLng(inputBottomMargin) &gt; 0 Then
+				newRightMargin = CLng(inputBottomMargin + "00")
+			EndIf
+
+		Else
+			If CLng(inputWidth) &gt; 0 Then
+				newWidth = CLng(inputWidth + "00")
+			EndIf
+			If CLng(inputHeight) &gt; 0 Then
+				newHeight = CLng(inputHeight + "00")
+			EndIf
+			If CLng(inputTopMargin) &gt; 0 Then
+				newTopMargin = CLng(inputTopMargin + "00")
+			EndIf
+			If CLng(inputBottomMargin) &gt; 0 Then
+				newBottomMargin = CLng(inputBottomMargin + "00")
+			EndIf
+			If CLng(inputLeftMargin) &gt; 0 Then
+				newLeftMargin = CLng(inputLeftMargin + "00")
+			EndIf
+			If CLng(inputRightMargin) &gt; 0 Then
+				newRightMargin = CLng(inputRightMargin + "00")
+			EndIf
+		End If
+		textFieldWidth = newWidth - newLeftMargin - newRightMargin
+		textFieldHeight = newHeight - newTopMargin - newBottomMargin
+		
+		If textFieldWidth &gt; 5000 Then
+			curStyle.Width = newWidth
+			curStyle.LeftMargin = newLeftMargin
+			curStyle.RightMargin = newRightMargin
+		EndIf
+		
+		If textFieldHeight &gt; 5000 Then
+			curStyle.Height = newHeight
+			curStyle.TopMargin = newTopMargin
+			curStyle.BottomMargin = newBottomMargin
+		EndIf
+	Next
 	
 	Exit Sub
 End Sub
