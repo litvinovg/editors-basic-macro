@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Bookmarks" script:language="StarBasic" script:moduleType="normal">
+Sub convertBookmarksToFootnotes()
+	Dim bookmarks as Object
+	Dim bookmarkName as String
+	Dim strStart As Integer
+	Dim linkPrefix As String 
+	Dim backLinkSuffix As String
+	Dim backwardLink As String
+	Dim forwardLink As String
+	Dim forward As Object
+	Dim backward As Object
+	linkPrefix = "footnote-"
+	backLinkSuffix = "-backlink"
+
+	bookmarkName = ThisComponent.Links.ElementNames(6)
+	bookmarks = ThisComponent.Links.getByName(bookmarkName)
+'	Mri bookmarks
+	bookmarkNames = bookmarks.getElementNames()
+	For i = LBound(bookmarkNames) To Ubound(bookmarkNames)
+		bookmarkName = bookmarkNames(i)
+		If InStr(bookmarkName, linkPrefix) = 1 Then
+			forwardLink = ""
+			backwardLink = ""
+			If InStr(bookmarkName, backLinkSuffix) &gt; 0 Then
+				forwardLink = Left(bookmarkName,Len(bookmarkName) - Len(backLinkSuffix))
+				backwardLink = bookmarkName
+			Else
+				forwardLink = bookmarkName 
+				backwardLink = bookmarkName + backLinkSuffix
+			EndIf
+			convertLinkToFootnote(forwardLink,backwardLink)
+		EndIf
+			
+	Next i
+	
+	NotesCleanStyle
+	
+End Sub
+
+Sub convertLinkToFootnote(forwardLink,backwardLink)
+	Dim bookMarkName As String
+	bookmarkName = ThisComponent.Links.ElementNames(6)
+	Dim bookmarks As Object
+	bookmarks = ThisComponent.Links.getByName(bookmarkName)
+	Dim forward As Object
+	Dim backward As Object
+	Dim oViewCursor As Object
+	Dim footNoteSign As String
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	Dim oTextCursor As Object
+	'oViewCursor = 
+	If NOT bookmarks.hasByName(forwardLink) OR NOT bookmarks.hasByName(backwardLink) Then
+		exit sub
+		'If msgbox( "NO SuCH LINK", 36 ) = 6 Then Stop
+	EndIf	
+	forward = bookmarks.getByName(forwardLink)
+	backward = bookmarks.getByName(backwardLink)
+	oViewCursor.goToRange(forward.Anchor,false)
+	footNoteSign = oViewCursor.getString()
+	backspace
+	backspace
+	SendRM
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor.gotoEndOfParagraph(false)
+	oTextCursor.gotoStartOfParagraph(true)
+	oViewCursor.goToRange(oTextCursor,true)
+	unoCut()
+	SendRM
+	oViewCursor.goToRange(backward.Anchor,false)
+	backspace
+	createFootnote
+	unoPaste()
+	oViewCursor.getText.setLabel(footNoteSign)
+	forward.dispose()
+	backward.dispose()
+
+End sub
+
+
+sub unoCut
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, ".uno:Cut", "", 0, Array())
+
+end sub
+
+sub unoPaste
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, ".uno:Paste", "", 0, Array())
+
+end sub
+
+
+sub createFootnote
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, ".uno:InsertFootnote", "", 0, Array())
+
+
+end sub
+</script:module>
