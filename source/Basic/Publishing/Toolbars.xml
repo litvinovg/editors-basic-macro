@@ -171,6 +171,13 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.Documents.setBookUniqPageStyles?language=Basic&amp;location=application"
+  sCmdLable = "Стр.книг"
+  nCount = 10
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
   REM *** Set the settings for our new custom toolbar. (replace/insert)
   If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
     oModuleCfgMgr.replaceSettings( sToolbarURL, oTBSettings )

@@ -133,4 +133,64 @@ Sub setDimensions
 	
 	Exit Sub
 End Sub
+
+Sub	setBookUniqPageStyles
+
+	Dim firstPageName As String 
+	Dim pageName As String
+	Dim curPageNum As Integer
+	Dim prevPageNum As String
+	Dim leftPageNum As Long
+	Dim docPages As Long
+	Dim articlePages As Long
+	Dim previousPageStyle As Object
+	Dim pageStyles As Object
+	Dim curPageStyle As Object
+	Dim curPageStyleName As String
+	Dim nextStyle As Object
+	Dim clonedStyle As Object
+	Dim clonedStyleName As String
+	Dim oViewCursor As Object
+	Dim pageNum As Integer
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	pageNum = 1
+	pageName = "Страница издания"
+		
+	page = findFirstPageWithStyle(pageName)
+	firstPage = page
+	oViewCursor.jumpToPage(page)
+	curPageStyleName = oViewCursor.PageStyleName
+	Do While StrComp(curPageStyleName,pageName,1) = 0
+		If pageNum = 1 Then
+			oViewCursor.jumpToPreviousPage()
+			prevPageName = oViewCursor.PageStyleName
+			previousPageStyle = pageStyles.getByName(prevPageName)
+			tmpName = pageName + " "
+			If InStr(prevPageName, tmpName) = 1 Then
+				startNum = Right(prevPageName,Len(prevPageName) - Len(tmpName))
+				pageNum =  CInt(startNum) + 1 
+			EndIf
+			oViewCursor.jumpToNextPage()
+		EndIf
+		newPageName = pageName + " " + pageNum
+		
+		createPageStyleByExample(newPageName)
+		If pageNum = 1 Then
+			oTextCursor = oViewCursor.Text.CreateTextCursorByRange(oViewCursor)
+			oViewCursor.PageDescName = newPageName
+			
+		Else
+			previousPageStyle.FollowStyle = newPageName						
+		EndIf
+
+		curPageStyle = pageStyles.getByName(newPageName)
+		'Установим стиль следующей страницы в стандартное значение
+		curPageStyle.FollowStyle = pageName
+		previousPageStyle = curPageStyle
+		oViewCursor.jumpToNextPage()
+		curPageStyleName = getNextPageStyleName()
+		pageNum = pageNum + 1
+	Loop
+End Sub
 </script:module>
