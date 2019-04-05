@@ -35,14 +35,7 @@
 	saveAndreload()
 End Sub
 
-Sub disposeAllBookmarks()
-	Dim bookmarks As Object
-	bookmarks = ThisComponent.Links.getByName("Закладки")
-	While bookmarks.hasElements()
-		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))
-		bookmark.dispose()
-	Wend
-End Sub
+
 
 Sub NotesCleanStyle
 	Dim oDescriptor 'The search descriptor

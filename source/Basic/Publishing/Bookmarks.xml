@@ -124,5 +124,28 @@ rem ----------------------------------------------------------------------
 dispatcher.executeDispatch(document, ".uno:InsertFootnote", "", 0, Array())
 
 
-end sub
+end Sub
+
+Sub disposeAllLinks
+	enum1 = ThisComponent.Text.createEnumeration
+		While enum1.hasMoreElements
+		thisPara = enum1.nextElement
+		enum2 = thisPara.createEnumeration
+		While enum2.hasMoreElements
+			thisPortion = enum2.nextElement
+			thisPortion.HyperlinkTarget = ""
+			thisPortion.HyperLinkURL = ""
+		Wend
+	Wend 
+End Sub
+
+Sub disposeAllBookmarks()
+	Dim bookmarks As Object
+	bookmarks = ThisComponent.Links.getByName("Закладки")
+	While bookmarks.hasElements()
+		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))
+		bookmark.dispose()
+	Wend
+End Sub
+
 </script:module>

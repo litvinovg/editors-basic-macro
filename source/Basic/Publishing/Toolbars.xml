@@ -184,9 +184,15 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
-  sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.disposeAllBookmarks?language=Basic&amp;location=application"
+  sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.disposeAllBookmarks?language=Basic&amp;location=application"
   sCmdLable = "Удал Закладок"
   nCount = 12
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.disposeAllLinks?language=Basic&amp;location=application"
+  sCmdLable = "Удал ссылки"
+  nCount = 13
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
