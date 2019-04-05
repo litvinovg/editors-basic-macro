@@ -16,8 +16,6 @@
     'Не должно быть пустых абзацев
     AskAndReplace("^$","")
 
-	disposeAllBookmarks
-	
 	replaceBaseToStandard
 	
 	convertFormattingToText
@@ -38,6 +36,7 @@
 End Sub
 
 Sub disposeAllBookmarks()
+	Dim bookmarks As Object
 	bookmarks = ThisComponent.Links.getByName("Закладки")
 	While bookmarks.hasElements()
 		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))

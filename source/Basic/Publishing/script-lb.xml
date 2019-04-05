@@ -15,4 +15,5 @@
   <library:element library:name="replaceFonts"/>
   <library:element library:name="makeUpToolbar"/>
   <library:element library:name="Documents"/>
+  <library:element library:name="Bookmarks"/>
 </library:library>
