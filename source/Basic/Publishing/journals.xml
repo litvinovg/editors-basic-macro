@@ -120,7 +120,7 @@ End Sub
 
 Sub setAtricleVars(i)
 	'modifyVar("article" + i + "LastPage", CStr(getArticleLastPage()) )
-	'modifyVar("article" + i + "UDK", getUDK())
+	modifyVar("article" + i + "UDK", getUDK())
 	modifyVar("author" + i + "Copyright", getCopyright() )
 	'modifyVar("rightHeader" + i , getTitleHeader() )
 End Sub
@@ -164,16 +164,24 @@ Function lastPageNum(i)
 End Function
 
 Function getUDK()
+	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
 	Dim title As String
+	Dim foundUDK As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
-	
-	getFirstTextInStyle("Заголовок 2")
-	title = oViewCursor.getString()
+	oViewCursor.collapseToStart()
+	getFirstTextInStyle("УДК")
+	foundUDK = oViewCursor.getString()
+	If foundUDK = "" Then
+		getUDK = "Задать УДК"
+	Else 
+		getUDK = foundUDK
+		backspace
+		sendRM
+	End If
 	oViewCursor.goToRange(oSavePosition, false)
-	getUDK = Left(title,11)
 End Function
 
 Function getCopyright()
