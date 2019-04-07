@@ -177,20 +177,20 @@
     <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
       <style:text-properties style:font-name="Liberation Serif"/>
     </style:style>
-    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
+    <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L1">
+      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02ed919d" officeooo:paragraph-rsid="02eda724"/>
+    </style:style>
+    <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
+      <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
+      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02eda724"/>
+    </style:style>
+    <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Heading_20_1" style:master-page-name="Landscape">
       <style:paragraph-properties style:page-number="auto"/>
       <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02d82664" style:text-scale="99%"/>
     </style:style>
-    <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Heading_20_1">
+    <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Heading_20_1">
       <style:paragraph-properties fo:break-before="page"/>
       <style:text-properties style:font-name="Liberation Serif"/>
-    </style:style>
-    <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L1">
-      <style:text-properties style:font-name="Liberation Serif" officeooo:rsid="02ed919d" officeooo:paragraph-rsid="02eda724"/>
-    </style:style>
-    <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Table_20_Contents" style:list-style-name="L2">
-      <style:paragraph-properties fo:text-align="start" style:justify-single-word="false"/>
-      <style:text-properties style:font-name="Liberation Serif" officeooo:paragraph-rsid="02eda724"/>
     </style:style>
     <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Heading_20_2">
       <style:text-properties style:font-name="Liberation Serif"/>
@@ -233,16 +233,16 @@
       <style:text-properties officeooo:rsid="02ef36c4"/>
     </style:style>
     <style:style style:name="T8" style:family="text">
-      <style:text-properties fo:background-color="#fff200" loext:char-shading-value="0"/>
-    </style:style>
-    <style:style style:name="T9" style:family="text">
       <style:text-properties officeooo:rsid="02f316d5"/>
     </style:style>
-    <style:style style:name="T10" style:family="text">
+    <style:style style:name="T9" style:family="text">
       <style:text-properties style:font-name="Liberation Serif" fo:language="ru" fo:country="RU"/>
     </style:style>
-    <style:style style:name="T11" style:family="text">
+    <style:style style:name="T10" style:family="text">
       <style:text-properties officeooo:rsid="030c3ecd"/>
+    </style:style>
+    <style:style style:name="T11" style:family="text">
+      <style:text-properties fo:font-weight="bold" fo:background-color="transparent" loext:char-shading-value="0" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
     </style:style>
     <text:list-style style:name="L1">
       <text:list-level-style-number text:level="1" text:style-name="Numbering_20_Symbols" style:num-suffix="." style:num-format="1">
@@ -401,9 +401,9 @@
         <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
         <text:sequence-decl text:display-outline-level="0" text:name="Figure"/>
       </text:sequence-decls>
-      <text:h xml:id="id2189943771" text:style-name="P22" text:outline-level="1">Данный файл содержит<text:span text:style-name="T1"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
+      <text:h xml:id="id2189943771" text:style-name="P24" text:outline-level="1">Данный файл содержит<text:span text:style-name="T1"> небольшие программы для <text:line-break/>упрощения выполнения рутинной работы</text:span></text:h>
       <text:p text:style-name="P4">Чтобы Вы могли их установить, Вам прежде всего необходимо разрешить их установку в <text:span text:style-name="T1">Lib</text:span>reOffice:</text:p>
-      <text:p text:style-name="P5">1. Зайдите в меню <text:span text:style-name="T8">Сервис</text:span> → пункт <text:span text:style-name="T8">Параметры</text:span> → в левой части нового окна выберите пункт <text:span text:style-name="T8">Безопасность</text:span> → в правой части окна нажмите кнопку «<text:span text:style-name="T8">Безопасность макросов</text:span>». В открывшемся окна выберите <text:span text:style-name="T8">средний уровень</text:span> безопасности. Нажмите Ок в открытых окнах.</text:p>
+      <text:p text:style-name="P5">1. Зайдите в меню <text:span text:style-name="T11">Сервис</text:span> → пункт <text:span text:style-name="T11">Параметры</text:span> → в левой части нового окна выберите пункт <text:span text:style-name="T11">Безопасность</text:span> → в правой части окна нажмите кнопку «<text:span text:style-name="T11">Безопасность макросов</text:span>». В открывшемся окна выберите <text:span text:style-name="T11">средний уровень</text:span> безопасности. Нажмите Ок в открытых окнах.</text:p>
       <text:p text:style-name="P6">2. Закройте и откройте этот документ снова. При отрытии Вы увидите предупреждение. Нажмите разрешить макросы. Теперь Вы можете выбрать, какую панель с программами Вы хотите установить. Для этого нажмите на соответствующую кнопку ниже. Можно установить все панели, а потом просто закрыть ненужные.</text:p>
       <table:table table:name="Таблица3" table:style-name="Таблица3">
         <table:table-column table:style-name="Таблица3.A"/>
@@ -423,7 +423,6 @@
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
             <text:p text:style-name="P2">
               <draw:control text:anchor-type="as-char" svg:y="-4mm" draw:z-index="0" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P29" svg:width="63.47mm" svg:height="5.95mm" draw:control="control1"/>
-              <text:s/>
             </text:p>
           </table:table-cell>
         </table:table-row>
@@ -434,7 +433,6 @@
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
             <text:p text:style-name="P2">
               <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="2" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P29" svg:width="97.71mm" svg:height="5.95mm" draw:control="control3"/>
-              <text:s/>
             </text:p>
           </table:table-cell>
         </table:table-row>
@@ -445,7 +443,6 @@
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
             <text:p text:style-name="P2">
               <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="1" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P29" svg:width="121.35mm" svg:height="5.95mm" draw:control="control2"/>
-              <text:s/>
             </text:p>
           </table:table-cell>
         </table:table-row>
@@ -456,14 +453,13 @@
           <table:table-cell table:style-name="Таблица3.A1" office:value-type="string">
             <text:p text:style-name="P3">
               <draw:control text:anchor-type="as-char" svg:y="-3.83mm" draw:z-index="3" draw:name="Фигура1" draw:style-name="gr1" draw:text-style-name="P29" svg:width="121.35mm" svg:height="5.95mm" draw:control="control4"/>
-              <text:s/>
             </text:p>
           </table:table-cell>
         </table:table-row>
       </table:table>
       <text:p text:style-name="P20">Если <text:span text:style-name="T2">после нажатия на кнопки панели не появляются, то видимо Вы не разрешили макросы (как это сделать описано выше)</text:span></text:p>
       <text:p text:style-name="P7">На следующих страницах приведено описание устанавливаемых программ</text:p>
-      <text:h text:style-name="P23" text:outline-level="1">Документация по <text:span text:style-name="T4">программам (макросам)</text:span></text:h>
+      <text:h text:style-name="P25" text:outline-level="1">Документация по <text:span text:style-name="T4">программам (макросам)</text:span></text:h>
       <text:h text:style-name="P26" text:outline-level="2">Макросы <text:span text:style-name="T4">для</text:span> редактор<text:span text:style-name="T4">ов</text:span></text:h>
       <table:table table:name="Таблица1" table:style-name="Таблица1">
         <table:table-column table:style-name="Таблица1.A"/>
@@ -508,7 +504,7 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
             <text:p text:style-name="P12">Предлагаются к исправлению (в отслеживаемых изменениях) следующие виды ошибок набора:</text:p>
-            <text:list xml:id="list2737243619" text:style-name="L1">
+            <text:list xml:id="list3004045739" text:style-name="L1">
               <text:list-item>
                 <text:p text:style-name="P21">Множество последовательных пробелов заменяется на единственный</text:p>
               </text:list-item>
@@ -541,7 +537,7 @@
               </text:list-item>
               <text:list-item>
                 <text:p text:style-name="P21">Пробел между 1917 г. Заменяется на неразрывный, а при отсутсвии вставляется</text:p>
-                <text:p text:style-name="P24">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:p>
+                <text:p text:style-name="P22">Посмотреть результаты и принять или отклонить предложения можно через меню Правка→ Отслеживать изменения → Управление</text:p>
               </text:list-item>
             </text:list>
           </table:table-cell>
@@ -555,27 +551,27 @@
           </table:table-cell>
           <table:table-cell table:style-name="Таблица1.A2" office:value-type="string">
             <text:p text:style-name="P15">Очищает ручное форматирование, кроме <text:span text:style-name="T6">следующего</text:span>: </text:p>
-            <text:list xml:id="list1950162637" text:style-name="L2">
+            <text:list xml:id="list3321093050" text:style-name="L2">
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">П</text:span>олужирного</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">П</text:span>олужирного</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">К</text:span>урсива</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">К</text:span>урсива</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">П</text:span>одчеркивания</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">П</text:span>одчеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">З</text:span>ачеркивания</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">З</text:span>ачеркивания</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">В</text:span>ерхн<text:span text:style-name="T6">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">В</text:span>ерхн<text:span text:style-name="T6">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:soft-page-break/><text:span text:style-name="T6">Н</text:span>ижн<text:span text:style-name="T6">ий</text:span> индекс</text:p>
+                <text:p text:style-name="P23"><text:soft-page-break/><text:span text:style-name="T6">Н</text:span>ижн<text:span text:style-name="T6">ий</text:span> индекс</text:p>
               </text:list-item>
               <text:list-item>
-                <text:p text:style-name="P25"><text:span text:style-name="T6">Р</text:span>астянут<text:span text:style-name="T6">ый</text:span> текст (2пт)</text:p>
+                <text:p text:style-name="P23"><text:span text:style-name="T6">Р</text:span>астянут<text:span text:style-name="T6">ый</text:span> текст (2пт)</text:p>
               </text:list-item>
             </text:list>
             <text:p text:style-name="P16">Все шрифты, примененные к тексту, кроме <text:span text:style-name="T7">IPH Serif</text:span>, сохраняются в одноименные стили симолов для дальнейшего удобства работы с ними. Пустые пользовательские стили после выполнения этого макроса удаляются (кроме стилей из шаблона статьи)</text:p>
@@ -699,10 +695,10 @@
         </table:table-row>
         <table:table-row table:style-name="Таблица2.1">
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P19"><text:span text:style-name="T11">Собрать</text:span> выпуск</text:p>
+            <text:p text:style-name="P19"><text:span text:style-name="T10">Собрать</text:span> выпуск</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.A2" office:value-type="string">
-            <text:p text:style-name="P19">Макрос применяется совместно с шаблоном журнала. Он <text:span text:style-name="T9">последовательно </text:span>добавляет все пронумерованные статьи в той же папке, что и <text:span text:style-name="T9">открытый документ-шаблон выпуска</text:span>. Корректирует расположение текстовых блоков на страницах и задаёт переменные в колонтитулах.</text:p>
+            <text:p text:style-name="P19">Макрос применяется совместно с шаблоном журнала. Он <text:span text:style-name="T8">последовательно </text:span>добавляет все пронумерованные статьи в той же папке, что и <text:span text:style-name="T8">открытый документ-шаблон выпуска</text:span>. Корректирует расположение текстовых блоков на страницах и задаёт переменные в колонтитулах.</text:p>
           </table:table-cell>
           <table:table-cell table:style-name="Таблица2.C2" office:value-type="string">
             <text:p text:style-name="P13"/>
@@ -778,7 +774,7 @@
       </table:table>
       <text:p text:style-name="Standard">
         <text:span text:style-name="Strong_20_Emphasis">
-          <text:span text:style-name="T10"/>
+          <text:span text:style-name="T9"/>
         </text:span>
       </text:p>
     </office:text>

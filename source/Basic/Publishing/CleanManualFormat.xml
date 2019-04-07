@@ -133,7 +133,7 @@ Sub convertEnclosuresToFormat(identifier, styleNames, styleValues)
 	SDesc = Thiscomponent.createSearchDescriptor()
 	SDesc.SearchAll = true
 	SDesc.SearchRegularExpression = true
-	SDesc.SearchString = leftEnclosure + "(.*?)" + rightEnclosure
+	SDesc.SearchString = leftEnclosure + "([^" + identifier+ "]*)" + rightEnclosure
 
 	found = Thiscomponent.findFirst(SDesc)
 	  Do While not isNull(found)

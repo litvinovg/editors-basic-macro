@@ -49,6 +49,10 @@
 	statusIndicator.end()
 End Sub
 
+Sub workaroundForDiacriticKerningBug
+	    AskAndReplace("([:print:][\u0300-\u036F])","$1")
+End Sub
+
 Sub test111
 	StartTracking
 	AskAndReplace("(?&lt;=[:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")

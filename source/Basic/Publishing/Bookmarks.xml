@@ -126,16 +126,24 @@ dispatcher.executeDispatch(document, ".uno:InsertFootnote", "", 0, Array())
 
 end Sub
 
+
 Sub disposeAllLinks
+'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim oPar As Object
+	Dim enum1 As Object
+	Dim thisPortion As Object
 	enum1 = ThisComponent.Text.createEnumeration
-		While enum1.hasMoreElements
-		thisPara = enum1.nextElement
-		enum2 = thisPara.createEnumeration
-		While enum2.hasMoreElements
-			thisPortion = enum2.nextElement
-			thisPortion.HyperlinkTarget = ""
-			thisPortion.HyperLinkURL = ""
-		Wend
+	While enum1.hasMoreElements
+		oPar = enum1.nextElement
+	'	Mri oPar
+		If oPar.supportsService("com.sun.star.text.Paragraph") Then
+			enum2 = oPar.createEnumeration
+			While enum2.hasMoreElements
+				thisPortion = enum2.nextElement
+				thisPortion.HyperlinkTarget = ""
+				thisPortion.HyperLinkURL = ""
+			Wend
+		End If
 	Wend 
 End Sub
 

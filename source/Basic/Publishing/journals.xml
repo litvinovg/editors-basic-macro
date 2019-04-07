@@ -96,7 +96,7 @@ Sub makeUpIssue
 	' Mri oViewCursor
 	'Задать нумерацию сносок на каждую главу
 	ThisComponent.FootnoteSettings.FootnoteCounting=1
-	setManualOutlineLevel
+	setHeadingsOutlineLevels
 	statusIndicator.end()
 End Sub
 
@@ -597,15 +597,17 @@ Function getFirstTextInStyle(styleName)
 	getFirstTextInStyle = ""
 End Function
 
-Sub setManualOutlineLevel
+Sub setHeadingsOutlineLevels
 
-	Dim targetStyleName As String 
-	Dim num As Integer
+	setHeadingOutlineLevel(1,"Заголовок 1")
+	setHeadingOutlineLevel(2,"Заголовок 2")
+End Sub
+
+
+Sub setHeadingOutlineLevel(num,targetStyleName)
 	Dim oViewCursor As Object
 	Dim oText As Object
 	Dim curText As Object
-	num = 2
-	targetStyleName = "Заголовок 2"
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oViewCursor.jumpToFirstPage
 	getFirstTextInStyleDispatch(targetStyleName)
