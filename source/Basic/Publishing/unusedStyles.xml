@@ -24,6 +24,127 @@ If uBound(sUsed()) &gt; -1 then
 EndIf
 End Sub
 
+
+Dim oDialog
+
+Sub onSelectMenuItem(oEvent)
+	oDialog.endExecute()
+	oDialog.model.Tag = oEvent.ActionCommand
+End Sub
+
+
+Sub replaceParaStyle
+   
+    DialogLibraries.LoadLibrary("Publishing")
+
+    dim oldStyleName As String
+    dim oldStyle As Object
+    dim newStyleName As String
+    dim paragraphStyles As Object
+    dim userInput As Integer
+    Dim listBox As Object
+    Dim paraStyle As Object
+    oStyles = ThisComponent.StyleFamilies
+    paraStyles = oStyles.getByName(oStyles.elementNames(1))
+    oViewCursor = ThisComponent.CurrentController.getViewCursor()
+    oldStyleName = oViewCursor.ParaStyleName
+    
+    paraStyleNames = paraStyles.ElementNames
+    Dim displayParaStyleNames(Ubound(paraStyleNames))
+    Dim sortedDPSN(Ubound(paraStyleNames))
+    displayParaStyleNames = paraStyleNames
+    Redim Preserve displayParaStyleNames(Ubound(paraStyleNames))
+   	For i = LBound(displayParaStyleNames) To Ubound(displayParaStyleNames)
+		paraStyle = paraStyles.getByName(displayParaStyleNames(i))
+		displayParaStyleNames(i) = paraStyle.displayName
+    Next i
+    sortedDPSN = displayParaStyleNames
+    Redim Preserve sortedDPSN(Ubound(paraStyleNames))
+    subShellSort(sortedDPSN)
+
+    oDialog = CreateUnoDialog( DialogLibraries.Publishing.selectMenu )
+    listBox = oDialog.getControl("ListBox1")
+    listBox.addItems(sortedDPSN , 0)
+    oDialog.Execute()
+    newStyleName = oDialog.model.Tag
+    If newStyleName="0" or newStyleName="" Then
+        Exit sub
+    EndIf
+    foundIndex = getIndex(displayParaStyleNames, newStyleName)
+    'set style system name instead of display name
+	newStyleName = paraStyleNames(foundIndex)
+ 
+    If newStyleName = oldStyleName Then
+        MsgBox "Стили не различаются"
+        Exit sub
+    EndIf
+
+    'MsgBox("oldStyleName " + oldStyleName + "  newStyleName " + newStyleName)
+    oldStyle = paraStyles.getByName(oldStyleName)
+    'Mri oldStyle
+    oldStyle.ParentStyle = newStyleName
+    paraStyles.removeByName(oldStyleName)
+End Sub
+
+function getIndex(a, v)
+	id = 0
+	nRight = uBound(a)
+	nLen = len(v)
+	while id &lt;= nRight
+       if a(id) = v then
+           getIndex = id
+           exit Function
+       Else
+           id = id + 1
+       end if
+	wend
+	fnBinarySearch = -1
+end function
+
+sub subShellSort(mArray)
+ 
+	dim n as integer, h as integer, i as integer, j as integer, t as string, Ub as integer, LB as Integer
+	Lb = lBound(mArray)
+	Ub = uBound(mArray)
+	 
+	' compute largest increment
+	n = Ub - Lb + 1
+	h = 1
+	if n &gt; 14 then
+	        do while h &lt; n
+	                h = 3 * h + 1
+	        loop
+	        h = h \ 3
+	        h = h \ 3
+	end if
+	do while h &gt; 0
+	' sort by insertion in increments of h
+	        for i = Lb + h to Ub
+	                t = mArray(i)
+	                for j = i - h to Lb step -h
+	                        if strComp(mArray(j), t, 0) &lt; 1 then exit for
+	                        mArray(j + h) = mArray(j)
+	                next j
+	                mArray(j + h) = t
+	        next i
+	        h = h \ 3
+	loop
+end sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 'calls: bas_PushArray
 'returns: a string-array of style-names
 'oFamily:= a style family, derived from a doc (writer,calc,draw,impress)
@@ -31,47 +152,47 @@ End Sub
 'bUsed:= only used styles. true/false for used/unused, missing for all
 'bUserDef:= only builtin styles. true/false for userDefined/Builtin, missing for all
 Function getStyleNames(oFamily,bLocalized as Boolean, _
-   optional bUsed, optional bUserDef)
-Dim oStyle,i%,sNames$(),sName$,chkUse as Boolean, chkUDef as Boolean
-For i = 0 to oFamily.getCount -1
-   oStyle = oFamily.getByIndex(i)
-   If bLocalized then
-      sName = oStyle.DisplayName
-   Else
-      sName = oStyle.getName
-   Endif
-   If (vartype(bUsed) = 11)then
-      chkUse = (bUsed EQV oStyle.isInUse)
-   Else
-      chkUse = True
-   Endif
-   If (vartype(bUserDef) = 11) then
-      chkUDef = (bUserDef EQV oStyle.isUserDefined)
-   Else
-      chkUDef = True
-   EndIf
-   If sName = "Автор" Or sName = "Автор по-английски" Or sName = "Ключевые слова" Or sName = "Текст списка литературы" Or sName = "Эпиграф" or sName = "Цитирование" or sName = "Сведения об авторе" or sName = "Аннотация" Then
-     chkUse = False
-   Endif
-   If chkUse AND chkUDef then
-      bas_Pusharray sNames(),sName
-   Endif
-Next
-getStyleNames = sNames()
-End Function
-
-'very simple routine appending some element to an array which can be undimensioned (LBound &gt; UBound)
-Sub bas_PushArray(xArray(),vNextElement)
-Dim iUB%,iLB%
-iLB = lBound(xArray())
-iUB = uBound(xArray())
-If iLB &gt; iUB then
-   iUB = iLB
-   redim xArray(iLB To iUB)
-Else
-   iUB = iUB +1
-   redim preserve xArray(iLB To iUB)
-Endif
-xArray(iUB) = vNextElement
+	   optional bUsed, optional bUserDef)
+	Dim oStyle,i%,sNames$(),sName$,chkUse as Boolean, chkUDef as Boolean
+	For i = 0 to oFamily.getCount -1
+	   oStyle = oFamily.getByIndex(i)
+	   If bLocalized then
+	      sName = oStyle.DisplayName
+	   Else
+	      sName = oStyle.getName
+	   Endif
+	   If (vartype(bUsed) = 11)then
+	      chkUse = (bUsed EQV oStyle.isInUse)
+	   Else
+	      chkUse = True
+	   Endif
+	   If (vartype(bUserDef) = 11) then
+	      chkUDef = (bUserDef EQV oStyle.isUserDefined)
+	   Else
+	      chkUDef = True
+	   EndIf
+	   If sName = "Автор" Or sName = "Автор по-английски" Or sName = "Ключевые слова" Or sName = "Текст списка литературы" Or sName = "Эпиграф" or sName = "Цитирование" or sName = "Сведения об авторе" or sName = "Аннотация" Then
+	     chkUse = False
+	   Endif
+	   If chkUse AND chkUDef then
+	      bas_Pusharray sNames(),sName
+	   Endif
+	Next
+	getStyleNames = sNames()
+	End Function
+	
+	'very simple routine appending some element to an array which can be undimensioned (LBound &gt; UBound)
+	Sub bas_PushArray(xArray(),vNextElement)
+	Dim iUB%,iLB%
+	iLB = lBound(xArray())
+	iUB = uBound(xArray())
+	If iLB &gt; iUB then
+	   iUB = iLB
+	   redim xArray(iLB To iUB)
+	Else
+	   iUB = iUB +1
+	   redim preserve xArray(iLB To iUB)
+	Endif
+	xArray(iUB) = vNextElement
 End Sub
 </script:module>

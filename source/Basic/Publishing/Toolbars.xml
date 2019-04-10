@@ -195,6 +195,12 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   nCount = 13
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  sCmdID   = "vnd.sun.star.script:Publishing.unusedStyles.replaceParaStyle?language=Basic&amp;location=application"
+  sCmdLable = "ParSt"
+  nCount = 14
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   REM *** Set the settings for our new custom toolbar. (replace/insert)
   If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
