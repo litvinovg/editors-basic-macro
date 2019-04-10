@@ -79,9 +79,7 @@ Sub replaceParaStyle
         Exit sub
     EndIf
 
-    'MsgBox("oldStyleName " + oldStyleName + "  newStyleName " + newStyleName)
     oldStyle = paraStyles.getByName(oldStyleName)
-    'Mri oldStyle
     oldStyle.ParentStyle = newStyleName
     paraStyles.removeByName(oldStyleName)
 End Sub
@@ -98,7 +96,7 @@ function getIndex(a, v)
            id = id + 1
        end if
 	wend
-	fnBinarySearch = -1
+	getIndex = -1
 end function
 
 sub subShellSort(mArray)
