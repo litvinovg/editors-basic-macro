@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dlg:window PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "dialog.dtd">
+<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="selectMenu" dlg:left="14" dlg:top="7" dlg:width="182" dlg:height="308" dlg:closeable="true" dlg:moveable="true" dlg:title="Дваждый кликните на выбранный элемент">
+  <dlg:bulletinboard>
+    <dlg:menulist dlg:id="ListBox1" dlg:tab-index="0" dlg:left="0" dlg:top="3" dlg:width="181" dlg:height="306">
+      <script:event script:event-name="on-performaction" script:macro-name="vnd.sun.star.script:Publishing.unusedStyles.onSelectMenuItem?language=Basic&amp;location=application" script:language="Script"/>
+    </dlg:menulist>
+  </dlg:bulletinboard>
+</dlg:window>
