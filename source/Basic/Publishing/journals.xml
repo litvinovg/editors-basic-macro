@@ -3,8 +3,14 @@
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="journals" script:language="StarBasic" script:moduleType="normal">'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 '	Mri curStyle
 
+Dim templateName As String
+Dim EIFN As String 
+
+
 Sub makeUpIssue
 
+	EIFN = "ЭиФН"
+	
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
 	Dim oViewCursor As Object
@@ -26,8 +32,13 @@ Sub makeUpIssue
 		Exit Sub
 	End If
 	
+	templateName = ""
+	Dim docUserProperties As Object
+	docUserProperties = ThisComponent.DocumentProperties.UserDefinedProperties
+	If  docUserProperties.getPropertySetInfo.hasPropertyByName("template") Then
+		templateName = docUserProperties.template
+	EndIf
 
-	
 	GlobalScope.BasicLibraries.loadLibrary("Tools")
 	path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
 	
@@ -196,8 +207,23 @@ Function getCopyright()
 		leftSide = Right(authors,Len(authors)-4)
 		rightSide =  Left(authors,4)
 		getCopyright = "© " + Trim(leftSide) + " " + rightSide
-		oViewCursor.goToRange(oSavePosition, false)
+		
 	End If
+	oViewCursor.goToRange(oSavePosition, false)
+End Function
+
+Function getAuthor()
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim authors As String
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
+	getFirstTextInStyle("Автор")
+	authors = oViewCursor.getString()
+	If authors &lt;&gt; "" Then 
+		getAuthor = authors
+	End If
+	oViewCursor.goToRange(oSavePosition, false)
 End Function
 
 Function getSectionX(section)
@@ -303,6 +329,7 @@ Sub setFirstPageMetadata(curStyle,i)
 	Dim oSavePosition As Object
 	Dim oText As Object
 	Dim oHeaderTable As Object
+	Dim oFooterTable As Object
 	Dim rightHeaderCell As Object
 	Dim leftHeaderCell As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
@@ -331,11 +358,35 @@ Sub setFirstPageMetadata(curStyle,i)
 	' go to page number 2nd place
 	oViewCursor.goright(1,false)
 	oViewCursor.gotoEndOfLine(false)
-	addTextVar("article" + i + "LastPage","00" )
 	
-	'Footer without table
-	oViewCursor.goToRange(curStyle.FooterText.End, false)
-	addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+	If templateName = "" Then
+		addTextVar("article" + i + "LastPage","00" )
+	ElseIf templateName = EIFN Then
+		addTextVar("article" + i + "Num","" + i )
+	EndIf
+	
+	If templateName = "" Then
+		'Footer without table
+		oViewCursor.goToRange(curStyle.FooterText.End, false)
+		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+	ElseIf templateName = EIFN Then
+		oFooterTableLeft = curStyle.FooterTextLeft.CreateEnumeration().nextElement
+		rightHeaderCell = oFooterTableLeft.getCellByPosition(1,0).getStart()
+		oViewCursor.goToRange(rightHeaderCell, false)
+		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+		'TODO!!!!SECOND PAGE
+		oFooterTableRight = curStyle.FooterTextRight.CreateEnumeration().nextElement
+		leftHeaderCell = oFooterTableRight.getCellByPosition(0,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+		'Mri curStyle
+		'rightFooterCell = oHeaderTable.getCellByPosition(1,0).getStart()
+		'oViewCursor.goToRange(curStyle.FooterText.End, false)
+		
+		'addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+	EndIf
+	
+	
 	oViewCursor.goToRange(oSavePosition, false)
 End Sub
 
@@ -349,17 +400,16 @@ Sub setHeaderMetadata(curStyle,i)
 	Dim curStyleName As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-
 	rightHeaderTable = curStyle.HeaderTextRight.CreateEnumeration().nextElement
+	leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
+
 	rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
 	oViewCursor.goToRange(rightHeaderCell, false)
 	addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
-	
-	leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
 	leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
 	oViewCursor.goToRange(leftHeaderCell, false)
 	addTextVar("leftHeader" + i ,"Раздел" + i )
-
+	
 	oViewCursor.goToRange(oSavePosition, false)
 End Sub
 
