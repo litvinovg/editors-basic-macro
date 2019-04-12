@@ -6,12 +6,15 @@
 Dim templateName As String
 Dim EIFN As String 
 Dim imagesRelativePath As String 
+Dim allImagesRelativePath As String 
 Dim path As String
+Dim sectionName As String
 
 Sub makeUpIssue
-	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+
 	EIFN = "ЭиФН"
 	imagesRelativePath = "/Links/Header/"
+	allImagesRelativePath = "/Links/Header-icons/"
 	
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
@@ -23,7 +26,7 @@ Sub makeUpIssue
 	Dim firstPage As String
 
 	Dim tmp As String
-	Dim sectionName As String
+
 	sectionName = ""
 	Dim nSections As Long 
 	oFilename = ThisComponent.Location
@@ -83,7 +86,8 @@ Sub makeUpIssue
 			'Remove blank page at start
 			sendRM()
 		End If
-	
+		sectionName = getSectionX(sectionName)
+		setAritclePageHeaders(i)
 		setArticleUniqPageStyles(i)
 		oViewCursor.jumpToPage(page)
 		setAtricleVars(i)
@@ -92,7 +96,7 @@ Sub makeUpIssue
 		oViewCursor.jumpToPage(page)
 	'	takeWidowOrphans()
 		'Set section name
-		sectionName = getSectionX(sectionName)
+
 	
 		If templateName = "" Then
 			modifyVar("leftHeader" + i , sectionName )
@@ -319,17 +323,7 @@ Sub setArticlePageStyles(i)
 	'set new curStyle	
 	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
 
-	'create new para for next page
-	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-	'insert page break
-	oTextCursor.BreakType = 4
-
-	setHeaderMetadata(curStyle,i)
 	oViewCursor.jumpToPreviousPage()
-
-	oViewCursor.jumpToPreviousPage()
-	sendRM()
 	sendRM()
 		
 End Sub
@@ -342,8 +336,17 @@ Sub setFirstPageMetadata(curStyle,i)
 	Dim oFooterTable As Object
 	Dim rightHeaderCell As Object
 	Dim leftHeaderCell As Object
+	Dim savePageName As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+
+	savePageName = oSavePosition.PageStyleName
+	
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor.BreakType = 4
+	oTextCursor.PageDescName = savePageName
+	
 	'curStyle.HeaderText
 	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
 	'leftHeaderCell
@@ -398,12 +401,13 @@ Sub setFirstPageMetadata(curStyle,i)
 		
 		'addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
 	EndIf
-	
-	
+		
 	oViewCursor.goToRange(oSavePosition, false)
+	oViewCursor.jumpToPreviousPage()
+	sendRM()
 End Sub
 
-Sub setHeaderMetadata(curStyle,i)
+Sub setAritclePageHeaders(i)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
 	Dim rightHeaderTable As Object
@@ -411,8 +415,34 @@ Sub setHeaderMetadata(curStyle,i)
 	Dim headerCell As Object
 	Dim leftHeaderCell As Object
 	Dim curStyleName As String
+	Dim curStyle As Object
+	Dim page As String
+	Dim pageStyles As Object
+	Dim articleStartPosition As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	page = findFirstPageWithStyle("Статья " + i + " стр.1")
+	oViewCursor.jumpToPage(page)
+	articleStartPosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+
+	'create new para for next page
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	'insert page break
+	oTextCursor.BreakType = 4
+	
+	'create new para for next page
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	'insert page break
+	oTextCursor.BreakType = 4
+
+	If templateName = EIFN Then
+		copySectionIcon(i)
+	EndIf
+	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+	
 	rightHeaderTable = curStyle.HeaderTextRight.CreateEnumeration().nextElement
 	leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
 
@@ -443,7 +473,13 @@ Sub setHeaderMetadata(curStyle,i)
 		oViewCursor.jumpToStartOfPage()
 	EndIf
 	
+	oViewCursor.goToRange(articleStartPosition, false)
+	backspace()
+	backspace()
+	backspace()
+	
 	oViewCursor.goToRange(oSavePosition, false)
+	
 End Sub
 
 Sub	setArticleUniqPageStyles(i)
@@ -585,14 +621,6 @@ Sub takeLineIn
 	End If
 End Sub
 
-Sub test
-
-	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-'	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
-
-End Sub
-
-
 Function getNextPageStyleName()
 	dim curPageStyleName as String 
 	dim startPageStyleName as String 
@@ -640,7 +668,7 @@ NextFile = Dir(path+"/", 0)
     NextFile = Dir
   Wend
 
-' Mri 
+
 findArticleFile = ""
 End Function
 
@@ -754,7 +782,7 @@ sub getFirstTextInStyleDispatch(styleName)
 	args1(15).Value = 2
 	args1(16).Name = "SearchItem.InsertedChars"
 	args1(16).Value = 2
-	args1(17).Name = "SearchItem.TransliterateF	Mri ThisComponentlags"
+	args1(17).Name = "SearchItem.TransliterateFlags"
 	args1(17).Value = 1280
 	args1(18).Name = "SearchItem.Command"
 	args1(18).Value = 0
@@ -791,9 +819,37 @@ dispatcher.executeDispatch(document, ".uno:InsertGraphic", "", 0, args2())
 
 end sub
 
+Sub copySectionIcon(articleNum)
+	FileCopy( path + allImagesRelativePath + getImageFileName(), path + imagesRelativePath + articleNum + ".jpg")
+	
+End Sub
 
 
+Function getImageFileName()
 
+	Select Case UCase((sectionName)
+		Case "АРХИВ"
+			getImageFileName = "ARCHIVE.jpg"
+		Case "СИТУАЦИОННЫЕ ИССЛЕДОВАНИЯ"
+			getImageFileName = "CASE_STUDIES.jpg"
+		Case "МЕЖДИСЦИПЛИНАРНЫЕ ИССЛЕДОВАНИЯ"
+			getImageFileName = "INTERDISCIPLINARY.jpg"
+		Case "ПАНЕЛЬНАЯ ДИСКУССИЯ"
+			getImageFileName = "PANEL_DISCUSSION.jpg"
+		Case "ОБЗОРЫ КНИГ"
+			getImageFileName = "BOOK_REVIEWS.jpg"
+		Case "РЕДАКЦИОННАЯ СТАТЬЯ"
+			getImageFileName = "EDITORIAL.jpg"
+		Case "ЯЗЫК И СОЗНАНИЕ"
+			getImageFileName = "LANGUAGE.jpg"
+		Case "ПЕРСПЕКТИВА"
+			getImageFileName = "VISTA.jpg"
+		Case "ЭПИСТЕМОЛОГИЯ И ПОЗНАНИЕ"
+			getImageFileName = "EPISTEMOLOGY.jpg"
+		Case Else
+			getImageFileName = "EDITORIAL.jpg"
+	End Select 
+End Function
 
 
 
