@@ -5,11 +5,13 @@
 
 Dim templateName As String
 Dim EIFN As String 
-
+Dim imagesRelativePath As String 
+Dim path As String
 
 Sub makeUpIssue
-
+	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	EIFN = "ЭиФН"
+	imagesRelativePath = "/Links/Header/"
 	
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
@@ -19,7 +21,7 @@ Sub makeUpIssue
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	Dim page As String
 	Dim firstPage As String
-	Dim path As String
+
 	Dim tmp As String
 	Dim sectionName As String
 	sectionName = ""
@@ -91,7 +93,15 @@ Sub makeUpIssue
 	'	takeWidowOrphans()
 		'Set section name
 		sectionName = getSectionX(sectionName)
-		modifyVar("leftHeader" + i , sectionName )
+	
+		If templateName = "" Then
+			modifyVar("leftHeader" + i , sectionName )
+		ElseIf templateName = EIFN Then
+			modifyVar("rightHeader" + i , sectionName )
+			modifyVar("leftHeader" + i , getAuthor )
+		EndIf
+	
+	
 	Next i
 		statusIndicator.setValue(26)
 		'remove last empty page
@@ -182,9 +192,9 @@ Function getUDK()
 	Dim foundUDK As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
-	oViewCursor.collapseToStart()
+	oViewCursor.jumpToStartOfPage()
 	getFirstTextInStyle("УДК")
-	foundUDK = oViewCursor.getString()
+	foundUDK = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	If foundUDK = "" Then
 		getUDK = "Задать УДК"
 	Else 
@@ -202,7 +212,7 @@ Function getCopyright()
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
-	authors = oViewCursor.getString()
+	authors = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	If authors &lt;&gt; "" Then 
 		leftSide = Right(authors,Len(authors)-4)
 		rightSide =  Left(authors,4)
@@ -219,7 +229,7 @@ Function getAuthor()
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
-	authors = oViewCursor.getString()
+	authors = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	If authors &lt;&gt; "" Then 
 		getAuthor = authors
 	End If
@@ -240,8 +250,8 @@ Function getSectionX(section)
 	getFirstTextInStyle("Заголовок 1")
 	endPage = oViewCursor.getPage()
 	If CInt(startPage) &lt;= CInt(endPage) Then
-		If Len(oViewCursor.getString()) &gt; 1 Then
-			section = oViewCursor.getString()	
+		If Len(oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()) &gt; 1 Then
+			section = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()	
 		End If
 		section =  UCase(Left(section, 1)) +  LCase(Right(section,Len(section)-1))
 	End If
@@ -256,9 +266,9 @@ Function getTitleHeader()
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
-	authors = oViewCursor.getString()
+	authors = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	getFirstTextInStyle("Заголовок 2")
-	title = oViewCursor.getString()
+	title = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	getTitleHeader = authors + " " + title
 	oViewCursor.goToRange(oSavePosition, false)
 	getUDK = title
@@ -370,6 +380,7 @@ Sub setFirstPageMetadata(curStyle,i)
 		oViewCursor.goToRange(curStyle.FooterText.End, false)
 		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
 	ElseIf templateName = EIFN Then
+
 		oFooterTableLeft = curStyle.FooterTextLeft.CreateEnumeration().nextElement
 		rightHeaderCell = oFooterTableLeft.getCellByPosition(1,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
@@ -377,6 +388,8 @@ Sub setFirstPageMetadata(curStyle,i)
 		'TODO!!!!SECOND PAGE
 		oFooterTableRight = curStyle.FooterTextRight.CreateEnumeration().nextElement
 		leftHeaderCell = oFooterTableRight.getCellByPosition(0,0).getStart()
+	'	Mri oFooterRight
+	'	Mri leftHeaderCell
 		oViewCursor.goToRange(leftHeaderCell, false)
 		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
 		'Mri curStyle
@@ -405,10 +418,30 @@ Sub setHeaderMetadata(curStyle,i)
 
 	rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
 	oViewCursor.goToRange(rightHeaderCell, false)
-	addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
-	leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
-	oViewCursor.goToRange(leftHeaderCell, false)
-	addTextVar("leftHeader" + i ,"Раздел" + i )
+	If templateName = "" Then
+		addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+	ElseIf templateName = EIFN Then
+		addTextVar("rightHeader" + i ,"Название раздела " + i )	
+		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
+		oViewCursor.goToRange(rightHeaderCell, false)
+		insertLinkedImage(CStr(i))
+		oViewCursor.jumpToStartOfPage()
+	EndIf
+	
+	
+	If templateName = "" Then
+		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		addTextVar("leftHeader" + i ,"Название раздела" + i )
+	ElseIf templateName = EIFN Then
+		leftHeaderCell = leftHeaderTable.getCellByPosition(2,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		addTextVar("leftHeader" + i ,"И.О. Фамилия" + i )
+		leftHeaderCell = leftHeaderTable.getCellByPosition(0,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		insertLinkedImage(CStr(i))
+		oViewCursor.jumpToStartOfPage()
+	EndIf
 	
 	oViewCursor.goToRange(oSavePosition, false)
 End Sub
@@ -734,8 +767,29 @@ sub getFirstTextInStyleDispatch(styleName)
 	dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 end Sub
 
+sub insertLinkedImage(articleNum)
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+dim args2(3) as new com.sun.star.beans.PropertyValue
+args2(0).Name = "FileName"
+args2(0).Value = path + imagesRelativePath + articleNum + ".jpg"
+args2(1).Name = "FilterName"
+args2(1).Value = "&lt;Все форматы&gt;"
+args2(2).Name = "AsLink"
+args2(2).Value = true
+args2(3).Name = "Style"
+args2(3).Value = "headerImage"
+
+dispatcher.executeDispatch(document, ".uno:InsertGraphic", "", 0, args2())
 
 
+end sub
 
 
 
