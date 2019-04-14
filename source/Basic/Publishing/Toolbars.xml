@@ -165,7 +165,7 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   
-  sCmdID   = "vnd.sun.star.script:Publishing.journals.setManualOutlineLevel?language=Basic&amp;location=application"
+  sCmdID   = "vnd.sun.star.script:Publishing.journals.setHeadingsOutlineLevels?language=Basic&amp;location=application"
   sCmdLable = "Огл."
   nCount = 9
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
@@ -199,6 +199,12 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   sCmdID   = "vnd.sun.star.script:Publishing.unusedStyles.replaceParaStyle?language=Basic&amp;location=application"
   sCmdLable = "ParSt"
   nCount = 14
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.setFootnotesNumbering?language=Basic&amp;location=application"
+  sCmdLable = "Испр.сносок"
+  nCount = 15
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   

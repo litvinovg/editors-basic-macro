@@ -120,8 +120,8 @@ Sub makeUpIssue
 	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	' Mri oViewCursor
 	'Задать нумерацию сносок на каждую главу
-	ThisComponent.FootnoteSettings.FootnoteCounting=1
-	setHeadingsOutlineLevels
+	'ThisComponent.FootnoteSettings.FootnoteCounting=1
+	'setHeadingsOutlineLevels
 	statusIndicator.end()
 End Sub
 

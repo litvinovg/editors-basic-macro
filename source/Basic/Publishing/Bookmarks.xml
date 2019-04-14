@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Bookmarks" script:language="StarBasic" script:moduleType="normal">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Bookmarks" script:language="StarBasic" script:moduleType="normal">Sub setFootnotesNumbering
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim enum2 As Object
+	Dim thisPortion As Object
+	Dim curNum As Integer
+	Dim footnoteText As Object
+	Dim label As String
+	Dim labelNum As Integer
+	Dim i As Integer
+	Dim cell As Object
+	Dim cellEnum As Object
+	Dim cellEnum2 As Object
+	curNum = 1
+	enum1 = ThisComponent.Text.createEnumeration
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			If enum1Element.OutlineLevel = 2 Then
+				curNum = 1 
+			EndIf
+			enum2 = enum1Element.createEnumeration
+			While enum2.hasMoreElements
+				thisPortion = enum2.nextElement
+				If thisPortion.TextPortionType = "Footnote" Then
+					footnoteText = thisPortion.Footnote
+					label = footnoteText.getLabel
+					If label = "" Then 
+						footnoteText.setLabel(CStr(curNum))
+						curNum = curNum + 1
+					Else
+						labelNum = CInt(label)
+						If labelNum &gt; 0 Then
+							footnoteText.setLabel(CStr(curNum))
+							curNum = curNum + 1
+						EndIf
+					EndIf
+				EndIf
+			Wend
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellEnum = cell.getText().createEnumeration()
+				While cellEnum.hasMoreElements 
+					cellEnumElement = cellEnum.nextElement
+					If cellEnumElement.supportsService("com.sun.star.text.Paragraph") Then
+						If cellEnumElement.OutlineLevel = 2 Then
+						curNum = 1 
+						EndIf
+						cellEnum2 = cellEnumElement.createEnumeration
+						While cellEnum2.hasMoreElements
+							thisPortion = cellEnum2.nextElement
+							If thisPortion.TextPortionType = "Footnote" Then
+								footnoteText = thisPortion.Footnote
+								label = footnoteText.getLabel
+								If label = "" Then 
+									footnoteText.setLabel(CStr(curNum))
+									curNum = curNum + 1
+								Else
+									labelNum = CInt(label)
+									If labelNum &gt; 0 Then
+										footnoteText.setLabel(CStr(curNum))
+										curNum = curNum + 1
+									EndIf
+								EndIf
+							EndIf
+						Wend
+					EndIf
+				Wend
+		    Next i
+		EndIf
+	Wend 
+End Sub
 Sub convertBookmarksToFootnotes()
 	Dim bookmarks as Object
 	Dim bookmarkName as String
