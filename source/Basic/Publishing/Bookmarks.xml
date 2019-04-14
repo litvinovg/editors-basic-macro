@@ -13,6 +13,12 @@
 	Dim cell As Object
 	Dim cellEnum As Object
 	Dim cellEnum2 As Object
+	
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Нумерация сносок запущена, подождите",30)
+
+
 	curNum = 1
 	enum1 = ThisComponent.Text.createEnumeration
 	While enum1.hasMoreElements
@@ -73,6 +79,7 @@
 		    Next i
 		EndIf
 	Wend 
+	statusIndicator.end()
 End Sub
 Sub convertBookmarksToFootnotes()
 	Dim bookmarks as Object
