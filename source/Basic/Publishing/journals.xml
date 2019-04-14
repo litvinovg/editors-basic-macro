@@ -454,7 +454,7 @@ Sub setAritclePageHeaders(i)
 		addTextVar("rightHeader" + i ,"Название раздела " + i )	
 		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
-		insertLinkedImage(CStr(i))
+		insertLinkedImage(CStr(i),"headerImageRight")
 		oViewCursor.jumpToStartOfPage()
 	EndIf
 	
@@ -469,7 +469,7 @@ Sub setAritclePageHeaders(i)
 		addTextVar("leftHeader" + i ,"И.О. Фамилия" + i )
 		leftHeaderCell = leftHeaderTable.getCellByPosition(0,0).getStart()
 		oViewCursor.goToRange(leftHeaderCell, false)
-		insertLinkedImage(CStr(i))
+		insertLinkedImage(CStr(i),"headerImageLeft")
 		oViewCursor.jumpToStartOfPage()
 	EndIf
 	
@@ -795,7 +795,7 @@ sub getFirstTextInStyleDispatch(styleName)
 	dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 end Sub
 
-sub insertLinkedImage(articleNum)
+sub insertLinkedImage(articleNum,styleName)
 rem ----------------------------------------------------------------------
 rem define variables
 dim document   as object
@@ -812,7 +812,7 @@ args2(1).Value = "&lt;Все форматы&gt;"
 args2(2).Name = "AsLink"
 args2(2).Value = true
 args2(3).Name = "Style"
-args2(3).Value = "headerImage"
+args2(3).Value = styleName
 
 dispatcher.executeDispatch(document, ".uno:InsertGraphic", "", 0, args2())
 
