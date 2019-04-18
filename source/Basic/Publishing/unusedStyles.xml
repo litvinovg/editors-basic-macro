@@ -36,7 +36,6 @@ End Sub
 Sub replaceParaStyle
    
     DialogLibraries.LoadLibrary("Publishing")
-
     dim oldStyleName As String
     dim oldStyle As Object
     dim newStyleName As String
@@ -44,6 +43,9 @@ Sub replaceParaStyle
     dim userInput As Integer
     Dim listBox As Object
     Dim paraStyle As Object
+    Dim oViewCursor As Object
+    Dim enum1 As Object
+    Dim oTextCursor As Object
     oStyles = ThisComponent.StyleFamilies
     paraStyles = oStyles.getByName(oStyles.elementNames(1))
     oViewCursor = ThisComponent.CurrentController.getViewCursor()
@@ -61,7 +63,6 @@ Sub replaceParaStyle
     sortedDPSN = displayParaStyleNames
     Redim Preserve sortedDPSN(Ubound(paraStyleNames))
     subShellSort(sortedDPSN)
-
     oDialog = CreateUnoDialog( DialogLibraries.Publishing.selectMenu )
     listBox = oDialog.getControl("ListBox1")
     listBox.addItems(sortedDPSN , 0)
@@ -78,10 +79,25 @@ Sub replaceParaStyle
         MsgBox "Стили не различаются"
         Exit sub
     EndIf
+    If oldStyleName &lt;&gt; "" Then
+	    oldStyle = paraStyles.getByName(oldStyleName)
+    	oldStyle.ParentStyle = newStyleName
+	    paraStyles.removeByName(oldStyleName)
+    EndIf
+   	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	enum1 = oTextCursor.createEnumeration()
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			If enum1Element.ParaStyleName &lt;&gt; newStyleName  Then
+			    oldStyle = paraStyles.getByName(enum1Element.ParaStyleName)
+			    oldStyle.ParentStyle = newStyleName
+			    paraStyles.removeByName(enum1Element.ParaStyleName)
+			EndIf
+		EndIf
+	Wend
+	
 
-    oldStyle = paraStyles.getByName(oldStyleName)
-    oldStyle.ParentStyle = newStyleName
-    paraStyles.removeByName(oldStyleName)
 End Sub
 
 function getIndex(a, v)
