@@ -103,57 +103,84 @@ End Function
 
 
 sub executeInsertINDDPageBreaks
-document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-oViewCursor = thisComponent.getCurrentController.getViewCursor
-oViewCursor.jumpToFirstPage
-Dim args(0) as new com.sun.star.beans.PropertyValue
+	
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	oViewCursor = thisComponent.getCurrentController.getViewCursor
+	oViewCursor.jumpToFirstPage
+	Dim args(0) as new com.sun.star.beans.PropertyValue
+	
+	rem Turn off tracking changes to prevent infinite
+	args(0).Name = "TrackChanges"
+	args(0).Value = false
+	dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
+	
+	Dim oSearch
+	Dim oTextCursor 
+	Dim lineIndent
+	Dim firstLowercase As Boolean
+	Dim charNum As Long
+	Dim character As String
+	firstLowercase = false
 
-rem Turn off tracking changes to prevent infinite
-args(0).Name = "TrackChanges"
-args(0).Value = false
-dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
+	oSearch = ThisComponent.createSearchDescriptor()
+	oSearch.SearchString = "---XYXYX---"
+	oSearch.SearchRegularExpression=True
+	oSearch.searchAll=True
+	oFound = ThisComponent.findFirst(oSearch)
+	Do While Not IsNull(oFound)
+		  oTextCursor = oFound.Text.createTextCursor()
+		  oTextCursor.gotoRange(oFound,false)
+		  oTextCursor.gotoStartOfParagraph(false)
+		  oTextCursor.gotoEndOfParagraph(true)
+		  oTextCursor.goRight(1,true)
+		  
+		  oTextCursor.String = ""
+		  oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
 
-Dim oSearch
-Dim oTextCursor 
-Dim lineIndent
-oSearch = ThisComponent.createSearchDescriptor()
-oSearch.SearchString = "---XYXYX---"
-oSearch.SearchRegularExpression=True
-oSearch.searchAll=True
-oFound = ThisComponent.findFirst(oSearch)
-Do While Not IsNull(oFound)
-  oTextCursor = oFound.Text.createTextCursor()
-  oTextCursor.gotoRange(oFound,false)
-
-rem  oTextCursor.goRight(1,false)
-rem  lineIndent = oTextCursor.ParaFirstLineIndent
-rem  oTextCursor.goLeft(1,false)
-  
-  oTextCursor.gotoStartOfParagraph(false)
-  oTextCursor.gotoEndOfParagraph(true)
-  oTextCursor.goRight(1,true)
-  
-  oTextCursor.String = ""
-  oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
-rem  oTextCursor.ParaFirstLineIndent = lineIndent
-'check first character is lowercase.
-  oTextCursor.goRight(1,true)
-  Dim charNum
-  Dim character 
-  character = oTextCursor.string
-  If (character = "") Then
-	character="0"
-  End If
-  charNum = ASC(character)
-'check if first character is in lowercase
-  If ((charNum &gt; 1071 AND charNum &lt; 1104) Or (charNum &gt; 60 AND charNum &lt; 123)) Then
-  	oTextCursor.ParaFirstLineIndent = 0
-  End If
-  
-  
-  oFound = ThisComponent.findNext(oFound.End, oSearch)
-Loop
+  		  'check first character
+		  oTextCursor.goRight(1,true)
+		  If (isLowerCase(oTextCursor.getString())) Then
+		  	oTextCursor.ParaFirstLineIndent = 0
+		  	firstLowercase = true 	
+		  End If
+  	      'check last character
+		  oTextCursor.goLeft(2,false)
+		  oTextCursor.goLeft(1,true)	  
+		  character = oTextCursor.getString()
+		  If (character = " ") Then
+		  	'Make last line use all width
+		  	oTextCursor.ParaAdjust = 2
+		  	oTextCursor.ParaLastLineAdjust = 2
+		  EndIf		  
+		  If (isLowerCase(character)) Then
+		  	If firstLowercase Then
+		  		oTextCursor.collapseToEnd()
+			  	oTextCursor.setString("-")
+			  	oTextCursor.collapseToEnd()
+  			  	'Make last line use all width
+  			  	oTextCursor.ParaAdjust = 2
+  			  	oTextCursor.ParaLastLineAdjust = 2
+ 			  	oTextCursor.goRight(1,false)
+  			  	oTextCursor.ParaFirstLineIndent = 0
+		  	EndIf
+		  End If
+		  oFound = ThisComponent.findNext(oFound.End, oSearch)
+	Loop
 
 end Sub
+
+Function isLowerCase(character)
+	If (character = "") Then
+			charNum = ASC(""+0)
+		  Else
+		  	charNum = ASC(character)
+		  End If
+  If ((charNum &gt; 1071 AND charNum &lt; 1104) Or (charNum &gt; 60 AND charNum &lt; 123)) Then
+  	isLowerCase = true
+  	Exit Function
+  EndIf
+  isLowerCase = false
+End Function
+
 </script:module>
