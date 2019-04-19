@@ -148,29 +148,35 @@ sub convertIndesignPageBreaks
 		  oTextCursor.goLeft(1,true)	  
 		  character = oTextCursor.getString()
 		  If (character = " ") Then
-		  	'Make last line use all width
-		  	oTextCursor.ParaAdjust = 2
-		  	oTextCursor.ParaLastLineAdjust = 2
-	  	  	oTextCursor.collapseToEnd()
-	  	  	oTextCursor.goRight(1,false)
-		  	oTextCursor.ParaFirstLineIndent = 0
+		  	oTextCursor.String=""
+		  	adjustLastLine(oTextCursor)
+		  	adjustFirstLine(oTextCursor)
 		  EndIf		  
 		  If (isLowerCase(character)) Then
 		  	If firstLowercase Then
 		  		oTextCursor.collapseToEnd()
 			  	oTextCursor.setString("-")
 			  	oTextCursor.collapseToEnd()
-  			  	'Make last line use all width
-  			  	oTextCursor.ParaAdjust = 2
-  			  	oTextCursor.ParaLastLineAdjust = 2
- 			  	oTextCursor.goRight(1,false)
-  			  	oTextCursor.ParaFirstLineIndent = 0
+  			  	adjustLastLine(oTextCursor)
+				adjustFirstLine(oTextCursor)
 		  	EndIf
 		  End If
 		  oFound = ThisComponent.findNext(oFound.End, oSearch)
 	Loop
 
 end Sub
+
+Sub adjustLastLine(oTextCursor)
+  	oTextCursor.ParaAdjust = 2
+  	oTextCursor.ParaLastLineAdjust = 2
+  	balancePara(oTextCursor)
+End Sub
+
+Sub adjustFirstLine(oTextCursor)
+  	oTextCursor.goRight(1,false)
+   	oTextCursor.ParaFirstLineIndent = 0
+End Sub
+
 
 Function isLowerCase(character)
 	If (character = "") Then
@@ -185,4 +191,87 @@ Function isLowerCase(character)
   isLowerCase = false
 End Function
 
+Sub balancePara(Optional targetPara As Object)
+'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	Dim oPara As Object
+	Dim oParaStart As Object
+	Dim oParaEnd As Object
+	Dim paraLen As Integer
+	Dim lineCount As Integer
+	Dim initialLineCount As Integer
+	Dim lineLen As Integer
+	Dim mathExpect As Integer
+	Dim minLastLineLength As Integer
+	paraLen = 0
+	lineLen = 0
+	minLastLineLength = 0
+	initialLineCount = 0
+	
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	If NOT IsMissing(targetPara) Then
+		oViewCursor.goToRange(targetPara, false)
+	EndIf
+
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oPara = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	'Go to start of para
+	oTextCursor.gotoStartOfParagraph(false)
+	'Get start position
+	oParaStart = oTextCursor.getStart()
+	'Go to end of para
+	oTextCursor.gotoEndOfParagraph(false)
+	'Get end position
+	oParaEnd = oTextCursor.getEnd()
+	'return Text cursor to start
+	oTextCursor.goToRange(oParaStart,false)
+	'oPara is full para cursor
+	oPara.goToRange(oParaStart,false)
+	oPara.goToRange(oParaEnd,true)
+	
+	Do
+		'Not first iteration
+		If minLastLineLength &lt;&gt; 0 Then
+			If oPara.CharKerning &lt; 30 Then
+					If(IsEmpty(oPara.CharKerning)) Then 
+						oPara.CharKerning = 0
+					Else 	
+						oPara.CharKerning = oPara.CharKerning + 2
+					End If
+			Else
+				'Failed to balance para
+				Exit Sub
+			EndIf
+		EndIf
+		
+		oViewCursor.goToRange(oParaStart,false)
+		oTextCursor.goToRange(oParaStart,false)
+		lineCount = 0
+		While NOT oTextCursor.isEndOfParagraph()
+			oViewCursor.gotoEndOfLine(true)
+			oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+			lineLen = Len(oTextCursor.getString())
+			paraLen = paraLen +  lineLen
+			lineCount = lineCount + 1
+			oViewCursor.collapseToEnd()
+		Wend
+		'set initial line count
+		If initialLineCount = 0 Then
+			initialLineCount = lineCount
+		ElseIf lineCount &gt; initialLineCount Then
+		'Undo last iteration as line overflow happened.
+		'And exit
+			If(IsEmpty(oPara.CharKerning)) Then 
+				oPara.CharKerning = 0
+			Else 	
+				oPara.CharKerning = oPara.CharKerning - 2
+			End If
+			Exit sub
+		EndIf
+		mathExpect =  paraLen / lineCount
+		minLastLineLength = mathExpect * 0.9
+	Loop Until minLastLineLength &lt; lineLen
+	
+End Sub
 </script:module>
