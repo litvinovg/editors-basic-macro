@@ -102,7 +102,7 @@ Function RND_String
 End Function
 
 
-sub executeInsertINDDPageBreaks
+sub convertIndesignPageBreaks
 	
 	document   = ThisComponent.CurrentController.Frame
 	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
@@ -134,7 +134,6 @@ sub executeInsertINDDPageBreaks
 		  oTextCursor.gotoStartOfParagraph(false)
 		  oTextCursor.gotoEndOfParagraph(true)
 		  oTextCursor.goRight(1,true)
-		  
 		  oTextCursor.String = ""
 		  oTextCursor.BreakType = com.sun.star.style.BreakType.PAGE_BEFORE
 
@@ -152,6 +151,9 @@ sub executeInsertINDDPageBreaks
 		  	'Make last line use all width
 		  	oTextCursor.ParaAdjust = 2
 		  	oTextCursor.ParaLastLineAdjust = 2
+	  	  	oTextCursor.collapseToEnd()
+	  	  	oTextCursor.goRight(1,false)
+		  	oTextCursor.ParaFirstLineIndent = 0
 		  EndIf		  
 		  If (isLowerCase(character)) Then
 		  	If firstLowercase Then
