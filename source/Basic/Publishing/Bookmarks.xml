@@ -278,7 +278,7 @@ Sub makeLinksWithLevel(level)
 				createLink(outline(i),"",oAnchor2Name)
 			Next i
 		Else 
-			MsgBox ("Не могу сделать ссылки в оглавлении. Заголовоков "+ level + " уровня " + Ubound(heading) + " Оглавлений "+ level + " уровня " + Ubound(outline))
+			MsgBox ("Число Оглавлений "+ level +" уровня ("+(Ubound(outline)+1) +") не кратно числу Заголовоков " + level + " уровня (" + (Ubound(heading)+1) + ")"
 		EndIf	
 	ElseIf Ubound(outline) = -1 Then
 		
