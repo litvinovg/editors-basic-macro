@@ -827,7 +827,7 @@ End Sub
 
 Function getImageFileName()
 
-	Select Case UCase((sectionName)
+	Select Case UCase(sectionName)
 		Case "АРХИВ"
 			getImageFileName = "ARCHIVE.jpg"
 		Case "СИТУАЦИОННЫЕ ИССЛЕДОВАНИЯ"
