@@ -236,4 +236,148 @@ Sub disposeAllBookmarks()
 	Wend
 End Sub
 
+
+Sub addToArray(xArray(),vNextElement)
+Dim iUB%,iLB%
+iLB = lBound(xArray())
+iUB = uBound(xArray())
+If iLB &gt; iUB then
+   iUB = iLB
+   redim xArray(iLB To iUB)
+Else
+   iUB = iUB +1
+   redim preserve xArray(iLB To iUB)
+Endif
+xArray(iUB) = vNextElement
+End Sub
+
+Sub makeOutlineLinks
+	For i = 1 To 10
+		makeLinksWithLevel(i)
+	Next i
+
+End Sub
+
+
+Sub makeLinksWithLevel(level)
+
+	Dim heading() As Object
+	Dim outline() As Object
+	Dim oAnchor1Name As String
+	Dim oAnchor2Name As String
+	Dim i As Integer
+	heading = getHeadingWithLevel(level)
+	outline = getOutlineWithLevel(level)
+	If  Ubound(heading) &lt;&gt; -1 AND Ubound(outline) &lt;&gt; -1 Then
+		If (Ubound(outline) + 1) MOD (Ubound(heading) + 1 )  = 0 Then
+			For i = 0 To (Ubound(outline))
+				oAnchor2Name = "Оглавление " + level + "." + (i Mod (Ubound(heading) + 1))
+				If i &lt;= Ubound(heading) Then
+					createAnchor(heading(i Mod (Ubound(heading) + 1)),oAnchor2Name)
+				EndIf
+				createLink(outline(i),"",oAnchor2Name)
+			Next i
+		Else 
+			MsgBox ("Не могу сделать ссылки в оглавлении. Заголовоков "+ level + " уровня " + Ubound(heading) + " Оглавлений "+ level + " уровня " + Ubound(outline))
+		EndIf	
+	ElseIf Ubound(outline) = -1 Then
+		
+		'MsgBox ("Не могу сделать ссылки в оглавлении. Оглавлений "+ level + " уровня не найдено.")
+	ElseIf Ubound(heading) = -1 Then
+		MsgBox ("Не могу сделать ссылки в оглавлении. Заголовоков "+ level + " уровня не найдено.")
+	EndIf
+	
+End Sub
+
+Function getHeadingWithLevel(curNum)
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim enum2 As Object
+	Dim thisPortion As Object
+	Dim footnoteText As Object
+	Dim label As String
+	Dim labelNum As Integer
+	Dim i As Integer
+	Dim count As Integer
+	Dim cell As Object
+	Dim cellEnum As Object
+	Dim cellEnum2 As Object
+	Dim headingPar() As Object
+	enum1 = ThisComponent.Text.createEnumeration
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			If enum1Element.OutlineLevel = curNum Then
+				 addToArray(headingPar(),enum1Element)
+			EndIf
+			
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellEnum = cell.getText().createEnumeration()
+				While cellEnum.hasMoreElements 
+					cellEnumElement = cellEnum.nextElement
+					If cellEnumElement.supportsService("com.sun.star.text.Paragraph") Then
+						If cellEnumElement.OutlineLevel = curNum Then
+				 			addToArray(headingPar(),cellEnumElement)
+						EndIf
+			
+					EndIf
+				Wend
+		    Next i
+
+		EndIf
+	Wend 
+	getHeadingWithLevel = headingPar()
+End Function
+
+Function getOutlineWithLevel(curNum)
+
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim enum2 As Object
+	Dim thisPortion As Object
+	Dim footnoteText As Object
+	Dim label As String
+	Dim labelNum As Integer
+	Dim i As Integer
+	Dim count As Integer
+	Dim cell As Object
+	Dim cellEnum As Object
+	Dim cellEnum2 As Object
+	Dim par() As Object
+	Dim parName As String
+	parName = "Contents " + curNum
+	enum1 = ThisComponent.Text.createEnumeration
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			If enum1Element.ParaStyleName = parName Then
+				 addToArray(par(),enum1Element)
+			EndIf
+			
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellEnum = cell.getText().createEnumeration()
+				While cellEnum.hasMoreElements 
+					cellEnumElement = cellEnum.nextElement
+					If cellEnumElement.supportsService("com.sun.star.text.Paragraph") Then
+						If cellEnumElement.ParaStyleName = parName Then
+				 			addToArray(par(),cellEnumElement)
+						EndIf
+			
+					EndIf
+				Wend
+		    Next i
+		Else 
+			Mri enum1Element
+		EndIf
+	Wend 
+	getOutlineWithLevel = par()
+End Function
+
+
 </script:module>
