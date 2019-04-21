@@ -101,7 +101,7 @@ Sub makeUpIssue
 		If templateName = "" Then
 			modifyVar("leftHeader" + i , sectionName )
 		ElseIf templateName = EIFN Then
-			modifyVar("rightHeader" + i , sectionName )
+			modifyVar("rightHeader" + i , getArticleHeader() )
 			modifyVar("leftHeader" + i , getAuthor )
 		EndIf
 	
@@ -213,15 +213,32 @@ Function getCopyright()
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
 	Dim authors As String
+	Dim finalName As String
+	Dim tmpStr As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
 	getFirstTextInStyle("Автор")
 	authors = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	If authors &lt;&gt; "" Then 
-		leftSide = Right(authors,Len(authors)-4)
-		rightSide =  Left(authors,4)
-		getCopyright = "© " + Trim(leftSide) + " " + rightSide
-		
+		finalName = Trim(authors)
+		If Len(finalName) &gt;= 1 Then
+			If Right(finalName, 1) = "." Then
+				getCopyright = "© " + finalName
+				oViewCursor.goToRange(oSavePosition, false)
+				Exit Function
+			EndIf
+		EndIf
+		If Len(authors) &gt;= 4 Then
+			leftSide = Right(authors,Len(authors)-4)
+			rightSide =  Left(authors,4)
+			finalName = Trim(leftSide) + " " + rightSide
+	
+			getCopyright = "© " + finalName
+			oViewCursor.goToRange(oSavePosition, false)
+			Exit Function
+		Else
+			getCopyright = "© " + "Фамилия И.О."
+		EndIf	
 	End If
 	oViewCursor.goToRange(oSavePosition, false)
 End Function
@@ -236,6 +253,24 @@ Function getAuthor()
 	authors = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
 	If authors &lt;&gt; "" Then 
 		getAuthor = authors
+	Else
+		getAuthor = "Фамилия И.О."
+	End If
+	oViewCursor.goToRange(oSavePosition, false)
+End Function
+
+Function getArticleHeader()
+	Dim oViewCursor As Object
+	Dim oSavePosition As Object
+	Dim authors As String
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
+	getFirstTextInStyle("Заголовок 2")
+	articleHeader = oViewCursor.Text.createTextCursorByRange(oViewCursor).getString()
+	If articleHeader &lt;&gt; "" Then 
+		getArticleHeader = articleHeader
+	Else
+		getArticleHeader = "Название статьи"
 	End If
 	oViewCursor.goToRange(oSavePosition, false)
 End Function
@@ -451,7 +486,7 @@ Sub setAritclePageHeaders(i)
 	If templateName = "" Then
 		addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
 	ElseIf templateName = EIFN Then
-		addTextVar("rightHeader" + i ,"Название раздела " + i )	
+		addTextVar("rightHeader" + i ,"Название статьи " + i )	
 		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
 		insertLinkedImage(CStr(i),"headerImageRight")
