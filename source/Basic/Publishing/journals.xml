@@ -348,8 +348,7 @@ Sub setArticlePageStyles(i)
 	setFirstPageMetadata(curStyle,i)
 	'1 left/right style
 	' create new para for next page
-	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
 	oTextCursor.BreakType = 4
 	'clone 1 left/right style
 	createPageStyleByExample(newName)
@@ -357,9 +356,8 @@ Sub setArticlePageStyles(i)
 	curStyle.FollowStyle = newName
 	'set new curStyle	
 	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
-
-	oViewCursor.jumpToPreviousPage()
-	sendRM()
+	oTextCursor.goLeft(1,true)
+	oTextCursor.String = ""
 		
 End Sub
 
