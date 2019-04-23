@@ -68,6 +68,7 @@ Sub makeUpIssue
 			oTextCursor.BreakType = 4
 			'Задать стиль первой страницы
 			setArticlePageStyles(i)
+			setAritclePageHeaders(i)
 			page = oViewCursor.getPage()
 			InsertArticle(FilePath)
 			statusIndicator.setValue(i)
@@ -87,7 +88,6 @@ Sub makeUpIssue
 			sendRM()
 		End If
 		sectionName = getSectionX(sectionName)
-		setAritclePageHeaders(i)
 		setArticleUniqPageStyles(i)
 		oViewCursor.jumpToPage(page)
 		setAtricleVars(i)
