@@ -857,6 +857,21 @@ Sub copySectionIcon(articleNum)
 	
 End Sub
 
+Function getPageNumber
+  Dim oText   'Text object for the current document
+  Dim oField  'Field to insert
+  Dim oDoc    'oDoc is fewer characters than ThisComponent
+  oDoc = ThisComponent
+  oViewCursor = ThisComponent.CurrentController.getViewCursor()
+  oTextCursor =  oDoc.Text.createTextCursorByRange(oViewCursor.Start)
+  oField = oDoc.createInstance("com.sun.star.text.textfield.PageNumber")
+  oField.NumberingType = 4
+  oField.SubType = com.sun.star.text.PageNumberType.CURRENT
+  oDoc.Text.insertTextContent(oTextCursor, oField, False)
+  getPageNumber = oField.getPresentation(false)
+  oDoc.Text.removeTextContent(oField)
+
+End Function 
 
 Function getImageFileName()
 
