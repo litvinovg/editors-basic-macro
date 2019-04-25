@@ -163,6 +163,12 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
+  sCmdID   = "vnd.sun.star.script:Publishing.Documents.setDimensions?language=Basic&amp;location=application"
+  sCmdLable = "⍁"
+  nCount = 7
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
   
   
   REM *** Set the settings for our new custom toolbar. (replace/insert)
@@ -182,7 +188,7 @@ Rem such as "Style", which uses values
 Rem from com.sun.star.ui.ItemStyle. For menu items, the
 Rem "ItemDescriptorContainer" is usually set as well.
 Function CreateSimpleToolbarItem( sCommand$, sLabel ) as Variant
-  Dim oItem(3) As New com.sun.star.beans.PropertyValue
+  Dim oItem(4) As New com.sun.star.beans.PropertyValue
 
   oItem(0).Name = "CommandURL"
   oItem(0).Value = sCommand
@@ -196,6 +202,8 @@ Function CreateSimpleToolbarItem( sCommand$, sLabel ) as Variant
   
   oItem(3).Name = "Visible"
   oItem(3).Value = True
+  oItem(4).Name = "HelpURL"
+  oItem(4).Value = "https://litvinovg.pro"
 
   CreateSimpleToolbarItem = oItem()
 End Function

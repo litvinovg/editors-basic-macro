@@ -47,6 +47,8 @@ Sub setDimensions
 	Dim inputBottomMargin As String
 	Dim inputLeftMargin As String
 	Dim inputRightMargin As String
+	Dim	inputHeaderBodyDistance As String
+	Dim inputFooterBodyDistance As String
 	
 	Dim newWidth As Long
 	Dim newHeight As Long
@@ -56,6 +58,8 @@ Sub setDimensions
 	Dim newRightMargin As Long
 	Dim textFieldHeight As Long
 	Dim textFieldWidth As Long
+	Dim headerBodyDistance As Long
+	Dim footerBodyDistance As Long
 	
 	oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
 	inputWidth = InputBox("Введите ширину страниц (в мм):", "Установка ширины всех страниц документа", "")
@@ -64,6 +68,8 @@ Sub setDimensions
 	inputBottomMargin = InputBox("Введите резмер нижнего поля (в мм):", "Установка размера нижнего поля для всех страниц", "")
 	inputLeftMargin = InputBox("Введите размер левого поля (в мм):", "Установка размера левого поля для всех страниц", "")
 	inputRightMargin = InputBox("Введите размер правого поля (в мм):", "Установка размера правого поля для всех страниц", "")
+	inputHeaderBodyDistance = InputBox("Введите расстояние от верхнего колонтитула до текста (в сотых долях мм):", "Установка расстояния от верхнего колонтитула до текста", "")
+	inputFooterBodyDistance = InputBox("Введите расстояние от нижнего колонтитула до текста (в сотых долях мм):", "Установка расстояния от нижнего колонтитула до текста ", "")
 
 	For i = 0  to oStyles.Count - 1
 		curStyle = oStyles.getByIndex(i)
@@ -73,6 +79,16 @@ Sub setDimensions
 		newBottomMargin = curStyle.BottomMargin
 		newLeftMargin = curStyle.LeftMargin
 		newRightMargin = curStyle.RightMargin
+		
+		If CLng(inputHeaderBodyDistance) &gt; 0 Then
+			headerBodyDistance = CLng(inputHeaderBodyDistance)
+			curStyle.HeaderBodyDistance = headerBodyDistance
+		EndIf
+		If CLng(inputFooterBodyDistance) &gt; 0 Then
+			footerBodyDistance = CLng(inputFooterBodyDistance)
+			curStyle.FooterBodyDistance = footerBodyDistance
+		EndIf
+		
 		
 		If curstyle.IsLandscape Then
 			If CLng(inputHeight) &gt; 0 Then
@@ -117,7 +133,6 @@ Sub setDimensions
 		End If
 		textFieldWidth = newWidth - newLeftMargin - newRightMargin
 		textFieldHeight = newHeight - newTopMargin - newBottomMargin
-		
 		If textFieldWidth &gt; 5000 Then
 			curStyle.Width = newWidth
 			curStyle.LeftMargin = newLeftMargin
