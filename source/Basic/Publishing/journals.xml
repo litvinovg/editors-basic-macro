@@ -99,10 +99,10 @@ Sub makeUpIssue
 
 	
 		If templateName = "" Then
-			modifyVar("leftHeader" + i , sectionName )
+			updateUserField("leftHeader" + i , sectionName )
 		ElseIf templateName = EIFN Then
-			modifyVar("rightHeader" + i , getArticleHeader() )
-			modifyVar("leftHeader" + i , getAuthor )
+			updateUserField("rightHeader" + i , getArticleHeader() )
+			updateUserField("leftHeader" + i , getAuthor )
 		EndIf
 	
 	
@@ -139,15 +139,15 @@ Sub setPageNumbers()
 		If pageNum = -1 Then
 			Exit For
 		End If
-		modifyVar("article" + i + "LastPage", CStr(pageNum) )
+		updateUserField("article" + i + "LastPage", CStr(pageNum) )
 	Next i
 End Sub
 
 Sub setAtricleVars(i)
-	'modifyVar("article" + i + "LastPage", CStr(getArticleLastPage()) )
-	modifyVar("article" + i + "UDK", getUDK())
-	modifyVar("author" + i + "Copyright", getCopyright() )
-	'modifyVar("rightHeader" + i , getTitleHeader() )
+	'updateUserField("article" + i + "LastPage", CStr(getArticleLastPage()) )
+	updateUserField("article" + i + "UDK", getUDK())
+	updateUserField("author" + i + "Copyright", getCopyright() )
+	'updateUserField("rightHeader" + i , getTitleHeader() )
 End Sub
 
 Function lastPageNum(i)
@@ -389,10 +389,10 @@ Sub setFirstPageMetadata(curStyle,i)
 	oViewCursor.gotoEndOfLine(false)
 	oViewCursor.goright(1,false)
 	oViewCursor.gotoEndOfLine(false)
-	addTextVar("article" + i + "LastPage","00" )
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
 	oViewCursor.goright(1,false)
 	'Добавить УДК
-	addTextVar("article" + i + "UDK","УДК "+ i + "." + i)
+	insertUserField(oViewCursor,"article" + i + "UDK","УДК "+ i + "." + i)
 	'rightHeaderCell
 	rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
 	oViewCursor.goToRange(rightHeaderCell, false)
@@ -400,39 +400,39 @@ Sub setFirstPageMetadata(curStyle,i)
 	oViewCursor.gotoEndOfLine(false)
 	oViewCursor.goright(1,false)
 	oViewCursor.gotoEndOfLine(false)
-	addTextVar("article" + i + "LastPage","00" )
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
 	' go to page number 2nd place
 	oViewCursor.goright(1,false)
 	oViewCursor.gotoEndOfLine(false)
 	
 	If templateName = "" Then
-		addTextVar("article" + i + "LastPage","00" )
+		insertUserField(oViewCursor,"article" + i + "LastPage","00" )
 	ElseIf templateName = EIFN Then
-		addTextVar("article" + i + "Num","" + i )
+		insertUserField(oViewCursor,"article" + i + "Num","" + i )
 	EndIf
 	
 	If templateName = "" Then
 		'Footer without table
 		oViewCursor.goToRange(curStyle.FooterText.End, false)
-		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
 	ElseIf templateName = EIFN Then
 
 		oFooterTableLeft = curStyle.FooterTextLeft.CreateEnumeration().nextElement
 		rightHeaderCell = oFooterTableLeft.getCellByPosition(1,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
-		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
 		'TODO!!!!SECOND PAGE
 		oFooterTableRight = curStyle.FooterTextRight.CreateEnumeration().nextElement
 		leftHeaderCell = oFooterTableRight.getCellByPosition(0,0).getStart()
 	'	Mri oFooterRight
 	'	Mri leftHeaderCell
 		oViewCursor.goToRange(leftHeaderCell, false)
-		addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
 		'Mri curStyle
 		'rightFooterCell = oHeaderTable.getCellByPosition(1,0).getStart()
 		'oViewCursor.goToRange(curStyle.FooterText.End, false)
 		
-		'addTextVar("author" + i + "Copyright","© Фамилия И.О. " + i )
+
 	EndIf
 		
 	oViewCursor.goToRange(oSavePosition, false)
@@ -482,9 +482,9 @@ Sub setAritclePageHeaders(i)
 	rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
 	oViewCursor.goToRange(rightHeaderCell, false)
 	If templateName = "" Then
-		addTextVar("rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+		insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
 	ElseIf templateName = EIFN Then
-		addTextVar("rightHeader" + i ,"Название статьи " + i )	
+		insertUserField(oViewCursor,"rightHeader" + i ,"Название статьи " + i )	
 		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
 		insertLinkedImage(CStr(i),"headerImageRight")
@@ -495,11 +495,11 @@ Sub setAritclePageHeaders(i)
 	If templateName = "" Then
 		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
 		oViewCursor.goToRange(leftHeaderCell, false)
-		addTextVar("leftHeader" + i ,"Название раздела" + i )
+		insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
 	ElseIf templateName = EIFN Then
 		leftHeaderCell = leftHeaderTable.getCellByPosition(2,0).getStart()
 		oViewCursor.goToRange(leftHeaderCell, false)
-		addTextVar("leftHeader" + i ,"И.О. Фамилия" + i )
+		insertUserField(oViewCursor,"leftHeader" + i ,"И.О. Фамилия" + i )
 		leftHeaderCell = leftHeaderTable.getCellByPosition(0,0).getStart()
 		oViewCursor.goToRange(leftHeaderCell, false)
 		insertLinkedImage(CStr(i),"headerImageLeft")

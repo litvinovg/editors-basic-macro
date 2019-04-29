@@ -56,52 +56,6 @@ Sub createPageStyleByExample(newName)
 	dispatcher.executeDispatch(document, ".uno:StyleNewByExample", "", 0, args1())
 end Sub
 
-sub addTextVar(varName,varValue)
-	dim document   as object
-	dim dispatcher as object
-	document   = ThisComponent.CurrentController.Frame
-	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-	dim args1(5) as new com.sun.star.beans.PropertyValue
-	args1(0).Name = "Type"
-	args1(0).Value = 20
-	args1(1).Name = "SubType"
-	args1(1).Value = 1
-	args1(2).Name = "Name"
-	args1(2).Value = varName
-	args1(3).Name = "Content"
-	args1(3).Value = varValue
-	args1(4).Name = "Format"
-	args1(4).Value = -1
-	args1(5).Name = "Separator"
-	args1(5).Value = " "
-	dispatcher.executeDispatch(document, ".uno:InsertField", "", 0, args1())
-end Sub
-
-Sub modifyVar(varName,varValue)
-dim document   as object
-	dim dispatcher as object
-	document   = ThisComponent.CurrentController.Frame
-	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-	dim args1(5) as new com.sun.star.beans.PropertyValue
-	args1(0).Name = "Type"
-	args1(0).Value = 20
-	args1(1).Name = "SubType"
-	args1(1).Value = 1
-	args1(2).Name = "Name"
-	args1(2).Value = varName
-	args1(3).Name = "Content"
-	args1(3).Value = varValue
-	args1(4).Name = "Format"
-	args1(4).Value = -1
-	args1(5).Name = "Separator"
-	args1(5).Value = " "
-	dispatcher.executeDispatch(document, ".uno:InsertField", "", 0, args1())
-	backspace
-	dispatcher.executeDispatch(document, ".uno:UpdateFields", "", 0, args1())
-End Sub
-
-
-
 Function getPageNumber(cursor)
   Dim oField  'Field to insert
   oTextCursor =  cursor.Text.createTextCursorByRange(cursor.Start)
@@ -119,10 +73,8 @@ Sub testPageNum
 End Sub
 
 Function updateUserField(fieldName,fieldValue)
-  Dim oField  As Object 'Field to insert
   Dim oFieldMaster As Object
   Dim oMasters As Object
-  oField = ThisComponent.createInstance("com.sun.star.text.textfield.User")
   oMasters = ThisComponent.getTextFieldMasters()
   If oMasters.hasByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName) Then
   	oFieldMaster = oMasters.getByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName)
@@ -139,6 +91,8 @@ Function insertUserField(cursor,fieldName,fieldValue)
   oMasters = ThisComponent.getTextFieldMasters()
   If oMasters.hasByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName) Then
   	oFieldMaster = oMasters.getByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName)
+	oFieldMaster.Name = fieldName
+	oFieldMaster.Content = fieldValue
   Else 
 	oFieldMaster = ThisComponent.createInstance("com.sun.star.text.FieldMaster.User")
 	oFieldMaster.Name = fieldName
