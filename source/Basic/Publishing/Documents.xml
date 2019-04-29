@@ -49,6 +49,8 @@ Sub setDimensions
 	Dim inputRightMargin As String
 	Dim	inputHeaderBodyDistance As String
 	Dim inputFooterBodyDistance As String
+	Dim inputFootnoteLineDistance As String
+	Dim inputFootnoteLineTextDistance As String
 	
 	Dim newWidth As Long
 	Dim newHeight As Long
@@ -60,6 +62,8 @@ Sub setDimensions
 	Dim textFieldWidth As Long
 	Dim headerBodyDistance As Long
 	Dim footerBodyDistance As Long
+	Dim footnoteLineDistance As Long
+	Dim footnoteLineTextDistance As Long
 	
 	oStyles =  ThisComponent.StyleFamilies.getByName("PageStyles")
 	inputWidth = InputBox("Введите ширину страниц (в мм):", "Установка ширины всех страниц документа", "")
@@ -70,6 +74,8 @@ Sub setDimensions
 	inputRightMargin = InputBox("Введите размер правого поля (в мм):", "Установка размера правого поля для всех страниц", "")
 	inputHeaderBodyDistance = InputBox("Введите расстояние от верхнего колонтитула до текста (в сотых долях мм):", "Установка расстояния от верхнего колонтитула до текста", "")
 	inputFooterBodyDistance = InputBox("Введите расстояние от нижнего колонтитула до текста (в сотых долях мм):", "Установка расстояния от нижнего колонтитула до текста ", "")
+	inputFootnoteLineTextDistance = InputBox("Введите расстояние от текста страницы до линии сноски (в сотых долях мм):", "Установка расстояния от текста страницы до линии сноски ", "")
+	inputFootnoteLineDistance = InputBox("Введите расстояние от линии сноски до текста сноски (в сотых долях мм):", "Установка расстояния от линии сноски до текста сноски ", "")
 
 	For i = 0  to oStyles.Count - 1
 		curStyle = oStyles.getByIndex(i)
@@ -89,6 +95,16 @@ Sub setDimensions
 			curStyle.FooterBodyDistance = footerBodyDistance
 		EndIf
 		
+		If CLng(inputFootnoteLineDistance) &gt; 0 Then
+			footnoteLineDistance = CLng(inputFootnoteLineDistance)
+			curStyle.FootnoteLineDistance = footnoteLineDistance
+		EndIf
+		If CLng(inputFootnoteLineTextDistance) &gt; 0 Then
+			footnoteLineTextDistance = CLng(inputFootnoteLineTextDistance)
+			curStyle.FootnoteLineTextDistance = footnoteLineTextDistance
+		EndIf
+		'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+		'Mri curStyle
 		
 		If curstyle.IsLandscape Then
 			If CLng(inputHeight) &gt; 0 Then

@@ -102,4 +102,51 @@ End Sub
 
 
 
+Function getPageNumber(cursor)
+  Dim oField  'Field to insert
+  oTextCursor =  cursor.Text.createTextCursorByRange(cursor.Start)
+  oField = ThisComponent.createInstance("com.sun.star.text.textfield.PageNumber")
+  oField.NumberingType = 4
+  oField.SubType = com.sun.star.text.PageNumberType.CURRENT
+  oTextCursor.Text.insertTextContent(oTextCursor, oField, False)
+  getPageNumber = oField.getPresentation(false)
+  oTextCursor.Text.removeTextContent(oField)
+End Function 
+
+Sub testPageNum
+'  oViewCursor = ThisComponent.CurrentController.getViewCursor()
+  updateUserField("fieldName","fieldValueXXX")
+End Sub
+
+Function updateUserField(fieldName,fieldValue)
+  Dim oField  As Object 'Field to insert
+  Dim oFieldMaster As Object
+  Dim oMasters As Object
+  oField = ThisComponent.createInstance("com.sun.star.text.textfield.User")
+  oMasters = ThisComponent.getTextFieldMasters()
+  If oMasters.hasByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName) Then
+  	oFieldMaster = oMasters.getByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName)
+  	oFieldMaster.Content = fieldValue
+  EndIf
+End Function 
+
+Function insertUserField(cursor,fieldName,fieldValue)
+  Dim oField  As Object 'Field to insert
+  Dim oFieldMaster As Object
+  Dim oMasters As Object
+  oTextCursor =  cursor.Text.createTextCursorByRange(cursor.Start)
+  oField = ThisComponent.createInstance("com.sun.star.text.textfield.User")
+  oMasters = ThisComponent.getTextFieldMasters()
+  If oMasters.hasByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName) Then
+  	oFieldMaster = oMasters.getByName("com.sun.star.text.FieldMaster.User" &amp; "." &amp; fieldName)
+  Else 
+	oFieldMaster = ThisComponent.createInstance("com.sun.star.text.FieldMaster.User")
+	oFieldMaster.Name = fieldName
+	oFieldMaster.Content = fieldValue
+  EndIf
+  oField.attachTextFieldMaster(oFieldMaster)
+  oTextCursor.Text.insertTextContent(oTextCursor, oField, False)
+End Function 
+
+
 </script:module>
