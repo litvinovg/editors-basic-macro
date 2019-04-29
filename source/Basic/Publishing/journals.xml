@@ -232,8 +232,11 @@ Function getCopyright()
 			leftSide = Right(authors,Len(authors)-4)
 			rightSide =  Left(authors,4)
 			finalName = Trim(leftSide) + " " + rightSide
-	
-			getCopyright = "© " + finalName
+			If Right(finalName, 1) &lt;&gt; "." Then
+				getCopyright = "© " + Trim(authors)
+			Else
+				getCopyright = "© " + finalName				
+			EndIf
 			oViewCursor.goToRange(oSavePosition, false)
 			Exit Function
 		Else
