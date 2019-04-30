@@ -126,6 +126,11 @@ Sub makeUpIssue
 End Sub
 
 Sub setPageNumbers()
+	updateLastPageFields()
+End Sub
+
+
+Sub setPageNumbersDeprecated()
 	Dim oVeiwCursor As Object
 	Dim pageNum as Integer
 	Dim firstPage as String
@@ -141,6 +146,7 @@ Sub setPageNumbers()
 		End If
 		updateUserField("article" + i + "LastPage", CStr(pageNum) )
 	Next i
+	
 End Sub
 
 Sub setAtricleVars(i)

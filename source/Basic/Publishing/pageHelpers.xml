@@ -56,6 +56,94 @@ Sub createPageStyleByExample(newName)
 	dispatcher.executeDispatch(document, ".uno:StyleNewByExample", "", 0, args1())
 end Sub
 
+Sub updateLastPageFields
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim enum2 As Object
+	Dim thisPortion As Object
+	Dim footnoteText As Object
+	Dim label As String
+	Dim labelNum As Integer
+	Dim i As Integer
+	Dim cell As Object
+	Dim cellEnum As Object
+	Dim cellEnum2 As Object
+	Dim pageStyleName As String
+	Dim articleName As String
+	Dim articleNamePrefix As String	
+	Dim articleNamePostfix As String
+	Dim strPos As Integer	
+	Dim articleNum As Integer
+	Dim curNum As Integer
+	Dim pageNum As Integer
+	Dim textCursor As Object
+	Dim lastPages%( 100 )
+	For i = 0 to 100
+      lastPages%(i) = 0
+	next i
+	articleNum = 0
+	articleName = "0"
+	articleNamePrefix = "Статья "
+	articleNamePostfix = " "
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Производится обновление полей последних номеров страниц, подождите",30)
+	enum1 = ThisComponent.Text.createEnumeration
+	While enum1.hasMoreElements
+
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") OR enum1Element.supportsService("com.sun.star.text.TextTable") Then
+
+			pageStyleName = getPageStyleNameFromEnum(enum1Element)
+
+			If Len(pageStyleName) &gt; 0 Then
+				strPos = InStr(pageStyleName, articleNamePrefix)
+				If strPos &lt;&gt; 0 Then
+					articleName = Right(pageStyleName, Len(pageStyleName)-Len(articleNamePrefix))
+					strPos = InStr(articleName, articleNamePostfix)
+					If strPos &gt; 0 Then
+						articleName = Left(articleName,strPos)
+					EndIf
+					'If first article reached
+					If articleNum = 0 Then
+						articleNum = CInt(Trim(articleName))
+					EndIf				
+				Else
+					articleName = "0"
+				EndIf
+				
+				If articleNum &gt; 0 Then
+					curNum = CInt(Trim(articleName))
+					If articleNum &lt;&gt; curNum Then
+						textCursor = enum1Element.getText.createTextCursorByRange(enum1Element.Start)
+						pageNum = getPageNumber(textCursor)
+						lastPages(articleNum) = CInt(pageNum) - 1
+						articleNum = curNum						
+					EndIf
+				EndIf
+			EndIf
+			
+		EndIf
+	Wend 
+	For i = 0 to 100
+      If lastPages%(i) &lt;&gt; 0 Then
+      	updateUserField("article" + i + "LastPage",lastPages%(i))
+      EndIf
+	next i
+	statusIndicator.end()
+End Sub
+
+Function getPageStyleNameFromEnum(enumElement)
+	If enumElement.pageDescName = "" AND Not IsEmpty(enumElement.getPropertyValue("PageStyleName")) Then
+		getPageStyleNameFromEnum = enumElement.pageStyleName
+	Else 
+		getPageStyleNameFromEnum = enumElement.pageDescName
+	EndIf
+End Function
+
+
+
+
 Function getPageNumber(cursor)
   Dim oField  'Field to insert
   oTextCursor =  cursor.Text.createTextCursorByRange(cursor.Start)
