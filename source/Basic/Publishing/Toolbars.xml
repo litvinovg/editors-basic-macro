@@ -275,6 +275,12 @@ Sub addArticlesToolbar(toolbarName,toolbarDescription)
   nCount = 6
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
+    
+  sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.getNumberingFonts?language=Basic&amp;location=application"
+  sCmdLable = "ШрВНум"
+  nCount = 7
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   REM *** Set the settings for our new custom toolbar. (replace/insert)
   If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
