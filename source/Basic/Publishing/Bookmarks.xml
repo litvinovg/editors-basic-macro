@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Bookmarks" script:language="StarBasic" script:moduleType="normal">Sub setFootnotesNumbering
+	setFootnotesNumberingLevel(2)
+End Sub
+
+Sub disableFootnotesNumbering
+	setFootnotesNumberingLevel(0)
+End Sub
+
+Sub setFootnotesNumberingLevel(level)
 	Dim enum1Element As Object
 	Dim enum1 As Object
 	Dim enum2 As Object
@@ -24,7 +32,7 @@
 	While enum1.hasMoreElements
 		enum1Element = enum1.nextElement
 		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
-			If enum1Element.OutlineLevel = 2 Then
+			If enum1Element.OutlineLevel = level Then
 				curNum = 1 
 			EndIf
 			enum2 = enum1Element.createEnumeration
@@ -33,13 +41,19 @@
 				If thisPortion.TextPortionType = "Footnote" Then
 					footnoteText = thisPortion.Footnote
 					label = footnoteText.getLabel
-					If label = "" Then 
-						footnoteText.setLabel(CStr(curNum))
-						curNum = curNum + 1
+					If label = "" Then
+						If level &gt; 0 Then
+							footnoteText.setLabel(CStr(curNum))
+							curNum = curNum + 1
+						EndIf
 					Else
 						labelNum = CInt(label)
 						If labelNum &gt; 0 Then
-							footnoteText.setLabel(CStr(curNum))
+							If level &lt; 1 Then
+								footnoteText.setLabel("")
+							Else
+								footnoteText.setLabel(CStr(curNum))
+							EndIf
 							curNum = curNum + 1
 						EndIf
 					EndIf
@@ -53,7 +67,7 @@
 				While cellEnum.hasMoreElements 
 					cellEnumElement = cellEnum.nextElement
 					If cellEnumElement.supportsService("com.sun.star.text.Paragraph") Then
-						If cellEnumElement.OutlineLevel = 2 Then
+						If cellEnumElement.OutlineLevel = level Then
 						curNum = 1 
 						EndIf
 						cellEnum2 = cellEnumElement.createEnumeration
@@ -63,12 +77,18 @@
 								footnoteText = thisPortion.Footnote
 								label = footnoteText.getLabel
 								If label = "" Then 
-									footnoteText.setLabel(CStr(curNum))
-									curNum = curNum + 1
+									If level &gt; 0 Then
+										footnoteText.setLabel(CStr(curNum))
+										curNum = curNum + 1
+									EndIf
 								Else
 									labelNum = CInt(label)
 									If labelNum &gt; 0 Then
-										footnoteText.setLabel(CStr(curNum))
+										If level &lt; 1 Then
+											footnoteText.setLabel("")
+										Else
+											footnoteText.setLabel(CStr(curNum))
+										EndIf
 										curNum = curNum + 1
 									EndIf
 								EndIf
