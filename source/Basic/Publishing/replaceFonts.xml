@@ -43,7 +43,7 @@ Sub Univ2IPH
 	Dim oldFontName as String  
 	oldFontName = "Universalia"
 	Dim newFontName as String  
-	newFontName = "IPH Serif"
+	newFontName = "IPH Lib Serif"
 	substituteStylesFontNameStartsWith(oldFontName, newFontName)
 	substituteDirectFromatFontNameStartsWith(oldFontName, newFontName)
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
@@ -59,13 +59,27 @@ end Sub
 
 
 Sub TNR2IPH
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	statusIndicator.Start("Замена шрифтов начата, подождите",10)
+	Univ2IPH()
+	statusIndicator.setValue(20)
+	goth2IPH()
+	statusIndicator.setValue(30)
 	'Replace Times New Roman to IPH Serif in styles
 	substituteStylesFontNameStartsWith( "Times New Roman","IPH Lib Serif")
 	substituteDirectFromatFontNameStartsWith( "Times New Roman","IPH Lib Serif")
+	statusIndicator.setValue(40)
+	substituteStylesFontNameStartsWith( "Liberation Serif","IPH Lib Serif")
+	substituteDirectFromatFontNameStartsWith( "Liberation Serif","IPH Lib Serif")
+	statusIndicator.setValue(50)	
+	substituteStylesFontNameStartsWith( "ArabicD","IPH Lib Serif")
+	substituteDirectFromatFontNameStartsWith( "ArabicD","IPH Lib Serif")
+	statusIndicator.setValue(60)	
 	'Replace Arial to IPH Sans in styles
 	substituteStylesFontNameStartsWith( "Arial","IPH Lib Sans")
 	substituteDirectFromatFontNameStartsWith( "Arial","IPH Lib Sans")
-	
+	statusIndicator.setValue(70)		
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharFontName"
@@ -97,7 +111,7 @@ Sub TNR2IPH
 	'from unicode to remove direct formatting
 	oSearchString = "(.)\u0323"
 	searchAndRemoveDirectFormatting(oSearchString)
-	
+	statusIndicator.setValue(80)
 	'replace macron
 	oSearchString = "(.)\uF0F4"
 	oReplaceString = "$1̄"
@@ -119,6 +133,8 @@ Sub TNR2IPH
 	RemoveStyleByName("WL LatinAllIn1Goth")
 	'Remove ArabicD
 	'Remove WL LatinAllIn1Goth
+	
+	statusIndicator.end()
 End Sub
 
 Sub goth2IPH
@@ -128,7 +144,7 @@ Sub goth2IPH
 	SrchAttributes(0).Name = "CharFontName"
 	SrchAttributes(0).Value = "WL LatinAllIn1Goth"
 	ReplAttributes(0).Name = "CharFontName"
-	ReplAttributes(0).Value = "IPH Serif"
+	ReplAttributes(0).Value = "IPH Lib Serif"
 	
 	SearchString = "\uF0D4"
 	oReplaceString = "̱"
@@ -145,20 +161,20 @@ Sub goth2IPH
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 	
-	ReplAttributes(0).Value = "IPH Serif"
+	ReplAttributes(0).Value = "IPH Lib Serif"
 	SearchString = "\uF0F1"
 	oReplaceString = "́"
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 	
-	substituteCharNameInStyles( "WL LatinAllIn1Goth","IPH Serif")
+	substituteCharNameInStyles( "WL LatinAllIn1Goth","IPH Lib Serif")
 End Sub
 
 Sub badGoth2IPH
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	ReplAttributes(0).Name = "CharFontName"
-	ReplAttributes(0).Value = "IPH Serif"
+	ReplAttributes(0).Value = "IPH Lib Serif"
 	
 	SearchString = "\uF0D4"
 	ReplaceString = "̱"
@@ -181,7 +197,7 @@ Sub IPH2Goth
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharFontName"
-	SrchAttributes(0).Value = "IPH Serif"
+	SrchAttributes(0).Value = "IPH Lib Serif"
 	ReplAttributes(0).Name = "CharFontName"
 	ReplAttributes(0).Value = "WL LatinAllIn1Goth"
 	SearchString = "\u0304"
@@ -204,7 +220,7 @@ Sub IPH2Goth
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, false)
 	ReplaceFormatting(SearchString,oReplaceString,SrchAttributes,ReplAttributes, true)
 	
-	substituteCharNameInStyles("PT Serif","WL LatinAllIn1Goth")
+	substituteCharNameInStyles("IPH Lib Serif","WL LatinAllIn1Goth")
 End Sub
 
 Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPart  As String)
