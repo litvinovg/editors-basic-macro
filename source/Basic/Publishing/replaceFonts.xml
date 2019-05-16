@@ -60,11 +60,11 @@ end Sub
 
 Sub TNR2IPH
 	'Replace Times New Roman to IPH Serif in styles
-	substituteStylesFontNameStartsWith( "Times New Roman","IPH Serif")
-	substituteDirectFromatFontNameStartsWith( "Times New Roman","IPH Serif")
+	substituteStylesFontNameStartsWith( "Times New Roman","IPH Lib Serif")
+	substituteDirectFromatFontNameStartsWith( "Times New Roman","IPH Lib Serif")
 	'Replace Arial to IPH Sans in styles
-	substituteStylesFontNameStartsWith( "Arial","IPH Sans")
-	substituteDirectFromatFontNameStartsWith( "Arial","IPH Sans")
+	substituteStylesFontNameStartsWith( "Arial","IPH Lib Sans")
+	substituteDirectFromatFontNameStartsWith( "Arial","IPH Lib Sans")
 	
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
