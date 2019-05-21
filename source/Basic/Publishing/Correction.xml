@@ -2,6 +2,11 @@
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Correction" script:language="StarBasic">Sub fixFrequentMistakes
 	Dim statusIndicator as Object
+	Dim NBSP As String
+	Dim space As String
+	NBSP = " "
+	space = " "
+	
 	statusIndicator = ThisComponent.getCurrentController.statusIndicator
 	statusIndicator.Start("Исправление ошибок начато, подождите",30)
 	'Не должно быть символов табуляции
@@ -15,37 +20,41 @@
     'Не должно быть пробелов перед знаками пунктуации .,;:?!)]}»¡¿”‘’
    	AskAndReplace("[:space:]+(?=[\.,;:?!\)\]\}»¡¿”‘’])","")
 	'Между словом том и цифрой должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=\b[тТ](ом|\.))\ (?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[тТ](ом|\.))\ (?=[:digit:])",NBSP)
 	'Между словом серия и цифрой должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=\b[сС](ерия|\.))\ +(?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[сС](ерия|\.))\ +(?=[:digit:])",NBSP)
 	'Между словом часть и цифрой должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=\b[чЧ](асть|\.))\ +(?=[:digit:])"," ")
+	AskAndReplace("(?&lt;=\b[чЧ](асть|\.))\ +(?=[:digit:])",NBSP)
 	'Между числом и "г." должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=[0-9])[:space:]*г(?=\.)"," г")
-
+	AskAndReplace("(?&lt;=[0-9])[:space:]*г(?=\.)",NBSP &amp; "г")
+	'Между инициалами должен быть неразрывныйпробел
+	AskAndReplace("(?&lt;=[:upper:])\.(?=[:upper:]\.)","." &amp; NBSP)
 	'Между инициалами и Фамилией должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=[:upper:]\.[:upper:]\.)\ (?=[:upper:][:lower:]+)"," ")
+	AskAndReplace("(?&lt;=[:upper:]\.[:space:][:upper:]\.)\ (?=[:upper:][:lower:]+)",NBSP)
 	'Между Фамилией и инициалами должен быть неразрывный пробел, а не обычный
-	AskAndReplace("(?&lt;=[:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:upper:]\.)"," ")
+	AskAndReplace("(?&lt;=[:upper:][:lower:]{1,30})\ (?=[:upper:]\.[:space:][:upper:]\.)",NBSP)
 
 	'Не должно быть пробелов после скобок [({ и кавычек «„
 	AskAndReplace("(?&lt;=[\(\[\{«„])[:space:]","")
 	'Между "и" и "т." должен быть неразрывный пробел, а не обычный
-    AskAndReplace("(?&lt;=\bи)\ (?=т\.)"," ")
+    AskAndReplace("(?&lt;=\bи)\ (?=т\.)",NBSP)
    	'Между "т." и "е./н./д./п./к." должен быть неразрывный пробел, а не обычный
-    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)",". ")
+    AskAndReplace("(?&lt;=\bт)\.\ ?(?=[ендпк]\.)","." &amp; NBSP)
     
    	'Между буквами среднее тире должно обрамляться пробелами
-	AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])"," – ")
+	AskAndReplace("(?&lt;=[:alpha:])–(?=[:alpha:])",NBSP &amp; "–" &amp; NBSP)
 	'Между буквами дефис-минус, цифровое тире и длинное тире заменяется на среднее тире
     AskAndReplace("(?&lt;=[:alpha:][:space:])[-‒—](?=[:space:][:alpha:])","–")
     'Между двумя цифрами и тире между ними не долнжо быть пробелов. А также тире должно быть цифровым
   	AskAndReplace("(?&lt;=[:digit:])(?:[:space:])?[-‒–—](?:[:space:])?(?=[:digit:])","‒")
-
+ 	
+ 	'Между двумя римскими цифрами и тире между ними не долнжо быть пробелов. А также тире должно быть средним
+	AskAndReplace("(?&lt;=[MDCLXVI])(?:[:space:])?[-‒–—](?:[:space:])?(?=[MDCLXVI])","–")
+	
 	'Между буквой и угловой открывающейся скобкой должен быть пробел
-	AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)"," &lt;")
+	AskAndReplace("(?&lt;=[:alpha:])&lt;(?=…&gt;)",space &amp; "&lt;")
 	'Между угловой закрывающейся скобкой и буквой должен быть пробел
-	AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt; ")
+	AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt;" &amp; space)
 	statusIndicator.end()
 End Sub
 
