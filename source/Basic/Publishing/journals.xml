@@ -377,11 +377,6 @@ End Sub
 Sub setFirstPageMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oSavePosition As Object
-	Dim oText As Object
-	Dim oHeaderTable As Object
-	Dim oFooterTable As Object
-	Dim rightHeaderCell As Object
-	Dim leftHeaderCell As Object
 	Dim savePageName As String
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)
@@ -392,7 +387,27 @@ Sub setFirstPageMetadata(curStyle,i)
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	oTextCursor.BreakType = 4
 	oTextCursor.PageDescName = savePageName
+		
+	If templateName = "" Then
+		setDefaultFirstPageMetadata(curStyle)
+	ElseIf templateName = PHA Then
+		setPHAFirstPageMetadata(curStyle)
+	ElseIf templateName = EIFN Then
+		setEIFNFirstPageMetadata(curStyle)
+	EndIf
 	
+	oViewCursor.goToRange(oSavePosition, false)
+	oViewCursor.jumpToPreviousPage()
+	sendRM()
+End Sub
+
+Sub setDefaultFirstPageMetadata(curStyle)
+	Dim oViewCursor As Object
+	Dim oHeaderTable As Object
+	Dim oFooterTable As Object
+	Dim rightHeaderCell As Object
+	Dim leftHeaderCell As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	'curStyle.HeaderText
 	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
 	'leftHeaderCell
@@ -406,6 +421,77 @@ Sub setFirstPageMetadata(curStyle,i)
 	oViewCursor.goright(1,false)
 	'Добавить УДК
 	insertUserField(oViewCursor,"article" + i + "UDK","УДК "+ i + "." + i)
+	
+	'rightHeaderCell
+	rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
+	oViewCursor.goToRange(rightHeaderCell, false)
+	'go to page number 1st place
+	oViewCursor.gotoEndOfLine(false)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+	' go to page number 2nd place
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+	'Footer without table
+	oViewCursor.goToRange(curStyle.FooterText.End, false)
+	insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
+
+End Sub
+
+Sub setPHAFirstPageMetadata(curStyle)
+	Dim oViewCursor As Object
+	Dim oHeader As Object
+	Dim oFooterTable As Object
+
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oHeader = curStyle.HeaderText.CreateEnumeration().nextElement
+	If oHeader.supportsService("com.sun.star.text.TextTable") Then
+		oAnchor = oHeader.getCellByPosition(0,0).getStart()
+	Else
+		oAnchor = oHeader
+	EndIf
+
+	oViewCursor.goToRange(oAnchor, false)
+	'go to page number place
+	oViewCursor.gotoEndOfLine(false)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+	oViewCursor.goright(1,false)
+	'Добавить УДК
+	insertUserField(oViewCursor,"article" + i + "UDK","УДК "+ i + "." + i)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+
+	oViewCursor.goToRange(curStyle.FooterText.End, false)
+	insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
+
+End Sub
+
+Sub setEIFNFirstPageMetadata(curStyle)
+	Dim oViewCursor As Object
+	Dim oHeaderTable As Object
+	Dim oFooterTable As Object
+	Dim rightHeaderCell As Object
+	Dim leftHeaderCell As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	'curStyle.HeaderText
+	oHeaderTable = curStyle.HeaderText.CreateEnumeration().nextElement
+	'leftHeaderCell
+	leftHeaderCell = oHeaderTable.getCellByPosition(0,0).getStart()
+	oViewCursor.goToRange(leftHeaderCell, false)
+	'go to page number place
+	oViewCursor.gotoEndOfLine(false)
+	oViewCursor.goright(1,false)
+	oViewCursor.gotoEndOfLine(false)
+	insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+	oViewCursor.goright(1,false)
+	'Добавить УДК
+	insertUserField(oViewCursor,"article" + i + "UDK","УДК "+ i + "." + i)
+	
 	'rightHeaderCell
 	rightHeaderCell = oHeaderTable.getCellByPosition(1,0).getStart()
 	oViewCursor.goToRange(rightHeaderCell, false)
@@ -418,44 +504,18 @@ Sub setFirstPageMetadata(curStyle,i)
 	oViewCursor.goright(1,false)
 	oViewCursor.gotoEndOfLine(false)
 	
-	If templateName = "" Then
-		insertUserField(oViewCursor,"article" + i + "LastPage","00" )
-	ElseIf templateName = PHA Then
-		insertUserField(oViewCursor,"article" + i + "LastPage","00" )
-	ElseIf templateName = EIFN Then
-		insertUserField(oViewCursor,"article" + i + "Num","" + i )
-	EndIf
+	insertUserField(oViewCursor,"article" + i + "Num","" + i )
 	
-	If templateName = "" Then
-		'Footer without table
-		oViewCursor.goToRange(curStyle.FooterText.End, false)
-		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
-	ElseIf templateName = PHA Then
-		oViewCursor.goToRange(curStyle.FooterText.End, false)
-		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
-	ElseIf templateName = EIFN Then
+	oFooterTableLeft = curStyle.FooterTextLeft.CreateEnumeration().nextElement
+	rightHeaderCell = oFooterTableLeft.getCellByPosition(1,0).getStart()
+	oViewCursor.goToRange(rightHeaderCell, false)
+	insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
+	'TODO!!!!SECOND PAGE
+	oFooterTableRight = curStyle.FooterTextRight.CreateEnumeration().nextElement
+	leftHeaderCell = oFooterTableRight.getCellByPosition(0,0).getStart()
+	oViewCursor.goToRange(leftHeaderCell, false)
+	insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
 
-		oFooterTableLeft = curStyle.FooterTextLeft.CreateEnumeration().nextElement
-		rightHeaderCell = oFooterTableLeft.getCellByPosition(1,0).getStart()
-		oViewCursor.goToRange(rightHeaderCell, false)
-		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
-		'TODO!!!!SECOND PAGE
-		oFooterTableRight = curStyle.FooterTextRight.CreateEnumeration().nextElement
-		leftHeaderCell = oFooterTableRight.getCellByPosition(0,0).getStart()
-	'	Mri oFooterRight
-	'	Mri leftHeaderCell
-		oViewCursor.goToRange(leftHeaderCell, false)
-		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
-		'Mri curStyle
-		'rightFooterCell = oHeaderTable.getCellByPosition(1,0).getStart()
-		'oViewCursor.goToRange(curStyle.FooterText.End, false)
-		
-
-	EndIf
-		
-	oViewCursor.goToRange(oSavePosition, false)
-	oViewCursor.jumpToPreviousPage()
-	sendRM()
 End Sub
 
 Sub setAritclePageHeaders(i)
