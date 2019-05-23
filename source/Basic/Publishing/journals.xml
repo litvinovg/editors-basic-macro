@@ -4,7 +4,8 @@
 '	Mri curStyle
 
 Dim templateName As String
-Dim EIFN As String 
+Dim EIFN As String
+Dim PHA As String 
 Dim imagesRelativePath As String 
 Dim allImagesRelativePath As String 
 Dim path As String
@@ -13,6 +14,7 @@ Dim sectionName As String
 Sub makeUpIssue
 
 	EIFN = "ЭиФН"
+	PHA = "ФА"
 	imagesRelativePath = "/Links/Header/"
 	allImagesRelativePath = "/Links/Header-icons/"
 	
@@ -99,6 +101,8 @@ Sub makeUpIssue
 
 	
 		If templateName = "" Then
+			updateUserField("leftHeader" + i , sectionName )
+		ElseIf templateName = PHA Then
 			updateUserField("leftHeader" + i , sectionName )
 		ElseIf templateName = EIFN Then
 			updateUserField("rightHeader" + i , getArticleHeader() )
@@ -416,12 +420,17 @@ Sub setFirstPageMetadata(curStyle,i)
 	
 	If templateName = "" Then
 		insertUserField(oViewCursor,"article" + i + "LastPage","00" )
+	ElseIf templateName = PHA Then
+		insertUserField(oViewCursor,"article" + i + "LastPage","00" )
 	ElseIf templateName = EIFN Then
 		insertUserField(oViewCursor,"article" + i + "Num","" + i )
 	EndIf
 	
 	If templateName = "" Then
 		'Footer without table
+		oViewCursor.goToRange(curStyle.FooterText.End, false)
+		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
+	ElseIf templateName = PHA Then
 		oViewCursor.goToRange(curStyle.FooterText.End, false)
 		insertUserField(oViewCursor,"author" + i + "Copyright","© Фамилия И.О. " + i )
 	ElseIf templateName = EIFN Then
@@ -492,6 +501,8 @@ Sub setAritclePageHeaders(i)
 	oViewCursor.goToRange(rightHeaderCell, false)
 	If templateName = "" Then
 		insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+	ElseIf templateName = PHA Then
+		insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
 	ElseIf templateName = EIFN Then
 		insertUserField(oViewCursor,"rightHeader" + i ,"Название статьи " + i )	
 		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
@@ -502,6 +513,10 @@ Sub setAritclePageHeaders(i)
 	
 	
 	If templateName = "" Then
+		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
+		oViewCursor.goToRange(leftHeaderCell, false)
+		insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
+	ElseIf templateName = PHA Then
 		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
 		oViewCursor.goToRange(leftHeaderCell, false)
 		insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
