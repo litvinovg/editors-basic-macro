@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">Sub convertHyphInDoc()
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	statusIndicator.Start("Конвертация переносов, подождите",10)
 	convertHyphInText(ThisComponent.Text)
 '	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	statusIndicator.Start("Конвертация переносов, подождите",70)
 	allNotes = ThisComponent.FootNotes
 	For x = 0 to allNotes.Count -1
 	  aNote = allNotes.getByIndex(x)
 	  convertHyphInText(aNote.Text)
 	Next
+	statusIndicator.end()
 End Sub
 
 Sub convertHyphInText(textElement)
@@ -57,6 +62,8 @@ Sub convertParaHyphens(para)
 		If needHyphen(lastChar,newChar) Then
 			tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,False)			
 		EndIf
+		tCurs.goRight(1,false)
+		vCurs.goToRange(tCurs,false)
 	Loop
 '	mri vCurs
 
@@ -64,6 +71,7 @@ End sub
 
 Function needHyphen(lastChar, newChar)
 	needHyphen = true
+	'MsgBox Asc(newChar)
 	Select Case lastChar
 		Case "."
 			needHyphen = false
@@ -94,6 +102,9 @@ Function needHyphen(lastChar, newChar)
 		Case "-"
 			needHyphen = false
 		Case "­"
+			needHyphen = false
+		'newline U+000A
+		Case Chr(10)
 			needHyphen = false
 	End Select
 End Function
