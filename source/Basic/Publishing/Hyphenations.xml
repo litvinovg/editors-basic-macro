@@ -1,88 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">
-Sub convertAutoHyphenationsToManual()
-	ThisComponent.lockControllers
-	findAllWithHyphenation()
-	hyphenateParas()
-	ThisComponent.unlockControllers
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">Sub convertHyphInDoc()
+	convertHyphInText(ThisComponent.Text)
+'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	allNotes = ThisComponent.FootNotes
+	For x = 0 to allNotes.Count -1
+	  aNote = allNotes.getByIndex(x)
+	  convertHyphInText(aNote.Text)
+	Next
 End Sub
 
-sub hyphenateParas()
-rem ----------------------------------------------------------------------
-rem define variables
-dim document   as object
-dim dispatcher as object
-rem ----------------------------------------------------------------------
-rem get access to the document
-document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+Sub convertHyphInText(textElement)
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim i As Integer
+	Dim cell As Object
+	enum1 = textElement.createEnumeration()
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			convertParaHyphens(enum1Element)
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellText = cell.getText()
+				convertHyphInText(cellText)
+		    Next i
+		Else 
+		EndIf
+	Wend 
+End Sub
 
-rem ----------------------------------------------------------------------
- dispatcher.executeDispatch(document, ".uno:Hyphenate", "", 0, Array())
+Sub convertParaHyphens(para)
+	Dim lineEnd As String
+	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	vCurs = ThisComponent.currentController.getViewCursor()
+	'Mri para
+	vCurs.goToRange(para.Anchor,false)
+	tCurs = vCurs.Text.createTextCursorByRange(vCurs)
+	tCurs.goToStartOfParagraph(false)
+	vCurs.goToRange(tCurs,false)
+'	mri tCurs
+	Do While NOT tCurs.isEndOfParagraph()
+		vCurs.gotoEndOfLine(false)
+		tCurs.goToRange(vCurs,false)
+		If (tCurs.isEndOfParagraph()) Then
+			Exit Do
+		EndIf
+		tCurs.goLeft(1,true)
+		lastChar = tCurs.getString()
+		tCurs.goRight(1,false)
+		tCurs.goRight(1,true)
+		newChar = tCurs.getString()
+		tCurs.goLeft(1,false)
+		If needHyphen(lastChar,newChar) Then
+			tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,False)			
+		EndIf
+	Loop
+'	mri vCurs
 
+End sub
 
-end sub
-
-sub findAllWithHyphenation()
-rem ----------------------------------------------------------------------
-rem define variables
-dim document   as object
-dim dispatcher as object
-rem ----------------------------------------------------------------------
-rem get access to the document
-document   = ThisComponent.CurrentController.Frame
-dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
-
-rem ----------------------------------------------------------------------
-dim args1(21) as new com.sun.star.beans.PropertyValue
-args1(0).Name = "SearchItem.StyleFamily"
-args1(0).Value = 2
-args1(1).Name = "SearchItem.CellType"
-args1(1).Value = 0
-args1(2).Name = "SearchItem.RowDirection"
-args1(2).Value = true
-args1(3).Name = "SearchItem.AllTables"
-args1(3).Value = false
-args1(4).Name = "SearchItem.SearchFiltered"
-args1(4).Value = false
-args1(5).Name = "SearchItem.Backward"
-args1(5).Value = false
-args1(6).Name = "SearchItem.Pattern"
-args1(6).Value = true
-args1(7).Name = "SearchItem.Content"
-args1(7).Value = false
-args1(8).Name = "SearchItem.AsianOptions"
-args1(8).Value = false
-args1(9).Name = "SearchItem.AlgorithmType"
-args1(9).Value = 1
-args1(10).Name = "SearchItem.SearchFlags"
-args1(10).Value = 65536
-args1(11).Name = "SearchItem.SearchString"
-args1(11).Value = ".*"
-args1(12).Name = "SearchItem.ReplaceString"
-args1(12).Value = ""
-args1(13).Name = "SearchItem.Locale"
-args1(13).Value = 255
-args1(14).Name = "SearchItem.ChangedChars"
-args1(14).Value = 2
-args1(15).Name = "SearchItem.DeletedChars"
-args1(15).Value = 2
-args1(16).Name = "SearchItem.InsertedChars"
-args1(16).Value = 2
-args1(17).Name = "SearchItem.TransliterateFlags"
-args1(17).Value = 1073745152
-args1(18).Name = "SearchItem.Command"
-args1(18).Value = 1
-args1(19).Name = "SearchItem.SearchFormatted"
-args1(19).Value = false
-args1(20).Name = "SearchItem.AlgorithmType2"
-args1(20).Value = 2
-args1(21).Name = "Quiet"
-args1(21).Value = true
-
-dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
-
-
-end sub
+Function needHyphen(lastChar, newChar)
+	needHyphen = true
+	Select Case lastChar
+		Case "."
+			needHyphen = false
+		Case "!"
+			needHyphen = false
+		Case "?"
+			needHyphen = false
+		Case "?"
+			needHyphen = false
+		Case " "
+			needHyphen = false
+		Case "-"
+			needHyphen = false
+		Case "­"
+			needHyphen = false
+	End Select
+	Select Case newChar
+		Case "."
+			needHyphen = false
+		Case "!"
+			needHyphen = false
+		Case "?"
+			needHyphen = false
+		Case "?"
+			needHyphen = false
+		Case " "
+			needHyphen = false
+		Case "-"
+			needHyphen = false
+		Case "­"
+			needHyphen = false
+	End Select
+End Function
 </script:module>
