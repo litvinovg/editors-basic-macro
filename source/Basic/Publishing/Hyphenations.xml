@@ -12,7 +12,23 @@
 	  aNote = allNotes.getByIndex(x)
 	  convertHyphInText(aNote.Text)
 	Next
+	disableAutoHyph()
 	statusIndicator.end()
+End Sub
+
+sub disableAutoHyph()
+	Dim propertySetInfo As Object
+	Dim oPositionOfMatch As Long
+	oFamilies = ThisComponent.StyleFamilies
+	sElements() = oFamilies.getElementNames()
+	  oFamily = oFamilies.getByName(sElements(1))
+	  For j = 0 to oFamily.getCount -1
+	    oStyle = oFamily.getByIndex(j)
+		propertySetInfo = oStyle.getPropertySetInfo()
+	    If propertySetInfo.hasPropertyByName("ParaIsHyphenation") Then
+	      oStyle.ParaIsHyphenation = false
+	    EndIf
+	  Next
 End Sub
 
 Sub convertHyphInText(textElement)
