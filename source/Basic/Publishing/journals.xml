@@ -389,11 +389,11 @@ Sub setFirstPageMetadata(curStyle,i)
 	oTextCursor.PageDescName = savePageName
 		
 	If templateName = "" Then
-		setDefaultFirstPageMetadata(curStyle)
+		setDefaultFirstPageMetadata(curStyle,i)
 	ElseIf templateName = PHA Then
-		setPHAFirstPageMetadata(curStyle)
+		setPHAFirstPageMetadata(curStyle,i)
 	ElseIf templateName = EIFN Then
-		setEIFNFirstPageMetadata(curStyle)
+		setEIFNFirstPageMetadata(curStyle,i)
 	EndIf
 	
 	oViewCursor.goToRange(oSavePosition, false)
@@ -401,7 +401,7 @@ Sub setFirstPageMetadata(curStyle,i)
 	sendRM()
 End Sub
 
-Sub setDefaultFirstPageMetadata(curStyle)
+Sub setDefaultFirstPageMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oHeaderTable As Object
 	Dim oFooterTable As Object
@@ -440,7 +440,7 @@ Sub setDefaultFirstPageMetadata(curStyle)
 
 End Sub
 
-Sub setPHAFirstPageMetadata(curStyle)
+Sub setPHAFirstPageMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oHeader As Object
 	Dim oFooterTable As Object
@@ -471,7 +471,7 @@ Sub setPHAFirstPageMetadata(curStyle)
 
 End Sub
 
-Sub setEIFNFirstPageMetadata(curStyle)
+Sub setEIFNFirstPageMetadata(curStyle,i)
 	Dim oViewCursor As Object
 	Dim oHeaderTable As Object
 	Dim oFooterTable As Object
