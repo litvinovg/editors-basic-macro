@@ -87,6 +87,7 @@ End Sub
 Sub removeBadCharacters
 	StartTracking
 	    AskAndReplace("[\uE000-\uF8FF]+","")
+	    checkAllFootnotes
 	StopTracking
 	showTrackedChanges
 End Sub
@@ -441,4 +442,33 @@ sub showTrackedChanges
 	dispatcher.executeDispatch(document, ".uno:ShowTrackedChanges", "", 0, args2())
 
 end sub
+
+Sub checkAllFootnotes()
+	Dim footnotes As Object
+	Dim count as Integer
+	Dim charNum as Long
+	Dim char As Long
+	Dim label As String
+	Dim result As String
+	result = ""
+	footnotes = ThisComponent.Footnotes
+	count = footnotes.getCount
+	For i = 0 to count-1
+		footnote = footnotes.getByIndex(i)
+'		Mri footnote
+		label = footnote.Label
+		charNum = Len(label)
+		For j = 1 to charNum
+		  char = Asc(Right(Left(label,j),1))
+		  If char &gt;= 57344 AND char &lt;= 63743 then
+		  	result = result &amp; "Символ "&amp; Chr(char) &amp;" сноски "&amp; i &amp;" находится в диапазоне для частного использования"&amp; chr(10)
+		  	'Mri footnote
+		  	'footNote.setLabel(Left(label,j-1) &amp; "*" &amp; Right(label,charNum-j))
+		  End If
+		Next j
+	Next i
+	If result &lt;&gt; "" then
+		MsgBox result
+	EndIf
+End Sub
 </script:module>
