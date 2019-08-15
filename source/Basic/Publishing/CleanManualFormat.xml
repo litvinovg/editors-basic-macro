@@ -293,7 +293,7 @@ Sub executeReplaceFonts
 	  founds = Thiscomponent.findFirst(SDesc)
 	  do while not isNull(founds)
 	    curFont = founds.CharFontName
-	    If curFont &lt;&gt; "IPH Serif" Then
+	    If curFont &lt;&gt; "IPH Serif" AND curFont &lt;&gt; "" Then
 	      If Not DocHasCharStyle(oDoc,curFont) Then
 	        oProps() = Array(CreateProperty("CharFontName", curFont))
 	        CreateCharacterStyle(curFont, oProps())
