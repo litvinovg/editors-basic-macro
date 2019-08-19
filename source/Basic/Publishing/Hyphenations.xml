@@ -76,7 +76,10 @@ Sub convertParaHyphens(para)
 		newChar = tCurs.getString()
 		tCurs.goLeft(1,false)
 		If needHyphen(lastChar,newChar) Then
-			tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,False)			
+			tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,False)
+			tCurs.goLeft(1,true)
+			tCurs.charScaleWidth = 90
+			tCurs.goRight(1,false)		
 		EndIf
 		tCurs.goRight(1,false)
 		vCurs.goToRange(tCurs,false)
@@ -95,7 +98,7 @@ Function needHyphen(lastChar, newChar)
 			needHyphen = false
 		Case "?"
 			needHyphen = false
-		Case "?"
+		Case "/"
 			needHyphen = false
 		Case " "
 			needHyphen = false
@@ -109,7 +112,7 @@ Function needHyphen(lastChar, newChar)
 			needHyphen = false
 		Case "!"
 			needHyphen = false
-		Case "?"
+		Case "/"
 			needHyphen = false
 		Case "?"
 			needHyphen = false
