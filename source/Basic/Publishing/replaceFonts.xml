@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="replaceFonts" script:language="StarBasic" script:moduleType="normal">Sub TimesAr2IPH
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="replaceFonts" script:language="StarBasic" script:moduleType="normal">Sub TimesArabicConvertor(newFontName)
 	searchAndReplaceDiffFonts("\u2502","Г","̣")
 	searchAndReplaceDiffFonts("\u250c","Д","̣")
 	searchAndReplaceDiffFonts("\u2510","З","̣")
@@ -29,12 +29,10 @@
 	searchAndReplaceDiffFonts("\u255d","х","̣")
 	Dim oldFontName as String  
 	oldFontName = "TimesArabic"
-	Dim newFontName as String  
-	newFontName = "IPH Serif"
-	substituteStylesFontNameStartsWith(oldFontName, newFontName)
-	substituteDirectFromatFontNameStartsWith(oldFontName, newFontName)
-
+	replaceFontNameInStyles(oldFontName, newFontName)
+	replaceFontNameInDirectFormat(oldFontName, newFontName)
 End Sub
+
 
 
 
@@ -44,8 +42,8 @@ Sub Univ2IPH
 	oldFontName = "Universalia"
 	Dim newFontName as String  
 	newFontName = "IPH Lib Serif"
-	substituteStylesFontNameStartsWith(oldFontName, newFontName)
-	substituteDirectFromatFontNameStartsWith(oldFontName, newFontName)
+	replaceFontNameInStyles(oldFontName, newFontName)
+	replaceFontNameInDirectFormat(oldFontName, newFontName)
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharFontName"
@@ -67,18 +65,18 @@ Sub TNR2IPH
 	goth2IPH()
 	statusIndicator.setValue(30)
 	'Replace Times New Roman to IPH Serif in styles
-	substituteStylesFontNameStartsWith( "Times New Roman","IPH Lib Serif")
-	substituteDirectFromatFontNameStartsWith( "Times New Roman","IPH Lib Serif")
+	replaceFontNameInStyles( "Times New Roman","IPH Lib Serif")
+	replaceFontNameInDirectFormat( "Times New Roman","IPH Lib Serif")
 	statusIndicator.setValue(40)
-	substituteStylesFontNameStartsWith( "Liberation Serif","IPH Lib Serif")
-	substituteDirectFromatFontNameStartsWith( "Liberation Serif","IPH Lib Serif")
+	replaceFontNameInStyles( "Liberation Serif","IPH Lib Serif")
+	replaceFontNameInDirectFormat( "Liberation Serif","IPH Lib Serif")
 	statusIndicator.setValue(50)	
-	substituteStylesFontNameStartsWith( "ArabicD","IPH Lib Serif")
-	substituteDirectFromatFontNameStartsWith( "ArabicD","IPH Lib Serif")
+	replaceFontNameInStyles( "ArabicD","IPH Lib Serif")
+	replaceFontNameInDirectFormat( "ArabicD","IPH Lib Serif")
 	statusIndicator.setValue(60)	
 	'Replace Arial to IPH Sans in styles
-	substituteStylesFontNameStartsWith( "Arial","IPH Lib Sans")
-	substituteDirectFromatFontNameStartsWith( "Arial","IPH Lib Sans")
+	replaceFontNameInStyles( "Arial","IPH Lib Sans")
+	replaceFontNameInDirectFormat( "Arial","IPH Lib Sans")
 	statusIndicator.setValue(70)		
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
@@ -258,7 +256,7 @@ Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPar
 
 End Sub
 
-Sub substituteDirectFromatFontNameStartsWith(oldFontName,newFontName)
+Sub replaceFontNameInDirectFormat(oldFontNameStart,newFontName)
 	Dim oSearch
 	Dim oTextCursor As Object 
 	Dim oViewCursor As Object
@@ -277,7 +275,7 @@ Sub substituteDirectFromatFontNameStartsWith(oldFontName,newFontName)
 	    If IsEmpty(curFontName) Then
 	  	  curFontName = oFound.CharFontNameComplex
 	    EndIf
-		oPositionOfMatch = InStr(curFontName, oldFontName)
+		oPositionOfMatch = InStr(curFontName, oldFontNameStart)
 	    If oPositionOfMatch = 1 Then
 	    	oFound.CharFontName = newFontName
 	    EndIf
@@ -285,81 +283,67 @@ Sub substituteDirectFromatFontNameStartsWith(oldFontName,newFontName)
 	Loop
 End Sub
 
-
-
-sub substituteCharNameInStyles(oldFont,newFont)
-Dim oDoc as Object
-Dim propertySetInfo As Object
-Dim oPositionOfMatch As Long
-oDoc = ThisComponent
-oFamilies = thiscomponent.StyleFamilies
-sElements() = oFamilies.getElementNames()
-For i = 0 to oFamilies.count -1 
-  oFamily = oFamilies.getByName(sElements(i))
-  For j = 0 to oFamily.getCount -1
-    oStyle = oFamily.getByIndex(j)
-	propertySetInfo = oStyle.getPropertySetInfo()
-    If propertySetInfo.hasPropertyByName("CharFontName") And oStyle.isInUse Then
-      fontName = oStyle.getPropertyValue("CharFontName")
-      If fontName = oldFont Then
-        oStyle.CharFontName = newFont
-      EndIf
-    EndIf
-
-  
-  Next
-Next
+Sub replaceFontNameInStyles(oldFontStart,newFontName)
+	' Substitutes font names starts with oldFont value with newFont value
+	Dim oDoc as Object
+	Dim propertySetInfo As Object
+	Dim oPositionOfMatch As Long
+	oDoc = ThisComponent
+	oFamilies = Thiscomponent.StyleFamilies
+	sElements() = oFamilies.getElementNames()
+	For i = 0 to oFamilies.count -1 
+	  oFamily = oFamilies.getByName(sElements(i))
+	  For j = 0 to oFamily.getCount -1
+	    oStyle = oFamily.getByIndex(j)
+		propertySetInfo = oStyle.getPropertySetInfo()
+	    If propertySetInfo.hasPropertyByName("CharFontName") Then
+	      fontName = oStyle.getPropertyValue("CharFontName")
+	      oPositionOfMatch = InStr(fontName, oldFontStart)
+	      If oPositionOfMatch = 1 Then
+	        oStyle.CharFontName = newFontName
+	      EndIf
+	    EndIf
+	  Next
+	Next
 End Sub
 
-sub substituteStylesFontNameStartsWith(oldFont,newFont)
-' Substitutes font names starts with oldFont value with newFont value
-Dim oDoc as Object
-Dim propertySetInfo As Object
-Dim oPositionOfMatch As Long
-oDoc = ThisComponent
-oFamilies = thiscomponent.StyleFamilies
-sElements() = oFamilies.getElementNames()
-For i = 0 to oFamilies.count -1 
-  oFamily = oFamilies.getByName(sElements(i))
-  For j = 0 to oFamily.getCount -1
-    oStyle = oFamily.getByIndex(j)
-	propertySetInfo = oStyle.getPropertySetInfo()
-    If propertySetInfo.hasPropertyByName("CharFontName") And oStyle.isInUse Then
-      fontName = oStyle.getPropertyValue("CharFontName")
-      oPositionOfMatch = InStr(fontName, oldFont)
-      If oPositionOfMatch = 1 Then
-        oStyle.CharFontName = newFont
-      EndIf
-    EndIf
-  Next
-Next
+Sub moveFontAttributeToCharStyle(fontName As String)
+	Dim oDoc
+	oDoc = Thiscomponent
+	Dim srch(0) as new com.sun.star.beans.PropertyValue
+	SDesc = Thiscomponent.createSearchDescriptor()
+	  SDesc.SearchAll = true
+	  SDesc.ValueSearch = false
+	  SDesc.SearchStyles = false 
+	  SDesc.SearchRegularExpression = false
+	  SDesc.SearchString = "" 
+	  srch(0).Name = "CharFontName"
+	  SDesc.SetSearchAttributes(srch())
+	  founds = Thiscomponent.findFirst(SDesc)
+	  do while not isNull(founds)
+	    curFont = founds.CharFontName
+	    If curFont = fontName Then
+	
+	      If Not DocHasCharStyle(oDoc,curFont) Then
+	        oProps() = Array(CreateProperty("CharFontName", curFont))
+	        CreateCharacterStyle(curFont, oProps())
+	      End If
+	      founds.CharStyleNames = Array(curFont)
+	    End If
+	    founds = Thiscomponent.findNext(founds.getend, SDesc)
+	  Loop
+End Sub
+
+Sub TimesAr2IPH
+	TimesArabicConvertor("IPH Astra Serif")
 End Sub
 
 Sub replaceFontToStyle(fontName As String)
-Dim oDoc
-oDoc = Thiscomponent
-Dim srch(0) as new com.sun.star.beans.PropertyValue
-SDesc = Thiscomponent.createSearchDescriptor()
-  SDesc.SearchAll = true
-  SDesc.ValueSearch = false
-  SDesc.SearchStyles = false 
-  SDesc.SearchRegularExpression = false
-  SDesc.SearchString = "" 
-  srch(0).Name = "CharFontName"
-  SDesc.SetSearchAttributes(srch())
-  founds = Thiscomponent.findFirst(SDesc)
-  do while not isNull(founds)
-    curFont = founds.CharFontName
-    If curFont = fontName Then
+	moveFontAttributeToCharStyle(fontName)
+End Sub
 
-      If Not DocHasCharStyle(oDoc,curFont) Then
-        oProps() = Array(CreateProperty("CharFontName", curFont))
-        CreateCharacterStyle(curFont, oProps())
-      End If
-      founds.CharStyleNames = Array(curFont)
-    End If
-    founds = Thiscomponent.findNext(founds.getend, SDesc)
-  loop
+sub substituteCharNameInStyles(oldFont,newFont)
+	replaceFontNameInStyles(oldFont,newFont)
 End Sub
 
 </script:module>
