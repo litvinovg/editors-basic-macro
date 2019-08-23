@@ -12,7 +12,7 @@
 	  aNote = allNotes.getByIndex(x)
 	  convertHyphInText(aNote.Text)
 	Next
-	disableAutoHyph()
+	'disableAutoHyph()
 	statusIndicator.end()
 End Sub
 
@@ -55,9 +55,13 @@ End Sub
 
 Sub convertParaHyphens(para)
 	Dim lineEnd As String
-	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim conversionTargets() As Object
+	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	'No hyphenation needed
+	If para.ParaIsHyphenation = false Then
+		Exit Sub
+	EndIf
 	vCurs = ThisComponent.currentController.getViewCursor()
-	'Mri para
 	vCurs.goToRange(para.Anchor,false)
 	tCurs = vCurs.Text.createTextCursorByRange(vCurs)
 	tCurs.goToStartOfParagraph(false)
@@ -76,22 +80,72 @@ Sub convertParaHyphens(para)
 		newChar = tCurs.getString()
 		tCurs.goLeft(1,false)
 		If needHyphen(lastChar,newChar) Then
-			tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,False)
-			tCurs.goLeft(1,true)
-			tCurs.charScaleWidth = 90
-			tCurs.goRight(1,false)		
+			addToArray(conversionTargets(),tCurs.Text.createTextCursorByRange(tCurs))
+			'replaceHyphen(tCurs,vCurs)
+		ElseIf needLineBreak(lastChar,newChar) Then
+			insertLineBreak(tCurs)
 		EndIf
 		tCurs.goRight(1,false)
 		vCurs.goToRange(tCurs,false)
 	Loop
+	
+	If  Ubound(conversionTargets) &lt;&gt; -1 Then
+		For i = 0 To (Ubound(conversionTargets))
+			replaceHyphen(conversionTargets(i))
+		Next i
+	EndIf
+    para.ParaIsHyphenation = false
 '	mri vCurs
 
-End sub
+End Sub
+Sub replaceHyphen(tCurs)
+	vCurs = ThisComponent.currentController.getViewCursor()
+	'insert soft hyphen character U+00AD
+	tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,true)
+	vCurs.goToRange(tCurs.End,false)
+	If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
+		backspace
+		'insert hyphen character U+2010
+		tCurs.Text.insertString(tCurs.End,"‐",False)
+		
+		vCurs.goToRange(tCurs,false)
+		Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+			tCurs.goLeft(1,true)
+			tCurs.CharScaleWidth = tCurs.CharScaleWidth - 5
+			tCurs.goRight(1,false)
+			vCurs.goToRange(tCurs,false)
+			If tCurs.CharScaleWidth &lt; 50 Then
+				Exit Do
+			EndIf
+		Loop
 
-Function needHyphen(lastChar, newChar)
+		If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
+			'backspace
+			MsgBox "Что-то пошло не так. Обратитесь к автору данного макроса."
+		EndIf
+	EndIf
+
+End Sub
+
+Function needLineBreak(before,after)
+	needLineBreak = false
+	If before = "/" Then
+		If after &lt;&gt; " " AND after &lt;&gt; Chr(10) Then
+			needLineBreak = true
+		EndIf
+	EndIf
+End Function
+
+Sub	insertLineBreak(tCurs)
+	tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.LINE_BREAK,False)
+End Sub
+
+
+
+Function needHyphen(before, after)
 	needHyphen = true
 	'MsgBox Asc(newChar)
-	Select Case lastChar
+	Select Case before
 		Case "."
 			needHyphen = false
 		Case "!"
@@ -102,12 +156,25 @@ Function needHyphen(lastChar, newChar)
 			needHyphen = false
 		Case " "
 			needHyphen = false
+		'U+002D Hyphen minus
 		Case "-"
+			needHyphen = false
+		'U+2010  Hyphen
+		Case "‐"
 			needHyphen = false
 		Case "­"
 			needHyphen = false
+		'U+2014 Em dash
+		Case "—"
+			needHyphen = false
+		'U+2013 En dash
+		Case "–"
+			needHyphen = false
+		'U+2012 Figure Dash 
+		Case "‒"
+			needHyphen = false
 	End Select
-	Select Case newChar
+	Select Case after
 		Case "."
 			needHyphen = false
 		Case "!"
