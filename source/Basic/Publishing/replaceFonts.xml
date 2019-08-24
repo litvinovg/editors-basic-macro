@@ -346,4 +346,64 @@ sub substituteCharNameInStyles(oldFont,newFont)
 	replaceFontNameInStyles(oldFont,newFont)
 End Sub
 
+Sub execCharSearch
+	searchFont = InputBox("Введите название шрифта для поиска символов", "")
+	getCharsInFont(searchFont)
+End Sub
+
+Sub getCharsInFont(fontName)
+	Dim resultArray() As Variant
+	Dim resultString As String
+	
+	pages = ThisComponent.getDrawPages()
+	pagesCount = pages.getCount()
+	For i = 0 To pagesCount - 1 
+		page = pages.getByIndex(i)
+		elementCount = page.getCount()
+		For j = 0 To elementCount - 1 
+			element = page.getByIndex(j)
+			elementText = element.getText()
+			enum1 = elementText.createEnumeration()
+			While enum1.hasMoreElements
+				enum1Element = enum1.nextElement
+				If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+					enum2 = enum1Element.createEnumeration
+					While enum2.hasMoreElements
+						thisPortion = enum2.nextElement
+						If thisPortion.CharFontName = fontName Then
+							resultString = thisPortion.String
+							For k = 0 To Len(resultString) - 1
+								fontChar = Hex(Asc(Mid(resultString,k+1,1)))
+								If NOT IsInArray(resultArray,fontChar) Then
+									AddToArray(resultArray(), fontChar)
+								EndIf
+								
+								'MsgBox "https://unicode-table.com/ru/" &amp; Hex(Asc(Mid(resultString,k+1,1)))
+							Next k
+						EndIf
+					Wend
+				EndIf
+			Wend 
+		Next j
+	Next i 
+	resultString = ""
+	For i = LBound(resultArray) To UBound(resultArray)
+		resultString = resultString &amp; "https://unicode-table.com/ru/" &amp; resultArray(i) &amp; Chr(10)
+	Next i
+	If resultString &lt;&gt; "" Then
+	
+		MsgBox "Символы в шрифте "&amp; fontName &amp;Chr(10)&amp;resultString
+	EndIf
+End Sub
+
+Function IsInArray(array, content)
+	IsInArray = false
+	For i = LBound(array) To UBound(array)
+		inArr = array(i)
+		If inArr = content Then
+			IsInArray = true
+		EndIf
+	Next i
+End Function
+
 </script:module>

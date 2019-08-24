@@ -14,8 +14,18 @@ Sub toolBarUpdate(toolbarName,toolbarDescription)
 			addMakeUpToolbar(toolbarName,toolbarDescription)
 		Case "correctionToolbar"
 			addArticlesToolbar(toolbarName,toolbarDescription)
+		Case "ODGToolbar"
+			addODGToolbar(toolbarName,toolbarDescription)
 	End Select 
 	updateLibs()
+End Sub
+
+Sub createODGToolbar
+	toolBarUpdate("ODGToolbar", "Панель для анализа PDF")
+End Sub
+
+Sub removeODGToolbar
+	removeToolbar("ODGToolbar")
 End Sub
 
 Sub createArchiveToolbar
@@ -431,6 +441,49 @@ Sub addMakeUpToolbar(toolbarName,toolbarDescription)
   sCmdID   = "vnd.sun.star.script:Publishing.makeUpToolbar.decrementKern?language=Basic&amp;location=application"
   sCmdLable = "K‒"
   nCount = 3
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  REM *** Set the settings for our new custom toolbar. (replace/insert)
+  If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then
+    oModuleCfgMgr.replaceSettings( sToolbarURL, oTBSettings )
+  Else
+    oModuleCfgMgr.insertSettings( sToolbarURL, oTBSettings )
+  End If
+   
+  oModuleCfgMgr.store()
+   
+End Sub
+
+Sub addODGToolbar(toolbarName,toolbarDescription)
+  Dim sToolbarURL$  ' URL of the custom toolbar.
+  Dim sCmdID$       ' Command for a single toolbar button.
+  Dim sCmdLable     ' Lable for a single toolbar button.
+  Dim sDocType$     ' Component type that will containt the toolbar.
+  Dim sSupplier$    ' ModuleUIConfigurationManagerSupplier
+  Dim oSupplier     ' ModuleUIConfigurationManagerSupplier
+  Dim sConfManager$ ' ModuleUIConfigurationManager
+  Dim oConfManager  ' ModuleUIConfigurationManager
+  Dim oModuleCfgMgr ' Module manager.
+  Dim oTBSettings   ' Settings that comprise the toolbar.
+  Dim oToolbarItem  ' Single toolbar button.
+  Dim nCount%
+
+  REM Name of the custom toolbar; must start with "custom_".
+  sToolbarURL = "private:resource/toolbar/custom_toolbar_" &amp; toolbarName
+  REM central module configuration manager supplier
+  sSupplier = "com.sun.star.ui.ModuleUIConfigurationManagerSupplier"
+  oSupplier = CreateUnoService(sSupplier)
+  
+  REM Specify the document type associated with this toolbar.
+  sDocType = "com.sun.star.drawing.DrawingDocument"
+  oModuleCfgMgr = oSupplier.getUIConfigurationManager( sDocType )
+  oTBSettings = oModuleCfgMgr.createSettings()
+  oTBSettings.UIName = toolbarDescription
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.replaceFonts.execCharSearch?language=Basic&amp;location=application"
+  sCmdLable = "Символы"
+  nCount = 0
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
