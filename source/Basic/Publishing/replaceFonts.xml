@@ -354,7 +354,9 @@ End Sub
 Sub getCharsInFont(fontName)
 	Dim resultArray() As Variant
 	Dim resultString As String
-	
+	Dim statusIndicator As Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Поиск символов начат, подождите",20)
 	pages = ThisComponent.getDrawPages()
 	pagesCount = pages.getCount()
 	For i = 0 To pagesCount - 1 
@@ -386,14 +388,34 @@ Sub getCharsInFont(fontName)
 			Wend 
 		Next j
 	Next i 
+	statusIndicator.setValue(60)
 	resultString = ""
 	For i = LBound(resultArray) To UBound(resultArray)
-		resultString = resultString &amp; "https://unicode-table.com/ru/" &amp; resultArray(i) &amp; Chr(10)
+		'resultString = resultString &amp; "https://unicode-table.com/ru/" &amp; resultArray(i) &amp; Chr(10)
+		resultString = resultString &amp; "&lt;a href='https://unicode-table.com/ru/" &amp; resultArray(i) &amp; "'" &amp; "&gt;https://unicode-table.com/ru/" &amp; resultArray(i) &amp; "&lt;/a&gt;&lt;br&gt;" &amp; Chr(10)
 	Next i
-	If resultString &lt;&gt; "" Then
 	
-		MsgBox "Символы в шрифте "&amp; fontName &amp;Chr(10)&amp;resultString
+	If resultString &lt;&gt; "" Then
+		statusIndicator.SetText("Формируется отчёт, подождите")
+		statusIndicator.setValue(80)
+		'MsgBox "Символы в шрифте "&amp; fontName &amp;Chr(10)&amp;resultString
+		Dim FileName As String		'Holds the file name
+		Dim n As Integer		'Holds the file number
+		Dim f As Integer		'Index variable
+		Dim s As String		'Temporary string for input
+		Dim sTemp$
+		GlobalScope.BasicLibraries.loadLibrary("Tools")
+		path=DirectoryNameoutofPath(ThisComponent.getURL(),"/")
+		FileName = path &amp; "/symbolsInFont.html"
+		n = FreeFile()		'Next free file number
+		Open FileName For Output Access Read Write As #n		'Open for read/write
+		Print #n, "&lt;html&gt;&lt;body&gt;&lt;p&gt;Symbols in font "&amp; fontName &amp;":&lt;/p&gt;"&amp;resultString &amp;"&lt;/body&gt;&lt;html&gt;"
+		Close #n
+		MsgBox "Символы найдены. Отчёт о найденных символах в шрифте "&amp; fontName &amp;" можно открыть в " &amp; FileName
+	Else
+		MsgBox "Символов в шрифте " &amp; fontName &amp; "найдено не было"
 	EndIf
+	statusIndicator.end()
 End Sub
 
 Function IsInArray(array, content)
