@@ -56,7 +56,6 @@ End Sub
 Sub convertParaHyphens(para)
 	Dim lineEnd As String
 	Dim conversionTargets() As Object
-	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	'No hyphenation needed
 	If para.ParaIsHyphenation = false Then
 		Exit Sub
@@ -66,7 +65,7 @@ Sub convertParaHyphens(para)
 	tCurs = vCurs.Text.createTextCursorByRange(vCurs)
 	tCurs.goToStartOfParagraph(false)
 	vCurs.goToRange(tCurs,false)
-'	mri tCurs
+
 	Do While NOT tCurs.isEndOfParagraph()
 		vCurs.gotoEndOfLine(false)
 		tCurs.goToRange(vCurs,false)
