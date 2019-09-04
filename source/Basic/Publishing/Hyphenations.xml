@@ -89,12 +89,11 @@ Sub convertParaHyphens(para)
 	Loop
 	
 	If  Ubound(conversionTargets) &lt;&gt; -1 Then
+		para.ParaIsHyphenation = false
 		For i = 0 To (Ubound(conversionTargets))
 			replaceHyphen(conversionTargets(i))
 		Next i
 	EndIf
-    para.ParaIsHyphenation = false
-'	mri vCurs
 
 End Sub
 Sub replaceHyphen(tCurs)
@@ -120,6 +119,7 @@ Sub replaceHyphen(tCurs)
 
 		If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
 			'backspace
+			
 			MsgBox "Что-то пошло не так. Обратитесь к автору данного макроса."
 		EndIf
 	EndIf
