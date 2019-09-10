@@ -757,8 +757,10 @@ Function getNextPageStyleName()
 		Exit Function
 	EndIf
 	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
-	oViewCursor.goRight(1,false)
-	getNextPageStyleName = oViewCursor.PageStyleName
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor.goRight(1,false)
+	oViewCursor.goToRange(oTextCursor,false)
+	getNextPageStyleName = oViewCursor.pageStyleName
 	oViewCursor.goLeft(1,false)
 	backspace()
 End Function
