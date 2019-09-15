@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="Correction" script:language="StarBasic">Sub fixFrequentMistakes
+	saveDocument()
+	saveVersion("Перед выполнением макроса Ошибки")
+	StopTracking
 	Dim statusIndicator as Object
 	Dim NBSP As String
 	Dim space As String
@@ -58,6 +61,7 @@
 	'Между угловой закрывающейся скобкой и буквой должен быть пробел
 	AskAndReplace("(?&lt;=&lt;…)&gt;(?=[:alpha:])","&gt;" &amp; space)
 	statusIndicator.end()
+	saveAndreload()
 End Sub
 
 Sub workaroundForDiacriticKerningBug
