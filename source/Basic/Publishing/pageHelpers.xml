@@ -1,6 +1,347 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Sub removeEmptyPage
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Sub makePageAlbum
+	saveVersion("Перед выполнением макроса повоорта страницы в альбомную ориентацию")
+	curPageStyleName = getCurPageStyleName()
+	If checkPageSettings(curPageStyleName) Then
+		MsgBox "Проверьте размеры колонтитулов и перезапустите макрос"
+		Exit Sub
+	EndIf
+	createPageStyleByExample("portrait_" &amp; curPageStyleName)
+	rotatePageClockwise(curPageStyleName)	
+	saveAndreload()
+End Sub
+
+Sub undoPageAlbum
+	saveVersion("Перед выполнением макроса отмены преобразования страницы в портретную ориентацию")
+	curPageStyleName = getCurPageStyleName()
+	If checkPageSettings(curPageStyleName) Then
+		MsgBox "Проверьте размеры колонтитулов и перезапустите макрос"
+		Exit Sub
+	EndIf
+	applyPortraitPageStyle(curPageStyleName)
+	saveAndreload()
+End Sub
+
+sub	applyPortraitPageStyle(pageStyleName)
+	Dim pageStyles As Object
+	Dim pageStyle As Object
+	Dim oViewCursor As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	breakType = oViewCursor.getPropertyValue("BreakType")
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	pageStyle = pageStyles.getByName(pageStyleName)
+	If NOT pageStyle.IsLandScape Then
+		MsgBox "Страница уже имеет портретную ориентацию. Ничего не делаем. Выходим."
+		Exit sub
+	EndIf
+	If pageStyles.hasByName("portrait_" &amp; pageStyleName) Then
+		
+		replacePageStyleByPortrait(pageStyleName)
+		removeAlbumFrames(pageStyleName)
+	'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Else
+		MsgBox "Стиль страницы с портретной ориентацией portrait_" &amp; pageStyleName &amp; " не был найден. "
+	EndIf
+	
+End Sub
+
+Sub replacePageStyleByPortrait(pageStyleName)
+	Dim pageStyles As Object
+	Dim pageStyle As Object
+	Dim oldPageStyle As Object
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	oldPageStyle = pageStyles.getByName(pageStyleName)
+	For i = 0 To pageStyles.getCount() - 1 
+		pageStyle = pageStyles.getByIndex(i)
+		If pageStyle.FollowStyle = pageStyleName Then
+			pageStyle.FollowStyle = "portrait_" &amp; pageStyleName
+		EndIf
+		If pageStyle.getName() = "portrait_" &amp; pageStyleName Then
+			pageStyle.FollowStyle = oldPageStyle.FollowStyle
+		EndIf
+	Next i
+	pageStyles.getByName("portrait_" &amp; pageStyleName).FollowStyle = oldPageStyle.FollowStyle
+	
+	'Replace in direct formatting
+	textEnumeration = ThisComponent.Text.createEnumeration
+	While textEnumeration.hasMoreElements
+		enumerationElement = textEnumeration.nextElement
+		If enumerationElement.pageDescName = pageStyleName Then
+			enumerationElement.pageDescName = "portrait_" &amp; pageStyleName
+		EndIf
+	Wend
+	
+	'Replace album style by portrait
+	pageStyles.removeByName(pageStyleName)
+	pageStyles.getByName("portrait_" &amp; pageStyleName).setName(pageStyleName)
+	
+End Sub
+
+
+Sub removeAlbumFrames(pageStyleName)
+	Dim drawPagesEnum As Object
+	Dim drawPage As Object
+	drawPagesEnum = ThisComponent.DrawPage.CreateEnumeration()
+	While drawPagesEnum.hasMoreElements()
+		drawPage = drawPagesEnum.nextElement()
+		If drawPage.getName() = "header_" &amp; pageStyleName Or drawPage.getName() = "footer_" &amp; pageStyleName Then
+			drawPage.dispose()
+		EndIf
+	Wend 
+End Sub
+
+
+Sub rotatePageClockwise(pageStyleName)
+	Dim pageStyles As Object
+	Dim tmpDimension As Long 
+	Dim frame As Object
+	Dim frameName As String
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	pageNumber = oViewCursor.getPage()
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	pageStyle = pageStyles.getByName(pageStyleName)
+	If pageStyle.IsLandScape Then
+		MsgBox "Страница уже имеет альбомную ориентацию. Ничего не делаем. Выходим."
+		Exit sub
+	EndIf
+
+	If pageStyle.HeaderIsOn Then
+		headerFrameW = pageStyle.HeaderHeight - pageStyle.HeaderBodyDistance
+		headerFrameH = pageStyle.Width - pageStyle.HeaderLeftMargin - pageStyle.HeaderRightMargin - pageStyle.LeftMargin - pageStyle.RightMargin
+		headerFrameYOffset =  pageStyle.HeaderLeftMargin +  pageStyle.LeftMargin
+		headerFrameXOffset =  pageStyle.Height - pageStyle.TopMargin - (pageStyle.HeaderHeight - pageStyle.HeaderBodyDistance)
+	EndIf
+	
+	If pageStyle.FooterIsOn Then
+		footerFrameW = pageStyle.FooterHeight - pageStyle.FooterBodyDistance
+		footerFrameH = pageStyle.Width - pageStyle.FooterLeftMargin - pageStyle.FooterRightMargin - pageStyle.LeftMargin - pageStyle.RightMargin
+		footerFrameYOffset =  pageStyle.FooterLeftMargin +  pageStyle.LeftMargin
+		footerFrameXOffset =  pageStyle.BottomMargin
+	EndIf
+	
+	rotatePageClockwiseMargins(pageStyle)
+	rotatePageOrientation(pageStyle)
+		
+	If pageStyle.HeaderIsOn Then
+		If NOT pageStyle.FirstIsShared Then
+			textElement = pageStyle.HeaderTextFirst
+		ElseIf NOT pageStyle.HeaderIsShared Then
+			If pageNumber Mod 2 = 1 Then
+				textElement = pageStyle.HeaderTextRight
+			Else
+				textElement = pageStyle.HeaderTextLeft
+			EndIf		
+		Else 
+			textElement = pageStyle.HeaderText
+		EndIf
+		frameName = "header_" &amp; pageStyleName
+		copyTextToFrame(textElement,headerFrameXOffset,headerFrameYOffset,headerFrameW,headerFrameH,frameName)
+	EndIf
+	
+	If pageStyle.FooterIsOn Then
+		If NOT pageStyle.FirstIsShared Then
+			textElement = pageStyle.FooterTextFirst
+		ElseIf NOT pageStyle.FooterIsShared Then
+			If pageNumber Mod 2 = 1 Then
+				textElement = pageStyle.FooterTextRight
+			Else
+				textElement = pageStyle.FooterTextLeft
+			EndIf		
+		Else 
+			textElement = pageStyle.FooterText
+		EndIf
+		frameName = "footer_" &amp; pageStyleName
+		copyTextToFrame(textElement,footerFrameXOffset,footerFrameYOffset,footerFrameW,footerFrameH,frameName)
+	EndIf
+
+	removePageHeader(pageStyle)
+	removePageFooter(pageStyle)
+
+End Sub
+
+Sub rotatePageClockwiseMargins(pageStyle)
+	Dim tmpDimension As Long 
+	tmpDimension = pageStyle.LeftMargin
+	If pageStyle.FooterIsOn Then
+		pageStyle.LeftMargin = pageStyle.BottomMargin + pageStyle.FooterHeight
+	Else
+		pageStyle.LeftMargin = pageStyle.BottomMargin
+	EndIf
+	pageStyle.BottomMargin = pageStyle.RightMargin
+	If pageStyle.HeaderIsOn Then
+		pageStyle.RightMargin = pageStyle.TopMargin + pageStyle.HeaderHeight
+	Else
+		pageStyle.RightMargin = pageStyle.TopMargin
+	EndIf
+	pageStyle.TopMargin = tmpDimension
+End Sub
+
+Sub rotatePageOrientation(pageStyle)
+	Dim tmpDimension As Long 
+	tmpDimension = pageStyle.Height
+	pageStyle.Height = pageStyle.Width
+	pageStyle.Width = tmpDimension
+	pageStyle.IsLandscape = Not pageStyle.IsLandscape
+End Sub
+
+Function checkPageSettings(pageStyleName)
+	checkPageSettings = false
+	pageStyles = ThisComponent.StyleFamilies.getByName("PageStyles")
+	pageStyle = pageStyles.getByName(pageStyleName)	
+	If pageStyle.HeaderIsOn Then
+		If pageStyle.HeaderIsDynamicHeight Then
+			checkPageSettings = true
+			pageStyle.HeaderIsDynamicHeight = false
+			MsgBox "Высота верхнего колонтитула была задана динамической. Отключаем."
+		EndIf
+		If pageStyle.HeaderDynamicSpacing Then
+			checkPageSettings = true
+			pageStyle.HeaderDynamicSpacing = false
+			MsgBox "Отступ верхнего колонтитула от тела страницы был задан динамическим. Отключаем."
+		EndIf
+	EndIf
+	If pageStyle.FooterIsOn Then
+		If pageStyle.FooterIsDynamicHeight Then
+			checkPageSettings = true
+			pageStyle.FooterIsDynamicHeight = false
+			MsgBox "Высота нижнего колонтитула была задана динамической. Отключаем."
+		EndIf
+		If pageStyle.FooterDynamicSpacing Then
+			checkPageSettings = true
+			pageStyle.FooterDynamicSpacing = false
+			MsgBox "Отступ нижнего колонтитула от тела страницы был задан динамическим. Отключаем."
+		EndIf
+	EndIf
+	'Workaround to force Writer reread new page settings
+	If checkPageSettings Then
+		pageStyle.FirstIsShared = true
+		pageStyle.FirstIsShared = false
+		pageStyle.FirstIsShared = true
+	EndIf
+End Function
+
+
+Sub copyTextToFrame(textElement,frameXOffset,frameYOffset,frameW,frameH,frameName)
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	initialCursorPosition = oViewCursor.Text.createTextCursorByRange(oViewCursor.End)
+	frame = createFrame(frameXOffset,frameYOffset,frameW,frameH,frameName)
+	enumeration = textElement.CreateEnumeration()
+	firstElement = true
+	While enumeration.hasMoreElements
+		element = enumeration.nextElement()
+		If element.supportsService("com.sun.star.text.TextTable") Then
+		 	cellNames = element.getCellNames()
+		 	element.IsWidthRelative = false
+		 	firstCellAnchor = element.getCellByName(cellNames(LBound(cellNames))).getStart()
+		 	lastCellAnchor = element.getCellByName(cellNames(UBound(cellNames))).getEnd()
+		 	oViewCursor.goToRange(firstCellAnchor,false)
+			oViewCursor.goToRange(lastCellAnchor,true)
+			unoCopy()
+			oViewCursor.goToRange(frame.Text.End,false)
+			unoPaste()
+			If firstElement Then
+				frame.Text.CreateEnumeration().nextElement.dispose()
+			EndIf
+		ElseIf  element.supportsService("com.sun.star.text.Paragraph") Then
+			oViewCursor.goToRange(element,false)
+			unoCopy()
+			oViewCursor.goToRange(frame.Text.End,false)
+			unoPaste()
+		EndIf
+		firstElement = false
+	Wend
+	oViewCursor.goToRange(initialCursorPosition,false)
+End Sub
+
+Sub removePageHeader(pageStyle)
+	pageStyle.headerIsOn = false
+End Sub
+
+Sub removePageFooter(pageStyle)
+	pageStyle.FooterIsOn = false
+End Sub
+
+Function getCurPageStyleName()
+	dim curPageStyleName as String 
+	dim oViewCursor as Object
+	dim oTextCursor as Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	'Mri oViewCursor
+	If Not oViewCursor.isAtEndOfLine() And Not oViewCursor.isAtStartOfLine()  Then
+		oViewCursor.goToStartOfLine(false)
+	EndIf
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	If oTextCursor.isStartOfParagraph() Then
+		getCurPageStyleName = oViewCursor.PageStyleName
+		Exit Function
+	EndIf
+	If oTextCursor.isEndOfParagraph() Then
+		getCurPageStyleName = oViewCursor.PageStyleName
+		Exit Function
+	EndIf
+	oViewCursor.Text.insertControlCharacter(oViewCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
+	oViewCursor.paraOrphans = 0
+	oViewCursor.paraWidows = 0
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	oTextCursor.goRight(1,false)
+	oViewCursor.goToRange(oTextCursor,false)
+	getCurPageStyleName = oViewCursor.pageStyleName
+	oViewCursor.goLeft(1,false)
+	backspace()
+End Function
+
+Sub unoCopy
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:Copy", "", 0, Array())
+End Sub
+
+sub unoPaste
+	dim document   as object
+	dim dispatcher as object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	dispatcher.executeDispatch(document, ".uno:Paste", "", 0, Array())
+end sub
+
+Function createFrame(posX,posY,width,height,frameName)
+	Dim oViewCursor as Object
+	Dim oTextCursor as Object
+	Dim oText As Object
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oText = oViewCursor.Text
+	oTextCursor = oText.createTextCursorByRange(oViewCursor.End)
+	frame = ThisComponent.createInstance("com.sun.star.text.TextFrame")
+	frame.AnchorType = 0
+	frame.Height = height
+	frame.Width = width
+	frame.PageToggle = false
+	frame.BorderDistance = 0
+	frame.HoriOrient = 0
+	frame.HoriOrientRelation = 7
+	frame.HoriOrientPosition= posX
+	frame.VertOrient = 0
+	frame.VertOrientRelation = 7
+	frame.VertOrientPosition = posY
+	oText.insertTextContent(oTextCursor.Start, frame, false)
+	frame.FrameIsAutomaticHeight = false
+	border = frame.bottomBorder
+	border.OuterLineWidth = 0
+	border.LineWidth = 0
+	frame.bottomBorder = border
+	frame.topBorder = border
+	frame.leftBorder = border
+	frame.rightBorder = border
+	frame.WritingMode = 2
+	frame.PositionProtected = true
+	frame.Name = frameName
+	createFrame = frame
+End Function
+
+Sub removeEmptyPage
 
 	Dim oViewCursor As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()

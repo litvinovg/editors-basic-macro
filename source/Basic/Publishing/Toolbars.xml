@@ -189,7 +189,18 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   nCount = 9
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
+  
+  sCmdID   = "vnd.sun.star.script:Publishing.pageHelpers.makePageAlbum?language=Basic&amp;location=application"
+  sCmdLable = "Альбом"
+  nCount = 10
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
 
+  sCmdID   = "vnd.sun.star.script:Publishing.pageHelpers.undoPageAlbum?language=Basic&amp;location=application"
+  sCmdLable = "Не Альбом"
+  nCount = 11
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
 '  sCmdID   = "vnd.sun.star.script:Publishing.Hyphenations.convertAutoHyphenationsToManual?language=Basic&amp;location=application"
 '  sCmdLable = "Переносы"
 '  nCount = 9
