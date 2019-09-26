@@ -7,7 +7,6 @@
 		MsgBox "Проверьте размеры колонтитулов и перезапустите макрос"
 		Exit Sub
 	EndIf
-	createPageStyleByExample("portrait_" &amp; curPageStyleName)
 	rotatePageClockwise(curPageStyleName)	
 	saveAndreload()
 End Sub
@@ -73,8 +72,10 @@ Sub replacePageStyleByPortrait(pageStyleName)
 	Wend
 	
 	'Replace album style by portrait
-	pageStyles.removeByName(pageStyleName)
-	pageStyles.getByName("portrait_" &amp; pageStyleName).setName(pageStyleName)
+	If oldPageStyle.IsUserDefined() Then
+		pageStyles.removeByName(pageStyleName)
+		pageStyles.getByName("portrait_" &amp; pageStyleName).setName(pageStyleName)
+	EndIf
 	
 End Sub
 
@@ -105,7 +106,13 @@ Sub rotatePageClockwise(pageStyleName)
 		MsgBox "Страница уже имеет альбомную ориентацию. Ничего не делаем. Выходим."
 		Exit sub
 	EndIf
-
+	If NOT pageStyle.IsUserDefined() Then
+		pageStyleName = "new" &amp; pageStyleName
+		createPageStyleByExample(pageStyleName)
+		oViewCursor.pageDescName = pageStyleName
+		pageStyle = pageStyles.getByName(pageStyleName)
+	EndIf
+	createPageStyleByExample("portrait_" &amp; pageStyleName)
 	If pageStyle.HeaderIsOn Then
 		headerFrameW = pageStyle.HeaderHeight - pageStyle.HeaderBodyDistance
 		headerFrameH = pageStyle.Width - pageStyle.HeaderLeftMargin - pageStyle.HeaderRightMargin - pageStyle.LeftMargin - pageStyle.RightMargin
