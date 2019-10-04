@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="CleanManualFormat" script:language="StarBasic">Sub ExecuteClean
+'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	Dim description As String
 	description = "Вы уверены, что хотите запустить макрос Формат?"
 	If NOT confirm(description) Then
@@ -100,6 +101,7 @@ Sub convertFormatToEnclosure(identifier, styleNames, styleValues)
 	Dim oTextCursor As Object
 	Dim startTextRange As Object
 	Dim endTextRange As Object
+	Dim foundString As String
 	Dim SrchAttributes(Ubound(styleNames)) as new com.sun.star.beans.PropertyValue
 	For i = 0 To Ubound(styleNames)
 		SrchAttributes(i).Name = styleNames(i)
@@ -119,11 +121,14 @@ Sub convertFormatToEnclosure(identifier, styleNames, styleValues)
   		For i = 0 To Ubound(styleNames)
 			oTextCursor.setPropertyToDefault(styleNames(i))
 		Next i
-		oTextCursor.collapseToEnd()
-		oTextCursor.String = rightEnclosure
-		endTextRange = oTextCursor.getEnd()
-		oTextCursor.goToRange(found.start,false)
-		oTextCursor.String = leftEnclosure
+		foundString = found.getString()
+		If Len(foundString) &lt;&gt; 0 Then
+			oTextCursor.collapseToEnd()
+			oTextCursor.String = rightEnclosure
+			endTextRange = oTextCursor.getEnd()
+			oTextCursor.goToRange(found.start,false)
+			oTextCursor.String = leftEnclosure
+		EndIf
 		found = Thiscomponent.findNext(found.End, SDesc)
 	  Loop
 End Sub
