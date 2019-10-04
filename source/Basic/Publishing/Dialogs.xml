@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Dialogs" script:language="StarBasic" script:moduleType="normal">REM  *****  BASIC  *****
+Sub test
+	If NOT confirm("Вы уверены, что хотите запустить макрос?") Then
+		Exit Sub
+	EndIf
+
+End Sub
+
+Function confirm(description)
+	If MsgBox (description, 4) =6 Then
+		confirm = true
+	Else
+		confirm = false
+	EndIf
+	
+End Function
+</script:module>

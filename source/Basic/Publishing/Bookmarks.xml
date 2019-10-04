@@ -228,6 +228,11 @@ end Sub
 
 
 Sub disposeAllLinks
+	Dim description As String
+	description = "Вы уверены, что хотите удалить все ссылки в текущем документе?"
+	If NOT confirm(description) Then
+		Exit Sub
+	EndIf
 '	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
 	Dim oPar As Object
 	Dim enum1 As Object
@@ -249,7 +254,14 @@ End Sub
 
 Sub disposeAllBookmarks()
 	Dim bookmarks As Object
-	bookmarks = ThisComponent.Links.getByName("Закладки")
+	Dim description As String
+	Dim elementName As String
+	description = "Вы уверены, что хотите удалить все закладки в текущем документе?"
+	If NOT confirm(description) Then
+		Exit Sub
+	EndIf
+	elementName = ThisComponent.Links.ElementNames(6)
+	bookmarks = ThisComponent.Links.getByName(elementName)
 	While bookmarks.hasElements()
 		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))
 		bookmark.dispose()

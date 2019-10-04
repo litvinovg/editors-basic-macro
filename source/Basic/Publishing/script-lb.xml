@@ -17,4 +17,5 @@
   <library:element library:name="Documents"/>
   <library:element library:name="Bookmarks"/>
   <library:element library:name="Hyphenations"/>
+  <library:element library:name="Dialogs"/>
 </library:library>
