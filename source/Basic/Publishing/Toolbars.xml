@@ -393,6 +393,15 @@ Sub addFontsToolbar(toolbarName,toolbarDescription)
   nCount = 3
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  sCmdID   = "vnd.sun.star.script:Publishing.replaceFonts.TNRArabic2Scheherezade?language=Basic&amp;location=application"
+  sCmdLable = "Арабский"
+  nCount = 4
+  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  oTBSettings.insertByIndex( nCount, oToolbarItem )
+
+  
+
   
   REM *** Set the settings for our new custom toolbar. (replace/insert)
   If ( oModuleCfgMgr.hasSettings( sToolbarURL )) Then

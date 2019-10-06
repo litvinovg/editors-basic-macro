@@ -133,6 +133,7 @@ Sub TNR2IPH
 	RemoveStyleByName("WL LatinAllIn1Goth")
 	'Remove ArabicD
 	'Remove WL LatinAllIn1Goth
+	TNRArabic2Scheherezade()
 	
 	statusIndicator.end()
 End Sub
@@ -224,22 +225,26 @@ Sub IPH2Goth
 	substituteCharNameInStyles("IPH Lib Serif","WL LatinAllIn1Goth")
 End Sub
 
+Sub turnOffTracking
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	Dim args(0) as new com.sun.star.beans.PropertyValue
+	args(0).Name = "TrackChanges"
+	args(0).Value = false
+	dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
+	
+End Sub
+
+
 Sub searchAndReplaceDiffFonts(badSymbol As String,firstPart  As String,secondPart  As String)
 	Dim oSearch
 	Dim oTextCursor As Object 
 	Dim oViewCursor As Object
 	Dim lineIndent
-	document   = ThisComponent.CurrentController.Frame
-	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+	turnOffTracking
 	oViewCursor = thisComponent.getCurrentController.getViewCursor
 	oViewCursor.jumpToFirstPage
-	Dim args(0) as new com.sun.star.beans.PropertyValue
-	
-	rem Turn off tracking changes to prevent infinite
-	args(0).Name = "TrackChanges"
-	args(0).Value = false
-	dispatcher.executeDispatch(document, ".uno:TrackChanges", "", 0, args())
-	
 
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
 	oSearch = ThisComponent.createSearchDescriptor()
@@ -419,6 +424,90 @@ Sub getCharsInFont(fontName)
 		MsgBox "Символов в шрифте " &amp; fontName &amp; "найдено не было"
 	EndIf
 	statusIndicator.end()
+End Sub
+
+Sub TNRArabic2Scheherezade
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	statusIndicator.Start("Замена шрифтов начата, подождите",20)
+
+	Dim newFontName as String  
+	Dim oldFontName As String 
+	Dim searchPattern As String
+	oldFontName = "Times New Roman"
+	newFontName = "Scheherazade"
+	searchPattern = "[\u0600-\u06FF]+"
+	replaceComplexFontNameInStyles(oldFontName,newFontName)
+	statusIndicator.setValue(90)
+	changeFontForChars(oldFontName, newFontName, searchPattern)
+	statusIndicator.end()
+end Sub
+
+Sub changeFontForChars(oldFontName, newFontName, searchPattern)
+	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+	SrchAttributes(0).Name = "CharFontName"
+	SrchAttributes(0).Value = oldFontName
+	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+	ReplAttributes(0).Name = "CharFontName"
+	ReplAttributes(0).Value = newFontName
+	ReplAttributes(1).Name = "CharFontNameComplex"
+	ReplAttributes(1).Value = newFontName
+	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+End Sub
+
+
+Sub setAttributesBySearchPattern(searchPattern As String, SrchAttributes, ReplAttributes)
+	
+	turnOffTracking
+	
+	Dim oSearch
+	Dim oTextCursor As Object 
+	Dim oViewCursor As Object
+	Dim lineIndent
+	Dim foundPatterns() As Object
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	oSearch = ThisComponent.createSearchDescriptor()
+	oSearch.SearchString = searchPattern
+	oSearch.SearchRegularExpression=True
+    oSearch.SearchAll = True
+    oSearch.searchStyles = true
+    If Not IsEmpty(SrchAttributes(0).Value) Then
+      oSearch.SetSearchAttributes(SrchAttributes())
+    End If
+	oFound = ThisComponent.findFirst(oSearch)
+	Do While Not IsNull(oFound)
+	  For i = LBound(ReplAttributes) To Ubound(ReplAttributes)
+		  oFound.SetPropertyValue(ReplAttributes(i).Name,ReplAttributes(i).Value)
+	  Next i	  
+	  oFound = ThisComponent.findNext(oFound.End, oSearch)
+	Loop
+
+End Sub
+
+Sub replaceComplexFontNameInStyles(oldFontStart,newFontName)
+	' Substitutes font names starts with oldFont value with newFont value
+	Dim oDoc as Object
+	Dim propertySetInfo As Object
+	Dim oPositionOfMatch As Long
+	oDoc = ThisComponent
+	oFamilies = Thiscomponent.StyleFamilies
+	sElements() = oFamilies.getElementNames()
+	For i = 0 to oFamilies.count -1 
+	  oFamily = oFamilies.getByName(sElements(i))
+	  For j = 0 to oFamily.getCount -1
+	    oStyle = oFamily.getByIndex(j)
+		propertySetInfo = oStyle.getPropertySetInfo()
+	    If propertySetInfo.hasPropertyByName("CharFontNameComplex") Then
+	      fontName = oStyle.getPropertyValue("CharFontNameComplex")
+	      oPositionOfMatch = InStr(fontName, oldFontStart)
+	      If oPositionOfMatch = 1 Then
+	        oStyle.CharFontNameComplex = newFontName
+	      EndIf
+	    EndIf
+	  Next
+	Next
 End Sub
 
 Function IsInArray(array, content)
