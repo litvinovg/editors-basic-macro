@@ -65,21 +65,23 @@ Sub TNR2IPH
 	Univ2IPH()
 	statusIndicator.setValue(20)
 	goth2IPH()
-	statusIndicator.setValue(30)
+	statusIndicator.setValue(25)
+	TNRArabic2Scheherezade()
+	statusIndicator.setValue(45)
 	'Replace Times New Roman to IPH Serif in styles
 	replaceFontNameInStyles( "Times New Roman", newFontName)
 	replaceFontNameInDirectFormat( "Times New Roman", newFontName)
-	statusIndicator.setValue(40)
+	statusIndicator.setValue(50)
 	replaceFontNameInStyles( "Liberation Serif", newFontName)
 	replaceFontNameInDirectFormat( "Liberation Serif", newFontName)
-	statusIndicator.setValue(50)	
+	statusIndicator.setValue(60)	
 	replaceFontNameInStyles( "ArabicD", newFontName)
 	replaceFontNameInDirectFormat( "ArabicD", newFontName)
-	statusIndicator.setValue(60)	
+	statusIndicator.setValue(70)	
 	'Replace Arial to IPH Sans in styles
 	replaceFontNameInStyles( "Arial","IPH Lib Sans")
 	replaceFontNameInDirectFormat( "Arial","IPH Lib Sans")
-	statusIndicator.setValue(70)		
+	statusIndicator.setValue(80)		
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	Dim ReplAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharFontName"
@@ -133,7 +135,7 @@ Sub TNR2IPH
 	RemoveStyleByName("WL LatinAllIn1Goth")
 	'Remove ArabicD
 	'Remove WL LatinAllIn1Goth
-	TNRArabic2Scheherezade()
+
 	
 	statusIndicator.end()
 End Sub
