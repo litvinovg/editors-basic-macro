@@ -226,30 +226,29 @@ dispatcher.executeDispatch(document, ".uno:InsertFootnote", "", 0, Array())
 
 end Sub
 
-
-Sub disposeAllLinks
+Sub disposeAllLinks()
 	Dim description As String
 	description = "Вы уверены, что хотите удалить все ссылки в текущем документе?"
 	If NOT confirm(description) Then
 		Exit Sub
 	EndIf
-'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-	Dim oPar As Object
-	Dim enum1 As Object
-	Dim thisPortion As Object
-	enum1 = ThisComponent.Text.createEnumeration
-	While enum1.hasMoreElements
-		oPar = enum1.nextElement
-	'	Mri oPar
-		If oPar.supportsService("com.sun.star.text.Paragraph") Then
-			enum2 = oPar.createEnumeration
-			While enum2.hasMoreElements
-				thisPortion = enum2.nextElement
-				thisPortion.HyperlinkTarget = ""
-				thisPortion.HyperLinkURL = ""
-			Wend
-		End If
-	Wend 
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Удаление гиперссылок начато",100)
+
+	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
+	SrchAttributes(0).Name = "CharStyleName"
+	SrchAttributes(0).Value = "Internet Link"
+	Dim ReplAttributes(2) as new com.sun.star.beans.PropertyValue
+	ReplAttributes(0).Name = "HyperlinkTarget"
+	ReplAttributes(0).Value = ""
+	ReplAttributes(1).Name = "HyperLinkURL"
+	ReplAttributes(1).Value = ""
+	ReplAttributes(2).Name = "CharStyleName"
+	ReplAttributes(2).Value = "Базовый"
+	statusIndicator.setValue(50)
+	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	statusIndicator.end()
 End Sub
 
 Sub disposeAllBookmarks()
