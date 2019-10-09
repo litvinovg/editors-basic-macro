@@ -245,7 +245,7 @@ Sub disposeAllLinks()
 	ReplAttributes(1).Name = "HyperLinkURL"
 	ReplAttributes(1).Value = ""
 	ReplAttributes(2).Name = "CharStyleName"
-	ReplAttributes(2).Value = "Базовый"
+	ReplAttributes(2).Value = ThisComponent.getStyleFamilies().getByIndex(0).ElementNames(0)
 	statusIndicator.setValue(50)
 	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
 	statusIndicator.end()
