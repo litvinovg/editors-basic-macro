@@ -255,18 +255,59 @@ Sub disposeAllBookmarks()
 	Dim bookmarks As Object
 	Dim description As String
 	Dim elementName As String
+	Dim statusIndicator as Object
 	description = "Вы уверены, что хотите удалить все закладки в текущем документе?"
 	If NOT confirm(description) Then
 		Exit Sub
 	EndIf
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Удаление закладок начато",100)
+	statusIndicator.setValue(50)
 	elementName = ThisComponent.Links.ElementNames(6)
 	bookmarks = ThisComponent.Links.getByName(elementName)
 	While bookmarks.hasElements()
 		bookmark = bookmarks.getByName(bookmarks.ElementNames(0))
 		bookmark.dispose()
 	Wend
+	statusIndicator.end()
 End Sub
 
+
+Sub disposePageBreaks
+	Dim statusIndicator as Object
+	Dim description As String
+	Dim enum1 As Object
+	Dim enum1Element As Object
+	Dim oTextCursor As Variant
+	Dim tableCursor As Variant
+	description = "Вы уверены, что хотите удалить все разрывы страниц в текущем документе?"
+	If NOT confirm(description) Then
+		Exit Sub
+	EndIf
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Удаление ручных разрывов страниц начато",100)
+	statusIndicator.setValue(50)
+	oTextCursor = ThisComponent.Text.CreateTextCursor()
+	enum1 = ThisComponent.Text.createEnumeration
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			If enum1Element.BreakType &lt;&gt; com.sun.star.style.BreakType.NONE Then
+				oTextCursor.goToRange(enum1Element.getAnchor(), false)
+				If NOT IsEmpty(oTextCursor.PageDescName) Then
+					oTextCursor.PageDescName = ""
+				End If
+				oTextCursor.BreakType = com.sun.star.style.BreakType.NONE
+			End If
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			If NOT IsEmpty(enum1Element.PageDescName) Then
+				enum1Element.PageDescName = ""
+			End If
+			enum1Element.BreakType = com.sun.star.style.BreakType.NONE
+		EndIf
+	Wend
+	statusIndicator.end()
+End Sub
 
 Sub addToArray(xArray(),vNextElement)
 Dim iUB%,iLB%
