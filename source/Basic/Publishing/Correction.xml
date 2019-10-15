@@ -205,28 +205,29 @@ End Sub
 
 
 Sub executeRemoveWhiteBackground
-Dim oReplace
-oReplace = ThisComponent.createReplaceDescriptor()
-oReplace.SearchString = "(.*)"
-oReplace.ReplaceString = "$1"
-oReplace.SearchRegularExpression=True
-Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
-Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
-SrchAttributes(0).Name = "CharBackTransparent"
-SrchAttributes(0).Value = False
-SrchAttributes(1).Name = "CharBackColor"
-SrchAttributes(1).Value = 16777215
-ReplAttributes(0).Name = "CharBackTransparent"
-ReplAttributes(0).Value = True
-ReplAttributes(1).Name = "CharBackColor"
-ReplAttributes(1).Value = -1
-oReplace.SetSearchAttributes(SrchAttributes())
-oReplace.searchStyles=True
-oReplace.SetReplaceAttributes(ReplAttributes())
-oReplace.searchAll=True
-ThisComponent.replaceAll(oReplace)
+ 	Dim description As String
+ 	Dim searchPattern As String
+ 	searchPattern = ""
+ 	description = "Вы уверены, что хотите заменить белый фон на прозрачный в текущем документе?"
+ 	If NOT confirm(description) Then
+ 		Exit Sub
+ 	EndIf
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.statusIndicator
+	statusIndicator.Start("Замена белого фона на прозрачный начата",100)
+	Dim SrchAttributes(1) as new com.sun.star.beans.PropertyValue
+	Dim ReplAttributes(1) as new com.sun.star.beans.PropertyValue
+	SrchAttributes(0).Name = "CharBackTransparent"
+	SrchAttributes(0).Value = False
+	SrchAttributes(1).Name = "CharBackColor"
+	SrchAttributes(1).Value = 16777215
+	ReplAttributes(0).Name = "CharBackTransparent"
+	ReplAttributes(0).Value = True
+	ReplAttributes(1).Name = "CharBackColor"
+	ReplAttributes(1).Value = -1
+	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	statusIndicator.end()
 End Sub
-
 
 Sub ReplaceEverywhere(SearchString,oReplaceString)
 Dim oDoc,oText,oViewCursor,oStart,oEnd,oFind,FandR As Object
