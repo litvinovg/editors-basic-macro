@@ -6,6 +6,7 @@
 Dim templateName As String
 Dim EIFN As String
 Dim PHA As String 
+Dim PQ As String
 Dim imagesRelativePath As String 
 Dim allImagesRelativePath As String 
 Dim path As String
@@ -20,6 +21,7 @@ Sub makeUpIssue
 	
 	EIFN = "ЭиФН"
 	PHA = "ФА"
+	PQ = "ВФ"
 	imagesRelativePath = "/Links/Header/"
 	allImagesRelativePath = "/Links/Header-icons/"
 	
@@ -554,47 +556,48 @@ Sub setAritclePageHeaders(i)
 	'insert page break
 	oTextCursor.BreakType = 4
 
-	If templateName = EIFN Then
-		copySectionIcon(i)
-	EndIf
-	curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+	If templateName &lt;&gt; PQ Then
+		If templateName = EIFN Then
+			copySectionIcon(i)
+		EndIf
+		curStyle = pageStyles.getByName(oViewCursor.pageStyleName)
+		
+		rightHeaderTable = curStyle.HeaderTextRight.CreateEnumeration().nextElement
+		leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
 	
-	rightHeaderTable = curStyle.HeaderTextRight.CreateEnumeration().nextElement
-	leftHeaderTable = curStyle.HeaderTextLeft.CreateEnumeration().nextElement
-
-	rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
-	oViewCursor.goToRange(rightHeaderCell, false)
-	If templateName = "" Then
-		insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
-	ElseIf templateName = PHA Then
-		insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
-	ElseIf templateName = EIFN Then
-		insertUserField(oViewCursor,"rightHeader" + i ,"Название статьи " + i )	
-		rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
+		rightHeaderCell = rightHeaderTable.getCellByPosition(0,0).getStart()
 		oViewCursor.goToRange(rightHeaderCell, false)
-		insertLinkedImage(CStr(i),"headerImageRight")
-		oViewCursor.jumpToStartOfPage()
+		If templateName = "" Then
+			insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+		ElseIf templateName = PHA Then
+			insertUserField(oViewCursor,"rightHeader" + i ,"Фамилия И.О. Название статьи" + i )
+		ElseIf templateName = EIFN Then
+			insertUserField(oViewCursor,"rightHeader" + i ,"Название статьи " + i )	
+			rightHeaderCell = rightHeaderTable.getCellByPosition(2,0).getStart()
+			oViewCursor.goToRange(rightHeaderCell, false)
+			insertLinkedImage(CStr(i),"headerImageRight")
+			oViewCursor.jumpToStartOfPage()
+		EndIf
+		
+		
+		If templateName = "" Then
+			leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
+			oViewCursor.goToRange(leftHeaderCell, false)
+			insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
+		ElseIf templateName = PHA Then
+			leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
+			oViewCursor.goToRange(leftHeaderCell, false)
+			insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
+		ElseIf templateName = EIFN Then
+			leftHeaderCell = leftHeaderTable.getCellByPosition(2,0).getStart()
+			oViewCursor.goToRange(leftHeaderCell, false)
+			insertUserField(oViewCursor,"leftHeader" + i ,"И.О. Фамилия" + i )
+			leftHeaderCell = leftHeaderTable.getCellByPosition(0,0).getStart()
+			oViewCursor.goToRange(leftHeaderCell, false)
+			insertLinkedImage(CStr(i),"headerImageLeft")
+			oViewCursor.jumpToStartOfPage()
+		EndIf
 	EndIf
-	
-	
-	If templateName = "" Then
-		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
-		oViewCursor.goToRange(leftHeaderCell, false)
-		insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
-	ElseIf templateName = PHA Then
-		leftHeaderCell = leftHeaderTable.getCellByPosition(1,0).getStart()
-		oViewCursor.goToRange(leftHeaderCell, false)
-		insertUserField(oViewCursor,"leftHeader" + i ,"Название раздела" + i )
-	ElseIf templateName = EIFN Then
-		leftHeaderCell = leftHeaderTable.getCellByPosition(2,0).getStart()
-		oViewCursor.goToRange(leftHeaderCell, false)
-		insertUserField(oViewCursor,"leftHeader" + i ,"И.О. Фамилия" + i )
-		leftHeaderCell = leftHeaderTable.getCellByPosition(0,0).getStart()
-		oViewCursor.goToRange(leftHeaderCell, false)
-		insertLinkedImage(CStr(i),"headerImageLeft")
-		oViewCursor.jumpToStartOfPage()
-	EndIf
-	
 	oViewCursor.goToRange(articleStartPosition, false)
 	backspace()
 	backspace()
