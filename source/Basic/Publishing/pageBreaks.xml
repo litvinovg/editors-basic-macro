@@ -3,7 +3,8 @@
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageBreaks" script:language="StarBasic">
 Sub shrinkPageContent
 	Dim oViewCursor As Object 'View cursor
-	Dim oTextCursor 'Text cursor
+	Dim oTextCursor As Object 'Text cursor
+	Dim oViewCurInitPosition As Object
 	Dim oSaveEndSelection 'Text cursor
 	Dim oEnum 'Cursor enumeration
 	Dim oPar 'Current paragraph 
@@ -20,7 +21,7 @@ Sub shrinkPageContent
 	scaleIntervalHeight = 3
 	sTextContent = "com.sun.star.text.TextContent"
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	
+	oViewCurInitPosition = oViewcursor.Text.createTextCursorByRange(oViewCursor)
 	'Check if we are at start of paragraph go to the end of previous paragraph
 	If oViewCursor.Text.createTextCursorByRange(oViewCursor).isStartOfParagraph() Then
 	 oViewCursor.goLeft(1,false)
@@ -50,6 +51,17 @@ Sub shrinkPageContent
 	oViewCursor.jumpToPreviousPage() 
 	oViewCursor.jumpToStartOfPage()
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
+	'If one of textRanges is Footnote or Endnote we can't select them so it is better to exit now
+	If oTextCursor.Text.supportsService("com.sun.star.text.Endnote") OR oTextCursor.Text.supportsService("com.sun.star.text.Footnote") Then
+		shrinkPageContent = false
+		oViewCursor.gotoRange(oViewCurInitPosition,false)
+		Exit Sub	
+	EndIf
+	If oSaveEndSelection.Text.supportsService("com.sun.star.text.Endnote") OR oSaveEndSelection.Text.supportsService("com.sun.star.text.Footnote") Then
+		shrinkPageContent = false
+		oViewCursor.gotoRange(oViewCurInitPosition,false)
+		Exit Sub
+	EndIf
 	oTextCursor.gotoRange(oSaveEndSelection,true)
 	oViewCursor.gotoRange(oSaveEndSelection,false) 'Go to end of text to check page changes
 
