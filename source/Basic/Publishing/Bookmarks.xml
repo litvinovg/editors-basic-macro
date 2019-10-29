@@ -238,7 +238,7 @@ Sub disposeAllLinks()
 
 	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
 	SrchAttributes(0).Name = "CharStyleName"
-	SrchAttributes(0).Value = "Internet Link"
+	SrchAttributes(0).Value = "Internet link"
 	Dim ReplAttributes(2) as new com.sun.star.beans.PropertyValue
 	ReplAttributes(0).Name = "HyperlinkTarget"
 	ReplAttributes(0).Value = ""

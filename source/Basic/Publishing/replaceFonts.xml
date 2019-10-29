@@ -462,11 +462,13 @@ End Sub
 Sub setAttributesBySearchPattern(searchPattern As String, SrchAttributes, ReplAttributes)
 	
 	turnOffTracking
-	
+	dim stringValue1 As String
+	dim stringValue2 As String
 	Dim oSearch
 	Dim oTextCursor As Object 
 	Dim oViewCursor As Object
 	Dim lineIndent
+	Dim replace As Boolean
 	Dim foundPatterns() As Object
 	document   = ThisComponent.CurrentController.Frame
 	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
@@ -480,14 +482,26 @@ Sub setAttributesBySearchPattern(searchPattern As String, SrchAttributes, ReplAt
     End If
 	oFound = ThisComponent.findFirst(oSearch)
 	Do While Not IsNull(oFound)
-	  For i = LBound(ReplAttributes) To Ubound(ReplAttributes)
-  	'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-	'  	Mri oFound
-	  	If oFound.getPropertySetInfo.hasPropertyByName(ReplAttributes(i).Name) Then
-		  oFound.SetPropertyValue(ReplAttributes(i).Name,ReplAttributes(i).Value)
-		EndIf
-	  Next i	  
-	  oFound = ThisComponent.findNext(oFound.End, oSearch)
+	 replace = true
+		For j = LBound(SrchAttributes) To Ubound(SrchAttributes)
+			If oFound.getPropertySetInfo.hasPropertyByName(SrchAttributes(j).Name) Then
+				stringValue1 = "" &amp; oFound.getPropertyValue(SrchAttributes(j).Name)
+				stringValue2 = "" &amp;  SrchAttributes(j).Value
+				If stringValue1 &lt;&gt; stringValue2 Then
+					replace = replace AND False
+				EndIf
+			Else
+				replace = replace AND False
+			EndIf
+		Next j
+		If replace then
+			For i = LBound(ReplAttributes) To Ubound(ReplAttributes)
+		  		If oFound.getPropertySetInfo.hasPropertyByName(ReplAttributes(i).Name) Then
+					oFound.SetPropertyValue(ReplAttributes(i).Name,ReplAttributes(i).Value)
+				EndIf
+			Next i
+		EndIf	  
+		oFound = ThisComponent.findNext(oFound.End, oSearch)
 	Loop
 
 End Sub
