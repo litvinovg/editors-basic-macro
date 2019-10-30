@@ -454,12 +454,12 @@ Sub changeFontForChars(oldFontName, newFontName, searchPattern)
 	ReplAttributes(0).Value = newFontName
 	ReplAttributes(1).Name = "CharFontNameComplex"
 	ReplAttributes(1).Value = newFontName
-	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
-	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	setAttributesBySearchPattern(searchPattern,ReplAttributes,SrchAttributes)
+	setAttributesBySearchPattern(searchPattern,ReplAttributes,SrchAttributes)
 End Sub
 
 
-Sub setAttributesBySearchPattern(searchPattern As String, SrchAttributes, ReplAttributes)
+Sub setAttributesBySearchPattern(searchPattern As String,ReplAttributes, Optional SrchAttributes)
 	
 	turnOffTracking
 	dim stringValue1 As String

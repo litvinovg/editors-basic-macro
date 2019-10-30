@@ -247,7 +247,7 @@ Sub disposeAllLinks()
 	ReplAttributes(2).Name = "CharStyleName"
 	ReplAttributes(2).Value = ThisComponent.getStyleFamilies().getByIndex(0).ElementNames(0)
 	statusIndicator.setValue(50)
-	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	setAttributesBySearchPattern(searchPattern,ReplAttributes,SrchAttributes)
 	statusIndicator.end()
 End Sub
 

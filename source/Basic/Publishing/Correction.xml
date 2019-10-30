@@ -225,7 +225,7 @@ Sub executeRemoveWhiteBackground
 	ReplAttributes(0).Value = True
 	ReplAttributes(1).Name = "CharBackColor"
 	ReplAttributes(1).Value = -1
-	setAttributesBySearchPattern(searchPattern,SrchAttributes,ReplAttributes)
+	setAttributesBySearchPattern(searchPattern,ReplAttributes,SrchAttributes)
 	statusIndicator.end()
 End Sub
 
