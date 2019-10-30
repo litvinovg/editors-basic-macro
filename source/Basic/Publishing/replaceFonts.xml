@@ -462,15 +462,51 @@ End Sub
 Sub unicodeSymbolsConversion
 	Dim newFontName As String
 	newFontName = "IPH Astra Serif"
-	Dim RAtts(1) as new com.sun.star.beans.PropertyValue
+	Dim RAtts(2) as new com.sun.star.beans.PropertyValue
 	RAtts(0).Name = "CharFontName"
-	RAtts(0).Value = newFontName
 	RAtts(1).Name = "CharFontNameComplex"
+	RAtts(2).Name = "CharFontNameAsian"
+
+	'Basic Astra
+	RAtts(0).Value = newFontName
 	RAtts(1).Value = newFontName
+	RAtts(2).Value = newFontName
 	'Cyrillic unicode block range \u0400-\u04FF
 	'Basic Latin \u0020-\u007E
-	setAttributesBySearchPattern("[\u0400-\u04FF,\u0020-\u007E]+",RAtts)
+	'Combining diacritical marks 0301 0304 0323 032e 0331 035f
+	'General Punctuation \u2000-\u206f
+	unicodeConversionEverywhere("[\u0400-\u04FF,\u0020-\u007E,\u2000-\u206f,\u0301,\u0304,\u0323,\u032e,\u0331,\u035f]+",RAtts)
+	
+	'Arabic Scheherazade
+	newFontName = "Scheherazade"
+	RAtts(0).Value = newFontName
+	RAtts(1).Value = newFontName
+	RAtts(2).Value = newFontName
+	unicodeConversionEverywhere("[\u0600-\u06FF]+",RAtts)
+
+	'Greek Tinos
+	newFontName = "Tinos"
+	RAtts(0).Value = newFontName
+	RAtts(1).Value = newFontName
+	RAtts(2).Value = newFontName
+	'Greek and Coptic
+	unicodeConversionEverywhere("[\u0370-\u03FF]+",RAtts)
+	'DejaVu Sans Mathematical operators
+	newFontName = "DejaVu Sans"
+	RAtts(0).Value = newFontName
+	RAtts(1).Value = newFontName
+	RAtts(2).Value = newFontName
+	'\u2200-\u22FF Mathematical operators
+	unicodeConversionEverywhere("[\u2200-\u22FF]+",RAtts)
+	
 End Sub
+
+Sub unicodeConversionEverywhere(searchPattern,rAtts)
+	'in text
+	setAttributesBySearchPattern(searchPattern,RAtts)
+
+End Sub
+
 
 
 Sub setAttributesBySearchPattern(searchPattern As String,ReplAttributes, Optional SrchAttributes)
