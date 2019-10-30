@@ -459,8 +459,21 @@ Sub changeFontForChars(oldFontName, newFontName, searchPattern)
 End Sub
 
 
+Sub unicodeSymbolsConversion
+	Dim newFontName As String
+	newFontName = "IPH Astra Serif"
+	Dim RAtts(1) as new com.sun.star.beans.PropertyValue
+	RAtts(0).Name = "CharFontName"
+	RAtts(0).Value = newFontName
+	RAtts(1).Name = "CharFontNameComplex"
+	RAtts(1).Value = newFontName
+	'Cyrillic unicode block range \u0400-\u04FF
+	'Basic Latin \u0020-\u007E
+	setAttributesBySearchPattern("[\u0400-\u04FF,\u0020-\u007E]+",RAtts)
+End Sub
+
+
 Sub setAttributesBySearchPattern(searchPattern As String,ReplAttributes, Optional SrchAttributes)
-	
 	turnOffTracking
 	dim stringValue1 As String
 	dim stringValue2 As String
@@ -469,31 +482,33 @@ Sub setAttributesBySearchPattern(searchPattern As String,ReplAttributes, Optiona
 	Dim oViewCursor As Object
 	Dim lineIndent
 	Dim replace As Boolean
-	Dim foundPatterns() As Object
-	document   = ThisComponent.CurrentController.Frame
 	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
 	oSearch = ThisComponent.createSearchDescriptor()
 	oSearch.SearchString = searchPattern
 	oSearch.SearchRegularExpression=True
     oSearch.SearchAll = True
-    oSearch.searchStyles = true
-    If Not IsEmpty(SrchAttributes(0).Value) Then
-      oSearch.SetSearchAttributes(SrchAttributes())
-    End If
+    If Not IsMissing (SrchAttributes) Then 
+	    If Not IsEmpty(SrchAttributes(0).Value) Then
+			oSearch.searchStyles = true
+			oSearch.SetSearchAttributes(SrchAttributes())
+	    End If
+    EndIf
 	oFound = ThisComponent.findFirst(oSearch)
 	Do While Not IsNull(oFound)
 	 replace = true
-		For j = LBound(SrchAttributes) To Ubound(SrchAttributes)
-			If oFound.getPropertySetInfo.hasPropertyByName(SrchAttributes(j).Name) Then
-				stringValue1 = "" &amp; oFound.getPropertyValue(SrchAttributes(j).Name)
-				stringValue2 = "" &amp;  SrchAttributes(j).Value
-				If stringValue1 &lt;&gt; stringValue2 Then
+		If Not IsMissing(SrchAttributes) Then
+			For j = LBound(SrchAttributes) To Ubound(SrchAttributes)
+				If oFound.getPropertySetInfo.hasPropertyByName(SrchAttributes(j).Name) Then
+					stringValue1 = "" &amp; oFound.getPropertyValue(SrchAttributes(j).Name)
+					stringValue2 = "" &amp;  SrchAttributes(j).Value
+					If stringValue1 &lt;&gt; stringValue2 Then
+						replace = replace AND False
+					EndIf
+				Else
 					replace = replace AND False
 				EndIf
-			Else
-				replace = replace AND False
-			EndIf
-		Next j
+			Next j
+		EndIf
 		If replace then
 			For i = LBound(ReplAttributes) To Ubound(ReplAttributes)
 		  		If oFound.getPropertySetInfo.hasPropertyByName(ReplAttributes(i).Name) Then
