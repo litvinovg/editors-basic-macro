@@ -52,12 +52,12 @@ Sub shrinkPageContent
 	oViewCursor.jumpToStartOfPage()
 	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 	'If one of textRanges is Footnote or Endnote we can't select them so it is better to exit now
-	If oTextCursor.Text.supportsService("com.sun.star.text.Endnote") OR oTextCursor.Text.supportsService("com.sun.star.text.Footnote") Then
+	If oTextCursor.Text.supportsService("com.sun.star.text.Endnote") OR oTextCursor.Text.supportsService("com.sun.star.text.Footnote") Or oTextCursor.Text.supportsService("com.sun.star.text.CellProperties") Then
 		shrinkPageContent = false
 		oViewCursor.gotoRange(oViewCurInitPosition,false)
 		Exit Sub	
 	EndIf
-	If oSaveEndSelection.Text.supportsService("com.sun.star.text.Endnote") OR oSaveEndSelection.Text.supportsService("com.sun.star.text.Footnote") Then
+	If oSaveEndSelection.Text.supportsService("com.sun.star.text.Endnote") OR oSaveEndSelection.Text.supportsService("com.sun.star.text.Footnote") Or oTextCursor.Text.supportsService("com.sun.star.text.CellProperties") Then
 		shrinkPageContent = false
 		oViewCursor.gotoRange(oViewCurInitPosition,false)
 		Exit Sub
