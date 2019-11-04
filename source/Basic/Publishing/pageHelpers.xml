@@ -440,7 +440,7 @@ Sub updateLastPageFields
 	While enum1.hasMoreElements
 
 		enum1Element = enum1.nextElement
-		If enum1Element.supportsService("com.sun.star.text.Paragraph") OR enum1Element.supportsService("com.sun.star.text.TextTable") Then
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
 
 			pageStyleName = getPageStyleNameFromEnum(enum1Element)
 
@@ -462,6 +462,8 @@ Sub updateLastPageFields
 				
 				If articleNum &gt; 0 Then
 					curNum = CInt(Trim(articleName))
+'					Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+'					MRI enum1Element
 					If articleNum &lt;&gt; curNum Then
 						textCursor = enum1Element.getText.createTextCursorByRange(enum1Element.Start)
 						pageNum = getPageNumber(textCursor)
@@ -472,6 +474,8 @@ Sub updateLastPageFields
 			EndIf
 			
 		EndIf
+		'TODO:
+		'OR enum1Element.supportsService("com.sun.star.text.TextTable")
 	Wend 
 	For i = 0 to 100
       If lastPages%(i) &lt;&gt; 0 Then
