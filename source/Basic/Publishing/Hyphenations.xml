@@ -102,9 +102,9 @@ Sub replaceHyphen(tCurs)
 	tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,true)
 	vCurs.goToRange(tCurs.End,false)
 	If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
-		backspace
+		'backspace
 		'insert hyphen character U+2010
-		tCurs.Text.insertString(tCurs.End,"‐",False)
+		'tCurs.Text.insertString(tCurs.End,"‐",False)
 		
 		vCurs.goToRange(tCurs,false)
 		Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
@@ -112,7 +112,20 @@ Sub replaceHyphen(tCurs)
 			tCurs.CharScaleWidth = tCurs.CharScaleWidth - 5
 			tCurs.goRight(1,false)
 			vCurs.goToRange(tCurs,false)
-			If tCurs.CharScaleWidth &lt; 50 Then
+			If tCurs.CharScaleWidth &lt; 80 Then
+				tCurs.CharScaleWidth = 100
+				Exit Do
+			EndIf
+		Loop
+		
+		vCurs.goToStartOfLine(true)
+		tLine = vCurs.Text.createTextCursorByRange(vCurs)
+		vCurs.goToRange(tCurs,false)
+		tLine.CharScaleWidth = 100
+		Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+			tLine.CharScaleWidth = tLine.CharScaleWidth - 5
+			vCurs.goToRange(tCurs,false)
+			If tLine.CharScaleWidth &lt; 50 Then
 				Exit Do
 			EndIf
 		Loop
