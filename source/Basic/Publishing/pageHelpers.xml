@@ -462,8 +462,6 @@ Sub updateLastPageFields
 				
 				If articleNum &gt; 0 Then
 					curNum = CInt(Trim(articleName))
-'					Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-'					MRI enum1Element
 					If articleNum &lt;&gt; curNum Then
 						textCursor = enum1Element.getText.createTextCursorByRange(enum1Element.Start)
 						pageNum = getPageNumber(textCursor)
