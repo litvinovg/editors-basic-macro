@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyperlinks" script:language="StarBasic">Sub removeHyperlinks()
+	Dim statusIndicator as Object
+	Dim aNote As Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	statusIndicator.Start("Удаление гиперссылок, подождите",10)
+	removeHLInText(ThisComponent.Text)
+	For x = 0 to ThisComponent.FootNotes.Count -1
+	  aNote = ThisComponent.FootNotes.getByIndex(x)
+	  removeHLInText(aNote.Text)
+	Next
+	For x = 0 to ThisComponent.EndNotes.Count -1
+	  aNote = ThisComponent.EndNotes.getByIndex(x)
+	  removeHLInText(aNote.Text)
+	Next
+	statusIndicator.end()
+End Sub
+
+Sub removeHLInText(textElement)
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim i As Integer
+	Dim cell As Object
+	enum1 = textElement.createEnumeration()
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			removeHLInPara(enum1Element)
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellText = cell.getText()
+				removeHLInText(cellText)
+		    Next i
+		Else 
+		EndIf
+	Wend 
+End Sub
+
+Sub removeHLInPara(para)
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim elPropertySetInfo As Object
+	Dim i As Integer
+	enum1 = para.createEnumeration()
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		elPropertySetInfo = enum1Element.getPropertySetInfo()
+		If elPropertySetInfo.hasPropertyByName("HyperLinkURL") Then
+			enum1Element.HyperLinkURL=""
+		EndIf
+	Wend 
+End Sub
+
+</script:module>

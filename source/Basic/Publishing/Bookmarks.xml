@@ -226,31 +226,6 @@ dispatcher.executeDispatch(document, ".uno:InsertFootnote", "", 0, Array())
 
 end Sub
 
-Sub disposeAllLinks()
-	Dim description As String
-	description = "Вы уверены, что хотите удалить все ссылки в текущем документе?"
-	If NOT confirm(description) Then
-		Exit Sub
-	EndIf
-	Dim statusIndicator as Object
-	statusIndicator = ThisComponent.getCurrentController.statusIndicator
-	statusIndicator.Start("Удаление гиперссылок начато",100)
-
-	Dim SrchAttributes(0) as new com.sun.star.beans.PropertyValue
-	SrchAttributes(0).Name = "CharStyleName"
-	SrchAttributes(0).Value = "Internet link"
-	Dim ReplAttributes(2) as new com.sun.star.beans.PropertyValue
-	ReplAttributes(0).Name = "HyperlinkTarget"
-	ReplAttributes(0).Value = ""
-	ReplAttributes(1).Name = "HyperLinkURL"
-	ReplAttributes(1).Value = ""
-	ReplAttributes(2).Name = "CharStyleName"
-	ReplAttributes(2).Value = ThisComponent.getStyleFamilies().getByIndex(0).ElementNames(0)
-	statusIndicator.setValue(50)
-	setAttributesBySearchPattern(searchPattern,ReplAttributes,SrchAttributes)
-	statusIndicator.end()
-End Sub
-
 Sub disposeAllBookmarks()
 	Dim bookmarks As Object
 	Dim description As String

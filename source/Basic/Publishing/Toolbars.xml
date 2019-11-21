@@ -308,7 +308,7 @@ Sub addArticlesToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
-  sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.disposeAllLinks?language=Basic&amp;location=application"
+  sCmdID   = "vnd.sun.star.script:Publishing.Hyperlinks.removeHyperlinks?language=Basic&amp;location=application"
   sCmdLable = "УдалСсылки"
   nCount = 6
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
