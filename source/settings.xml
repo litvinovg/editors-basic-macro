@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<office:document-settings xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
+<office:document-settings xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ooo="http://openoffice.org/2004/office" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" office:version="1.2">
   <office:settings>
     <config:config-item-set config:name="ooo:view-settings">
       <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
       <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
-      <config:config-item config:name="ViewAreaWidth" config:type="long">43159</config:config-item>
-      <config:config-item config:name="ViewAreaHeight" config:type="long">18905</config:config-item>
+      <config:config-item config:name="ViewAreaWidth" config:type="long">39021</config:config-item>
+      <config:config-item config:name="ViewAreaHeight" config:type="long">20443</config:config-item>
       <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
       <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
       <config:config-item-map-indexed config:name="Views">
         <config:config-item-map-entry>
           <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-          <config:config-item config:name="ViewLeft" config:type="long">33390</config:config-item>
-          <config:config-item config:name="ViewTop" config:type="long">9811</config:config-item>
+          <config:config-item config:name="ViewLeft" config:type="long">19510</config:config-item>
+          <config:config-item config:name="ViewTop" config:type="long">1924</config:config-item>
           <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
           <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
-          <config:config-item config:name="VisibleRight" config:type="long">43157</config:config-item>
-          <config:config-item config:name="VisibleBottom" config:type="long">18904</config:config-item>
+          <config:config-item config:name="VisibleRight" config:type="long">39019</config:config-item>
+          <config:config-item config:name="VisibleBottom" config:type="long">20442</config:config-item>
           <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
           <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
           <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
-          <config:config-item config:name="ZoomFactor" config:type="short">90</config:config-item>
+          <config:config-item config:name="ZoomFactor" config:type="short">95</config:config-item>
           <config:config-item config:name="IsSelectedFrame" config:type="boolean">false</config:config-item>
           <config:config-item config:name="AnchoredTextOverflowLegacy" config:type="boolean">false</config:config-item>
         </config:config-item-map-entry>
@@ -29,19 +29,22 @@
     <config:config-item-set config:name="ooo:configuration-settings">
       <config:config-item config:name="PrintProspect" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrintLeftPages" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="PrintGraphics" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintPageBackground" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintControls" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintAnnotationMode" config:type="short">0</config:config-item>
+      <config:config-item config:name="PrintGraphics" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintRightPages" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintFaxName" config:type="string"/>
       <config:config-item config:name="PrintPaperFromSetup" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrintTextPlaceholder" config:type="boolean">false</config:config-item>
       <config:config-item config:name="EmptyDbFieldHidesPara" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="DisableOffPagePositioning" config:type="boolean">true</config:config-item>
       <config:config-item config:name="ApplyParagraphMarkFormatToNumbering" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrintReversed" config:type="boolean">false</config:config-item>
       <config:config-item config:name="TabOverMargin" config:type="boolean">false</config:config-item>
+      <config:config-item config:name="EmbedAsianScriptFonts" config:type="boolean">true</config:config-item>
+      <config:config-item config:name="EmbedLatinScriptFonts" config:type="boolean">true</config:config-item>
+      <config:config-item config:name="DisableOffPagePositioning" config:type="boolean">true</config:config-item>
+      <config:config-item config:name="EmbedOnlyUsedFonts" config:type="boolean">false</config:config-item>
       <config:config-item config:name="EmbedFonts" config:type="boolean">false</config:config-item>
       <config:config-item config:name="SurroundTextWrapSmall" config:type="boolean">false</config:config-item>
       <config:config-item config:name="BackgroundParaOverDrawings" config:type="boolean">false</config:config-item>
@@ -55,31 +58,33 @@
       <config:config-item config:name="SmallCapsPercentage66" config:type="boolean">false</config:config-item>
       <config:config-item config:name="CollapseEmptyCellPara" config:type="boolean">true</config:config-item>
       <config:config-item config:name="RsidRoot" config:type="int">172921</config:config-item>
-      <config:config-item config:name="IsLabelDocument" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrinterName" config:type="string"/>
       <config:config-item config:name="OutlineLevelYieldsNumbering" config:type="boolean">false</config:config-item>
       <config:config-item config:name="UpdateFromTemplate" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintBlackFonts" config:type="boolean">false</config:config-item>
       <config:config-item config:name="TableRowKeep" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="EmbeddedDatabaseName" config:type="string"/>
+      <config:config-item config:name="Rsid" config:type="int">75039211</config:config-item>
+      <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
       <config:config-item config:name="IgnoreTabsAndBlanksForLineCalculation" config:type="boolean">false</config:config-item>
+      <config:config-item config:name="EmbedComplexScriptFonts" config:type="boolean">true</config:config-item>
       <config:config-item config:name="UseOldPrinterMetrics" config:type="boolean">false</config:config-item>
       <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
       <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="Rsid" config:type="int">59428421</config:config-item>
+      <config:config-item config:name="EmbeddedDatabaseName" config:type="string"/>
+      <config:config-item config:name="SaveThumbnail" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
       <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintHiddenText" config:type="boolean">false</config:config-item>
       <config:config-item config:name="AddParaTableSpacingAtStart" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="FieldAutoUpdate" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="UseOldNumbering" config:type="boolean">false</config:config-item>
       <config:config-item config:name="CharacterCompressionType" config:type="short">0</config:config-item>
       <config:config-item config:name="SaveVersionOnClose" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrinterIndependentLayout" config:type="string">high-resolution</config:config-item>
       <config:config-item config:name="IsKernAsianPunctuation" config:type="boolean">false</config:config-item>
       <config:config-item config:name="ChartAutoUpdate" config:type="boolean">true</config:config-item>
+      <config:config-item config:name="FieldAutoUpdate" config:type="boolean">true</config:config-item>
+      <config:config-item config:name="UseOldNumbering" config:type="boolean">false</config:config-item>
+      <config:config-item config:name="IsLabelDocument" config:type="boolean">false</config:config-item>
       <config:config-item config:name="MsWordCompTrailingBlanks" config:type="boolean">false</config:config-item>
       <config:config-item config:name="IgnoreFirstLineIndentInNumbering" config:type="boolean">false</config:config-item>
       <config:config-item config:name="PrinterPaperFromSetup" config:type="boolean">false</config:config-item>
