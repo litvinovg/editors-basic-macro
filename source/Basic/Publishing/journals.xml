@@ -76,6 +76,9 @@ Sub makeUpIssue
 			'Вставить разрыв страницы, если его не было.
 			oTextCursor.BreakType = 4
 			'Задать стиль первой страницы
+			If NOT IsEmpty(oTextCursor.NumberingRules) Then
+				noNumbering
+			EndIf
 			setArticlePageStyles(i)
 			setAritclePageHeaders(i)
 			page = oViewCursor.getPage()
@@ -979,7 +982,22 @@ Function getImageFileName()
 	End Select 
 End Function
 
-
+sub noNumbering
+	rem ----------------------------------------------------------------------
+	rem define variables
+	dim document   as object
+	dim dispatcher as object
+	rem ----------------------------------------------------------------------
+	rem get access to the document
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	
+	rem ----------------------------------------------------------------------
+	dim args1(0) as new com.sun.star.beans.PropertyValue
+	Wait 500
+	dispatcher.executeDispatch(document, ".uno:RemoveBullets", "", 0, args1())
+	Wait 500
+end sub
 
 
 
