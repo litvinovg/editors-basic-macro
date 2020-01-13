@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
 <script:module xmlns:script="http://openoffice.org/2000/script" script:name="pageHelpers" script:language="StarBasic" script:moduleType="normal">Sub makePageAlbum
-	saveVersion("Перед выполнением макроса повоорта страницы в альбомную ориентацию")
+	'saveVersion("Перед выполнением макроса повоорта страницы в альбомную ориентацию")
 	curPageStyleName = getCurPageStyleName()
+	findBestAnchor()
 	If checkPageSettings(curPageStyleName) Then
 		MsgBox "Проверьте размеры колонтитулов и перезапустите макрос"
 		Exit Sub
 	EndIf
 	rotatePageClockwise(curPageStyleName)	
-	saveAndreload()
+	'saveAndreload()
+End Sub
+
+Sub findBestAnchor()
+	'Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	Dim curPageStyleName As String
+	Dim oViewCursor As Object
+	Dim oTextCursor As Object
+	curPageStyleName = getCurPageStyleName()
+	oViewCursor = ThisComponent.CurrentController.getViewCursor()
+	oViewCursor.jumpToStartOfPage()
+	oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor.End)
+	If NOT oTextCursor.isStartOfParagraph Then
+		oTextCursor.goToNextParagraph(false)
+		oViewCursor.goToRange(oTextCursor,false)
+	EndIf
+	If	curPageStyleName = getCurPageStyleName() Then
+		Exit Sub
+	EndIf
+	MsgBox "Произошла ошибка. Обратитесь к разработчику."
 End Sub
 
 Sub undoPageAlbum
-	saveVersion("Перед выполнением макроса отмены преобразования страницы в портретную ориентацию")
+	'saveVersion("Перед выполнением макроса отмены преобразования страницы в портретную ориентацию")
 	curPageStyleName = getCurPageStyleName()
 	If checkPageSettings(curPageStyleName) Then
 		MsgBox "Проверьте размеры колонтитулов и перезапустите макрос"
 		Exit Sub
 	EndIf
 	applyPortraitPageStyle(curPageStyleName)
-	saveAndreload()
+	'saveAndreload()
 End Sub
 
 sub	applyPortraitPageStyle(pageStyleName)
@@ -322,7 +342,7 @@ Function createFrame(posX,posY,width,height,frameName)
 	oText = oViewCursor.Text
 	oTextCursor = oText.createTextCursorByRange(oViewCursor.End)
 	frame = ThisComponent.createInstance("com.sun.star.text.TextFrame")
-	frame.AnchorType = 0
+	frame.AnchorType = 2
 	frame.Height = height
 	frame.Width = width
 	frame.PageToggle = false
