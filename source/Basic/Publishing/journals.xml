@@ -84,6 +84,7 @@ Sub makeUpIssue
 			setAritclePageHeaders(i)
 			page = oViewCursor.getPage()
 			InsertArticle(FilePath)
+            turnOffTracking
 			statusIndicator.setValue(i)
 			oTextCursor = oViewCursor.Text.createTextCursorByRange(oViewCursor)
 			oViewCursor.Text.insertControlCharacter(oTextCursor.End,com.sun.star.text.ControlCharacter.PARAGRAPH_BREAK,False)
