@@ -13,6 +13,7 @@ Dim path As String
 Dim sectionName As String
 
 Sub makeUpIssue
+    turnOffTracking
 	Dim description As String
 	description = "Вы уверены, что хотите запустить сборку выпуска ?"
 	If NOT confirm(description) Then
