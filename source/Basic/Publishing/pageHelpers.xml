@@ -388,28 +388,37 @@ Sub removeEmptyPage
 	oViewCursor.collapseToEnd()
 
 End Sub
+
 Function findFirstPageWithStyle(pageStyleName)
-	Dim oViewCursor As Object
+	Dim enum1 As Object
+	Dim enum1Element As Object
 	Dim curPage As String
-	Dim prevPage As String
+	Dim curStyleName As String
+	Dim pageName As String
+	Dim oViewCursor As Object
+	Dim anchor As Object
+	Dim oSavePosition As Object
 	oViewCursor = ThisComponent.CurrentController.getViewCursor()
-	oViewCursor.jumpToFirstPage()
-	curPage = oViewCursor.getPage()
-	
-	Do While curPage &lt;&gt; prevPage
-		curStyleName = oViewCursor.PageStyleName
-		If pageStyleName = curStyleName Then
-			findFirstPageWithStyle = curPage
-			Exit Function
+	oSavePosition = oViewCursor.Text.createTextCursorByRange(oViewCursor)	
+	enum1 = ThisComponent.Text.createEnumeration() 
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") OR enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			If NOT IsMissing(enum1Element.PageDescName) AND NOT IsNull(enum1Element.PageDescName) Then
+				pageName = CStr(enum1Element.PageDescName)
+				If  pageStyleName = pageName Then
+					anchor = enum1Element.getAnchor()
+					oViewCursor.gotoRange(anchor,false)
+					findFirstPageWithStyle = oViewCursor.getPage()
+					oViewCursor.goToRange(oSavePosition, false)
+					Exit Function
+				EndIf
+			
+			EndIf
 		EndIf
-		prevPage = curPage
-		oViewCursor.jumpToNextPage()
-		curPage = oViewCursor.getPage()
-	Loop 
-	findFirstPageWithStyle = -1
+	Wend 
+	findFirstPageWithStyle = -1	
 End Function
-
-
 
 Sub createPageStyleByExample(newName)
 	dim document   as object
@@ -458,12 +467,9 @@ Sub updateLastPageFields
 	statusIndicator.Start("Производится обновление полей последних номеров страниц, подождите",30)
 	enum1 = ThisComponent.Text.createEnumeration
 	While enum1.hasMoreElements
-
 		enum1Element = enum1.nextElement
 		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
-
 			pageStyleName = getPageStyleNameFromEnum(enum1Element)
-
 			If Len(pageStyleName) &gt; 0 Then
 				strPos = InStr(pageStyleName, articleNamePrefix)
 				If strPos &lt;&gt; 0 Then
@@ -483,8 +489,7 @@ Sub updateLastPageFields
 				If articleNum &gt; 0 Then
 					curNum = CInt(Trim(articleName))
 					If articleNum &lt;&gt; curNum Then
-						textCursor = enum1Element.getText.createTextCursorByRange(enum1Element.Start)
-						pageNum = getPageNumber(textCursor)
+						pageNum = getPageNumber(enum1Element.Start)
 						lastPages(articleNum) = CInt(pageNum) - 1
 						articleNum = curNum						
 					EndIf
@@ -495,7 +500,7 @@ Sub updateLastPageFields
 		'TODO:
 		'OR enum1Element.supportsService("com.sun.star.text.TextTable")
 	Wend 
-	For i = 0 to 100
+	For i = LBound(lastPages) to UBound(lastPages)
       If lastPages%(i) &lt;&gt; 0 Then
       	updateUserField("article" + i + "LastPage",lastPages%(i))
       EndIf
