@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="unusedStyles" script:language="StarBasic">sub executeRemoveUnusedStyles
-	Dim description As String
-	description = "Вы уверены, что хотите удалить все неиспользуемые стили?"
-	If NOT confirm(description) Then
-		Exit Sub
-	EndIf
-	'calls: RemoveUnusedStyles
-	Dim sElements() as string, oFamilies, oFamily, sFamily$, sLabel, oDlg, i%
-	Dim oDoc as object
-	oDoc = ThisComponent
-	oFamilies = thiscomponent.StyleFamilies
-	sElements() = oFamilies.getElementNames()
-	For i = 0 to uBound(sElements()) -2
-	   oFamily = oFamilies.getByName(sElements(i))
-	   RemoveUnusedStyles(oFamily,sElements(i),True)
-	Next
-End Sub
-
-Sub RemoveUnusedStyles(oFamily,sFamily as string, bAsk as Boolean)
-	'calls: getStyleNames
-	Dim sUsed() as String, sMsg$,iAnswer%, bStop as boolean
-	sUsed() = getStyleNames(oFamily,bLocalized:=True,bUsed:=False,bUserDef:=true)
-	If uBound(sUsed()) &gt; -1 then
-	         For i = 0 to uBound(sUsed())
-	            oFamily.removeByName(sUsed(i))
-	         Next
-	EndIf
-End Sub
-
-
-Dim oDialog
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="unusedStyles" script:language="StarBasic">Dim oDialog
 
 Sub onSelectMenuItem(oEvent)
 	oDialog.endExecute()
@@ -149,19 +119,6 @@ sub subShellSort(mArray)
 	        h = h \ 3
 	loop
 end sub
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 'calls: bas_PushArray

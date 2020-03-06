@@ -18,5 +18,4 @@
   <library:element library:name="Bookmarks"/>
   <library:element library:name="Hyphenations"/>
   <library:element library:name="Dialogs"/>
-  <library:element library:name="Hyperlinks"/>
 </library:library>
