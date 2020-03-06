@@ -215,41 +215,4 @@ sub replaceBaseToStandard
 	dispatcher.executeDispatch(document, ".uno:ExecuteSearch", "", 0, args1())
 end Sub
 
-Sub getNumberingFonts
-	Dim families,numStyles, numStyle, numRules,numRule,prop,fontProp As Object
-	Dim fontName, result As String  
-'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
-	families = ThisComponent.StyleFamilies
-	numStyles = families.getByName("NumberingStyles")
-	result = ""
-	For i = 0 To numStyles.getCount - 1 
-		numStyle = numStyles.getByIndex(i)
-'		Mri numStyle
-		If numStyle.isInUse() Then
-		
-			numRules = numStyle.NumberingRules
-			For j = 0 To numRules.getCount - 1 
-				numRule = numRules.getByIndex(j)
-				For k = 0 To Ubound(numRule)
-					prop = numRule(k)
-					If prop.Name = "BulletFont" Then
-						fontProp = prop.Value
-						fontName = fontProp.Name
-						result = result &amp; "Стиль нумерации " &amp; numStyle.DisplayName &amp; " уровень " &amp; (j + 1) &amp; " шрифт " &amp; fontName &amp; chr(10)
-					EndIf
-				Next k
-			Next j
-		
-		EndIf
-
-	Next i
-	If result = "" Then
-		result = "Используемых стилей нумерации со шрифтами не найдено."
-	Else 
-		result = "В документе найдено:"&amp; chr(10)&amp; result
-	EndIf
-	MsgBox result
-	
-	
-End Sub
 </script:module>

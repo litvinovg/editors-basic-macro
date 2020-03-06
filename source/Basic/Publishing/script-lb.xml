@@ -10,12 +10,11 @@
   <library:element library:name="Indd"/>
   <library:element library:name="journals"/>
   <library:element library:name="pageHelpers"/>
-  <library:element library:name="stringHelpers"/>
+  <library:element library:name="Dialogs"/>
   <library:element library:name="cursorHelpers"/>
   <library:element library:name="replaceFonts"/>
   <library:element library:name="makeUpToolbar"/>
   <library:element library:name="Documents"/>
   <library:element library:name="Bookmarks"/>
   <library:element library:name="Hyphenations"/>
-  <library:element library:name="Dialogs"/>
 </library:library>
