@@ -90,7 +90,7 @@ Sub convertParaHyphens(para)
 			EndIf
 		EndIf
 
-		If needHyphen(lastChar,newChar) Then
+		If needHyphen(lastChar,nextChar) Then
 			addToArray(conversionTargets(),tCurs.Text.createTextCursorByRange(tCurs))
 			addToArray(lineNumbers(),i)
 			'replaceHyphen(tCurs,vCurs)
@@ -101,8 +101,9 @@ Sub convertParaHyphens(para)
 		vCurs.goToRange(tCurs,false)
 	Loop
 	
+	para.ParaIsHyphenation = false
 	If  Ubound(conversionTargets) &lt;&gt; -1 Then
-		para.ParaIsHyphenation = false
+
 		For i = 0 To (Ubound(conversionTargets))
 			replaceHyphen(conversionTargets(i),lineNumbers(i))
 		Next i
@@ -224,7 +225,6 @@ End Sub
 
 
 Function needHyphen(before As String, after As String)
-Dim needHyphen As boolean
 Dim charNumBefore as Integer
 Dim charNumAfter as Integer
 	needHyphen = true
