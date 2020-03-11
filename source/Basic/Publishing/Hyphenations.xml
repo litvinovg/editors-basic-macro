@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">Sub convertHyphInDoc()
+	Dim statusIndicator as Object
+	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
+	statusIndicator.Start("Конвертация переносов, подождите",10)
+	AcceptAllTrackedChanges
+	convertHyphInText(ThisComponent.Text)
+'	Globalscope.BasicLibraries.LoadLibrary( "MRILib" )
+	statusIndicator.Start("Конвертация переносов, подождите",70)
+	allNotes = ThisComponent.FootNotes
+	For x = 0 to allNotes.Count -1
+	  aNote = allNotes.getByIndex(x)
+	  convertHyphInText(aNote.Text)
+	Next
+	'disableAutoHyph()
+	statusIndicator.end()
+	MsgBox "Конвертация переносов успешно завершена."
+End Sub
+
+sub disableAutoHyph()
+	Dim propertySetInfo As Object
+	Dim oPositionOfMatch As Long
+	oFamilies = ThisComponent.StyleFamilies
+	sElements() = oFamilies.getElementNames()
+	  oFamily = oFamilies.getByName(sElements(1))
+	  For j = 0 to oFamily.getCount -1
+	    oStyle = oFamily.getByIndex(j)
+		propertySetInfo = oStyle.getPropertySetInfo()
+	    If propertySetInfo.hasPropertyByName("ParaIsHyphenation") Then
+	      oStyle.ParaIsHyphenation = false
+	    EndIf
+	  Next
+End Sub
+
+Sub convertHyphInText(textElement)
+	Dim enum1Element As Object
+	Dim enum1 As Object
+	Dim i As Integer
+	Dim cell As Object
+	enum1 = textElement.createEnumeration()
+	While enum1.hasMoreElements
+		enum1Element = enum1.nextElement
+		If enum1Element.supportsService("com.sun.star.text.Paragraph") Then
+			convertParaHyphens(enum1Element)
+		ElseIf enum1Element.supportsService("com.sun.star.text.TextTable") Then
+			cellNames = enum1Element.cellNames
+			For i = LBound(cellNames) To Ubound(cellNames)
+				cell = enum1Element.getCellByName(cellNames(i))
+				cellText = cell.getText()
+				convertHyphInText(cellText)
+		    Next i
+		Else 
+		EndIf
+	Wend 
+End Sub
+
+Sub convertParaHyphens(para)
+	Dim lineEnd As String
+	Dim conversionTargets() As Object
+	Dim lineNumbers() As Integer
+	Dim charNum as Integer
+	Dim i As Integer
+	'No hyphenation needed
+	If para.ParaIsHyphenation = false Then
+		Exit Sub
+	EndIf
+	vCurs = ThisComponent.currentController.getViewCursor()
+	vCurs.goToRange(para.Anchor,false)
+	tCurs = vCurs.Text.createTextCursorByRange(vCurs)
+	tCurs.goToStartOfParagraph(false)
+	vCurs.goToRange(tCurs,false)
+	i = 0
+	Do While NOT tCurs.isEndOfParagraph() OR NOT tCurs.isStartOfParagraph()
+		vCurs.gotoEndOfLine(false)
+		i = i + 1
+		tCurs.goToRange(vCurs.End,false)
+		If (tCurs.isEndOfParagraph()) Then
+			Exit Do
+		EndIf
+		lastChar = getPrevChar(tCurs)
+		nextChar = getNextChar(tCurs)
+		
+		If Len(nextChar) &gt; 0 Then
+			charNum = Asc(nextChar)
+			If charNum &gt; 767 AND charNum &lt; 880 THen
+				tCurs.goRight(1,false)
+				lastChar = getPrevChar(tCurs)
+				nextChar = getNextChar(tCurs)
+			EndIf
+		EndIf
+
+		If needHyphen(lastChar,newChar) Then
+			addToArray(conversionTargets(),tCurs.Text.createTextCursorByRange(tCurs))
+			addToArray(lineNumbers(),i)
+			'replaceHyphen(tCurs,vCurs)
+		ElseIf needLineBreak(lastChar,newChar) Then
+			insertLineBreak(tCurs)
+		EndIf
+		tCurs.goRight(1,false)
+		vCurs.goToRange(tCurs,false)
+	Loop
+	
+	If  Ubound(conversionTargets) &lt;&gt; -1 Then
+		para.ParaIsHyphenation = false
+		For i = 0 To (Ubound(conversionTargets))
+			replaceHyphen(conversionTargets(i),lineNumbers(i))
+		Next i
+	EndIf
+
+End Sub
+
+Function getPrevChar(tCurs As Object)
+	tCurs.goLeft(1,true)
+	getPrevChar = tCurs.getString()
+	tCurs.goRight(1,false)
+End Function
+
+Function getNextChar(tCurs As Object)
+	tCurs.goRight(1,true)
+	getNextChar = tCurs.getString()
+	tCurs.goLeft(1,false)
+End Function
+Sub replaceHyphen(tCurs As Object,lineNumber As Integer)
+	Dim curLineNum As Integer
+	Dim vCurs As Object
+	Dim tLine As Object
+	vCurs = ThisComponent.currentController.getViewCursor()
+	
+	'insert soft hyphen character U+00AD
+	tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.SOFT_HYPHEN,true)
+	vCurs.goToRange(tCurs.End,false)
+	If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
+		curLineNum = getParaLineNumber(vCurs)
+		If curLineNum &gt; lineNumber Then
+			compressLine(tCurs)
+		Else
+			stretchLine(tCurs)	
+		EndIf
+	EndIf
+	If vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false Then
+		MsgBox "Конвертация переносов не выполнена. Алгоритм нуждается в доработке. Обратитесь к разработчику."
+		Stop
+	EndIf
+End Sub
+
+Sub compressLine(tCurs As Object)
+	Dim vCurs As Object
+	Dim tLine As Object
+	Dim kerning As Integer
+	vCurs = ThisComponent.currentController.getViewCursor()
+	vCurs.goToRange(tCurs,false)
+	vCurs.goToStartOfLine(true)
+	vCurs.goLeft(1,true)
+	vCurs.goToStartOfLine(true)
+	tLine = vCurs.Text.createTextCursorByRange(vCurs)
+	vCurs.goToRange(tCurs,false)
+	kerning = 10
+	tLine.CharKerning = kerning
+	Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+		kerning = kerning - 1 
+		tLine.CharKerning = kerning
+		vCurs.goToRange(tCurs,false)
+		If tLine.CharKerning &lt; -10 Then
+			Exit Do
+		EndIf
+	Loop
+End Sub
+
+Sub stretchLine(tCurs As Object)
+	Dim vCurs As Object
+	Dim tLine As Object
+	Dim kerning As Integer
+	vCurs = ThisComponent.currentController.getViewCursor()
+	vCurs.goToRange(tCurs,false)
+	vCurs.goToStartOfLine(true)
+	tLine = vCurs.Text.createTextCursorByRange(vCurs)
+	vCurs.goToRange(tCurs,false)
+	kerning = -10
+	tLine.CharKerning = kerning
+	Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+		kerning = kerning + 1 
+		tLine.CharKerning = kerning
+		vCurs.goToRange(tCurs,false)
+		If tLine.CharKerning &gt; 10 Then
+			Exit Do
+		EndIf
+	Loop
+
+End Sub
+
+Function getParaLineNumber(vCursor As Object)
+	Dim lineNumber As Integer
+	Dim oSavePosition As Object
+	Dim tCursor As Object
+	oSavePosition = vCursor.Text.createTextCursorByRange(vCursor)
+	tCursor = vCursor.Text.createTextCursorByRange(vCursor)
+	lineNumber = 1
+	vCursor.gotoStartOfLine(false)
+	tCursor.gotoRange(vCursor,false)
+	Do While NOT tCursor.isStartOfParagraph()
+		vCursor.goLeft(1,false)
+		vCursor.gotoStartOfLine(false)
+		tCursor.gotoRange(vCursor,false)
+		lineNumber = lineNumber + 1
+	Loop
+	vCursor.goToRange(oSavePosition,false)
+	getParaLineNumber = lineNumber
+End Function
+
+Function needLineBreak(before,after)
+	needLineBreak = false
+	If before = "/" Then
+		If after &lt;&gt; " " AND after &lt;&gt; Chr(10) Then
+			needLineBreak = true
+		EndIf
+	EndIf
+End Function
+
+Sub	insertLineBreak(tCurs)
+	tCurs.Text.insertControlCharacter(tCurs.End,com.sun.star.text.ControlCharacter.LINE_BREAK,False)
+End Sub
+
+
+
+Function needHyphen(before As String, after As String)
+Dim needHyphen As boolean
+Dim charNumBefore as Integer
+Dim charNumAfter as Integer
+	needHyphen = true
+	'MsgBox Asc(newChar)
+	If Len(before) &gt; 0 Then
+		charNumBefore = Asc(before)
+		If charNumBefore &gt; 19 AND charNumBefore &lt; 41 Then
+			needHyphen = false
+		EndIf
+	EndIf
+	If Len(after) &gt; 0 Then
+		charNumAfter = Asc(after)
+		If charNumAfter &gt; 19 AND charNumAfter &lt; 41 Then
+			needHyphen = false
+		EndIf
+	EndIf
+	Select Case before
+		Case " "
+			needHyphen = false
+		'U+002D Hyphen minus
+		Case "-"
+			needHyphen = false
+		'U+2010  Hyphen
+		Case "‐"
+			needHyphen = false
+		Case "­"
+			needHyphen = false
+		'U+2014 Em dash
+		Case "—"
+			needHyphen = false
+		'U+2013 En dash
+		Case "–"
+			needHyphen = false
+		'U+2012 Figure Dash 
+		Case "‒"
+			needHyphen = false
+		Case "…"
+			needHyphen = false
+	End Select
+	Select Case after
+		Case " "
+			needHyphen = false
+		Case "-"
+			needHyphen = false
+		Case "­"
+			needHyphen = false
+		'newline U+000A
+		Case Chr(10)
+			needHyphen = false
+	End Select
+End Function
+
+
+sub AcceptAllTrackedChanges
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, ".uno:AcceptAllTrackedChanges", "", 0, Array())
+
+
+end sub
+</script:module>
