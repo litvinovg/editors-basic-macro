@@ -57,7 +57,8 @@ End Sub
 
 Sub convertParaHyphens(para)
 	Dim lineEnd As String
-	Dim conversionTargets() As Object
+	Dim autoHyphens() As Object
+	Dim autoBreaks() As Object
 	Dim lineNumbers() As Integer
 	Dim charNum as Integer
 	Dim i As Integer
@@ -91,24 +92,33 @@ Sub convertParaHyphens(para)
 		EndIf
 
 		If needHyphen(lastChar,nextChar) Then
-			addToArray(conversionTargets(),tCurs.Text.createTextCursorByRange(tCurs))
+			addToArray(autoHyphens(),tCurs.Text.createTextCursorByRange(tCurs))
 			addToArray(lineNumbers(),i)
 			'replaceHyphen(tCurs,vCurs)
 		ElseIf needLineBreak(lastChar,newChar) Then
-			insertLineBreak(tCurs)
+			addToArray(autoBreaks(),tCurs.Text.createTextCursorByRange(tCurs))
 		EndIf
 		tCurs.goRight(1,false)
 		vCurs.goToRange(tCurs,false)
 	Loop
-	
+	If  Ubound(autoBreaks) &lt;&gt; -1 Then
+		For i = 0 To (Ubound(autoBreaks))
+			insertBreak(autoBreaks(i))
+		Next i
+	EndIf
 	para.ParaIsHyphenation = false
-	If  Ubound(conversionTargets) &lt;&gt; -1 Then
+	If  Ubound(autoHyphens) &lt;&gt; -1 Then
 
-		For i = 0 To (Ubound(conversionTargets))
-			replaceHyphen(conversionTargets(i),lineNumbers(i))
+		For i = 0 To (Ubound(autoHyphens))
+			replaceHyphen(autoHyphens(i),lineNumbers(i))
 		Next i
 	EndIf
 
+End Sub
+
+Sub	insertBreak(tCursor As Object)
+	'U+200B Zero length space
+	tCursor.String = "​"
 End Sub
 
 Function getPrevChar(tCurs As Object)
@@ -229,19 +239,20 @@ Dim charNumBefore as Integer
 Dim charNumAfter as Integer
 	needHyphen = true
 	'MsgBox Asc(newChar)
+	'Both are numbers
 	If Len(before) &gt; 0 Then
 		charNumBefore = Asc(before)
-		If charNumBefore &gt; 19 AND charNumBefore &lt; 41 Then
-			needHyphen = false
+		If charNumBefore &gt; 47 AND charNumBefore &lt; 58 Then
+			If Len(after) &gt; 0 Then
+				charNumAfter = Asc(after)
+				If charNumAfter &gt; 47 AND charNumAfter &lt; 58 Then
+					needHyphen = false
+				EndIf
+			EndIf
 		EndIf
 	EndIf
-	If Len(after) &gt; 0 Then
-		charNumAfter = Asc(after)
-		If charNumAfter &gt; 19 AND charNumAfter &lt; 41 Then
-			needHyphen = false
-		EndIf
-	EndIf
-	Select Case before
+
+		Select Case before
 		Case " "
 			needHyphen = false
 		'U+002D Hyphen minus
@@ -262,6 +273,8 @@ Dim charNumAfter as Integer
 		Case "‒"
 			needHyphen = false
 		Case "…"
+			needHyphen = false
+		Case "/"
 			needHyphen = false
 	End Select
 	Select Case after
