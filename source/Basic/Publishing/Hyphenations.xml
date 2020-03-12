@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
-<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">Sub convertHyphInDoc()
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Hyphenations" script:language="StarBasic" script:moduleType="normal">sub markHyph1
+End sub
+Sub convertHyphInDoc()
 	Dim statusIndicator as Object
 	statusIndicator = ThisComponent.getCurrentController.StatusIndicator
 	statusIndicator.Start("Конвертация переносов, подождите",10)
@@ -61,6 +63,7 @@ Sub convertParaHyphens(para)
 	Dim autoBreaks() As Object
 	Dim lineNumbers() As Integer
 	Dim charNum as Integer
+	Dim	lineLength As Integer
 	Dim i As Integer
 	'No hyphenation needed
 	If para.ParaIsHyphenation = false Then
@@ -73,7 +76,9 @@ Sub convertParaHyphens(para)
 	vCurs.goToRange(tCurs,false)
 	i = 0
 	Do While NOT tCurs.isEndOfParagraph() OR NOT tCurs.isStartOfParagraph()
-		vCurs.gotoEndOfLine(false)
+		vCurs.gotoEndOfLine(true)
+		lineLength = Len(vCurs.String)
+		vCurs.collapseToEnd()
 		i = i + 1
 		tCurs.goToRange(vCurs.End,false)
 		If (tCurs.isEndOfParagraph()) Then
@@ -91,7 +96,7 @@ Sub convertParaHyphens(para)
 			EndIf
 		EndIf
 
-		If needHyphen(lastChar,nextChar) Then
+		If needHyphen(lastChar,nextChar,lineLength) Then
 			addToArray(autoHyphens(),tCurs.Text.createTextCursorByRange(tCurs))
 			addToArray(lineNumbers(),i)
 			'replaceHyphen(tCurs,vCurs)
@@ -159,23 +164,62 @@ Sub compressLine(tCurs As Object)
 	Dim vCurs As Object
 	Dim tLine As Object
 	Dim kerning As Integer
+	Dim lineLength As Integer
+	Dim portions As Integer
+	Dim portionSize As Integer
+	Dim textPortions() As Object
+	Dim startPosition As Object
+	Dim tPortion As Object
+	portions = 4
 	vCurs = ThisComponent.currentController.getViewCursor()
 	vCurs.goToRange(tCurs,false)
 	vCurs.goToStartOfLine(true)
 	vCurs.goLeft(1,true)
 	vCurs.goToStartOfLine(true)
 	tLine = vCurs.Text.createTextCursorByRange(vCurs)
+	lineLength = Len(tLine.String)
+	startPosition = tLine.End
+	If lineLength &gt;= 20 Then
+	  portionSize = lineLength/portions
+	  For i = 0 To portions - 2
+	    tPortion = vCurs.Text.createTextCursorByRange(startPosition)
+	    tPortion.goLeft(portionSize,true)
+  	    addToArray(textPortions(),tPortion)
+  	    startPosition = tPortion.End
+  	  Next i
+  	   tPortion = vCurs.Text.createTextCursorByRange(startPosition)
+  	   tPortion.goToRange(tLine.Start,true)
+  	   addToArray(textPortions(),tPortion)
+	EndIf
+	
 	vCurs.goToRange(tCurs,false)
 	kerning = 10
 	tLine.CharKerning = kerning
-	Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
-		kerning = kerning - 1 
+	If lineLength &gt; 8 Then
+      Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+	  	kerning = kerning - 1 
+	  	For i = (Lbound(textPortions)) To (Ubound(textPortions))
+			textPortions(i).CharKerning = kerning
+		    vCurs.goToRange(tCurs,false)
+		    If vCurs.isAtEndOfLine() = true OR vCurs.isAtStartOfLine() = true Then
+		      Exit Do
+	        EndIf
+		Next i
+	    If kerning &lt; -15 Then
+		  Exit Do
+	    EndIf
+	  Loop
+	Else
+	  Do While vCurs.isAtEndOfLine() = false AND vCurs.isAtStartOfLine() = false
+	  	kerning = kerning - 1 
 		tLine.CharKerning = kerning
-		vCurs.goToRange(tCurs,false)
-		If tLine.CharKerning &lt; -10 Then
-			Exit Do
-		EndIf
-	Loop
+	    vCurs.goToRange(tCurs,false)
+	    If kerning &lt; -15 Then
+		  Exit Do
+	    EndIf
+	  Loop
+	EndIf
+
 End Sub
 
 Sub stretchLine(tCurs As Object)
@@ -193,7 +237,7 @@ Sub stretchLine(tCurs As Object)
 		kerning = kerning + 1 
 		tLine.CharKerning = kerning
 		vCurs.goToRange(tCurs,false)
-		If tLine.CharKerning &gt; 10 Then
+		If tLine.CharKerning &gt; 15 Then
 			Exit Do
 		EndIf
 	Loop
@@ -234,10 +278,13 @@ End Sub
 
 
 
-Function needHyphen(before As String, after As String)
+Function needHyphen(before As String, after As String,lineLength As Integer)
 Dim charNumBefore as Integer
 Dim charNumAfter as Integer
 	needHyphen = true
+	If lineLength &lt; 2 Then
+		needHyphen = false
+	EndIf
 	'MsgBox Asc(newChar)
 	'Both are numbers
 	If Len(before) &gt; 0 Then
