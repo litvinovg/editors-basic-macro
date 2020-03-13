@@ -149,56 +149,56 @@ Sub addWriterToolbar(toolbarName,toolbarDescription)
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
-  sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.NotesCleanStyle?language=Basic&amp;location=application"
-  sCmdLable = "СтилиСносок"
-  nCount = 3
-  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
-  oTBSettings.insertByIndex( nCount, oToolbarItem )
+  'sCmdID   = "vnd.sun.star.script:Publishing.CleanManualFormat.NotesCleanStyle?language=Basic&amp;location=application"
+  'sCmdLable = "СтилиСносок"
+  'nCount = 3
+  'oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  'oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Documents.setBookUniqPageStyles?language=Basic&amp;location=application"
   sCmdLable = "СтилиСтрКниг"
-  nCount = 4
+  nCount = 3
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.setFootnotesNumbering?language=Basic&amp;location=application"
   sCmdLable = "№сносокРуч"
-  nCount = 5
+  nCount = 4
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.disableFootnotesNumbering?language=Basic&amp;location=application"
   sCmdLable = "№сносокАвт"
-  nCount = 6
+  nCount = 5
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Bookmarks.makeOutlineLinks?language=Basic&amp;location=application"
   sCmdLable = "СсылОглавл"
-  nCount = 7
+  nCount = 6
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.Documents.setDimensions?language=Basic&amp;location=application"
   sCmdLable = "⍁"
-  nCount = 8
+  nCount = 7
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
 
-  sCmdID   = "vnd.sun.star.script:Publishing.Hyphenations.convertHyphInDoc?language=Basic&amp;location=application"
-  sCmdLable = "Переносы"
-  nCount = 9
-  oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
-  oTBSettings.insertByIndex( nCount, oToolbarItem )
+ ' sCmdID   = "vnd.sun.star.script:Publishing.Hyphenations.convertHyphInDoc?language=Basic&amp;location=application"
+  'sCmdLable = "Переносы"
+  'nCount = 9
+  'oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
+  'oTBSettings.insertByIndex( nCount, oToolbarItem )
   
   sCmdID   = "vnd.sun.star.script:Publishing.pageHelpers.makePageAlbum?language=Basic&amp;location=application"
   sCmdLable = "Альбом"
-  nCount = 10
+  nCount = 8
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
 
   sCmdID   = "vnd.sun.star.script:Publishing.pageHelpers.undoPageAlbum?language=Basic&amp;location=application"
   sCmdLable = "Не Альбом"
-  nCount = 11
+  nCount = 9
   oToolbarItem = CreateSimpleToolbarItem( sCmdID, sCmdLable )
   oTBSettings.insertByIndex( nCount, oToolbarItem )
 '  sCmdID   = "vnd.sun.star.script:Publishing.Hyphenations.convertAutoHyphenationsToManual?language=Basic&amp;location=application"
