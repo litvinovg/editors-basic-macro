@@ -4,19 +4,19 @@
     <config:config-item-set config:name="ooo:view-settings">
       <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
       <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
-      <config:config-item config:name="ViewAreaWidth" config:type="long">39021</config:config-item>
-      <config:config-item config:name="ViewAreaHeight" config:type="long">20443</config:config-item>
+      <config:config-item config:name="ViewAreaWidth" config:type="long">42531</config:config-item>
+      <config:config-item config:name="ViewAreaHeight" config:type="long">17882</config:config-item>
       <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
       <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
       <config:config-item-map-indexed config:name="Views">
         <config:config-item-map-entry>
           <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-          <config:config-item config:name="ViewLeft" config:type="long">19510</config:config-item>
-          <config:config-item config:name="ViewTop" config:type="long">1924</config:config-item>
+          <config:config-item config:name="ViewLeft" config:type="long">33581</config:config-item>
+          <config:config-item config:name="ViewTop" config:type="long">9548</config:config-item>
           <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
           <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
-          <config:config-item config:name="VisibleRight" config:type="long">39019</config:config-item>
-          <config:config-item config:name="VisibleBottom" config:type="long">20442</config:config-item>
+          <config:config-item config:name="VisibleRight" config:type="long">42529</config:config-item>
+          <config:config-item config:name="VisibleBottom" config:type="long">17881</config:config-item>
           <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
           <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
           <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -58,12 +58,12 @@
       <config:config-item config:name="SmallCapsPercentage66" config:type="boolean">false</config:config-item>
       <config:config-item config:name="CollapseEmptyCellPara" config:type="boolean">true</config:config-item>
       <config:config-item config:name="RsidRoot" config:type="int">172921</config:config-item>
-      <config:config-item config:name="PrinterName" config:type="string"/>
+      <config:config-item config:name="PrinterName" config:type="string">HP-LaserJet-1100</config:config-item>
       <config:config-item config:name="OutlineLevelYieldsNumbering" config:type="boolean">false</config:config-item>
       <config:config-item config:name="UpdateFromTemplate" config:type="boolean">true</config:config-item>
       <config:config-item config:name="PrintBlackFonts" config:type="boolean">false</config:config-item>
       <config:config-item config:name="TableRowKeep" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="Rsid" config:type="int">75039211</config:config-item>
+      <config:config-item config:name="Rsid" config:type="int">76867745</config:config-item>
       <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
       <config:config-item config:name="IgnoreTabsAndBlanksForLineCalculation" config:type="boolean">false</config:config-item>
       <config:config-item config:name="EmbedComplexScriptFonts" config:type="boolean">true</config:config-item>
@@ -79,7 +79,7 @@
       <config:config-item config:name="AddParaTableSpacingAtStart" config:type="boolean">true</config:config-item>
       <config:config-item config:name="CharacterCompressionType" config:type="short">0</config:config-item>
       <config:config-item config:name="SaveVersionOnClose" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="PrinterIndependentLayout" config:type="string">high-resolution</config:config-item>
+      <config:config-item config:name="PrinterIndependentLayout" config:type="string">disabled</config:config-item>
       <config:config-item config:name="IsKernAsianPunctuation" config:type="boolean">false</config:config-item>
       <config:config-item config:name="ChartAutoUpdate" config:type="boolean">true</config:config-item>
       <config:config-item config:name="FieldAutoUpdate" config:type="boolean">true</config:config-item>
@@ -94,7 +94,7 @@
       <config:config-item config:name="MathBaselineAlignment" config:type="boolean">true</config:config-item>
       <config:config-item config:name="AddFrameOffsets" config:type="boolean">false</config:config-item>
       <config:config-item config:name="AddVerticalFrameOffsets" config:type="boolean">false</config:config-item>
-      <config:config-item config:name="SubtractFlysAnchoredAtFlys" config:type="boolean">false</config:config-item>
+      <config:config-item config:name="SubtractFlysAnchoredAtFlys" config:type="boolean">true</config:config-item>
       <config:config-item config:name="AddParaSpacingToTableCells" config:type="boolean">true</config:config-item>
       <config:config-item config:name="AddExternalLeading" config:type="boolean">true</config:config-item>
       <config:config-item config:name="CurrentDatabaseDataSource" config:type="string"/>
@@ -111,13 +111,13 @@
       <config:config-item config:name="StylesNoDefault" config:type="boolean">false</config:config-item>
       <config:config-item config:name="LinkUpdateMode" config:type="short">1</config:config-item>
       <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
-      <config:config-item config:name="DoNotJustifyLinesWithManualBreak" config:type="boolean">false</config:config-item>
+      <config:config-item config:name="DoNotJustifyLinesWithManualBreak" config:type="boolean">true</config:config-item>
       <config:config-item config:name="DoNotResetParaAttrsForNumFont" config:type="boolean">false</config:config-item>
       <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
       <config:config-item config:name="LoadReadonly" config:type="boolean">false</config:config-item>
       <config:config-item config:name="DoNotCaptureDrawObjsOnPage" config:type="boolean">false</config:config-item>
       <config:config-item config:name="CurrentDatabaseCommand" config:type="string"/>
-      <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
+      <config:config-item config:name="PrinterSetup" config:type="base64Binary">mAH+/0hQLUxhc2VySmV0LTExMDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ1VQUzpIUC1MYXNlckpldC0xMTAwAAAAAAAAAAAAAAAWAAMAuQAAAAAAAAAIAFZUAAAkbQAASm9iRGF0YSAxCnByaW50ZXI9SFAtTGFzZXJKZXQtMTEwMApvcmllbnRhdGlvbj1Qb3J0cmFpdApjb3BpZXM9MQpjb2xsYXRlPWZhbHNlCm1hcmdpbmRhanVzdG1lbnQ9MCwwLDAsMApjb2xvcmRlcHRoPTI0CnBzbGV2ZWw9MApwZGZkZXZpY2U9MQpjb2xvcmRldmljZT0wClBQRENvbnRleERhdGEKUGFnZVNpemU6TGV0dGVyAAASAENPTVBBVF9EVVBMRVhfTU9ERQ8ARHVwbGV4TW9kZTo6T2Zm</config:config-item>
       <config:config-item config:name="ClipAsCharacterAnchoredWriterFlyFrames" config:type="boolean">false</config:config-item>
     </config:config-item-set>
   </office:settings>

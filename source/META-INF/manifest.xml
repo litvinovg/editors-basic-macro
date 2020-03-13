@@ -8,15 +8,13 @@
   <manifest:file-entry manifest:full-path="Dialogs/Publishing/dialog-lb.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Dialogs/dialog-lc.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Standard/script-lb.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/stringHelpers.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/Dialogs.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/journals.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/Indd.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/Toolbars.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/Hyphenations.xml" manifest:media-type="text/xml"/>
-  <manifest:file-entry manifest:full-path="Basic/Publishing/Hyperlinks.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/unusedStyles.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/CleanManualFormat.xml" manifest:media-type="text/xml"/>
+  <manifest:file-entry manifest:full-path="Basic/Publishing/Dialogs.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/makeUpToolbar.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/script-lb.xml" manifest:media-type="text/xml"/>
   <manifest:file-entry manifest:full-path="Basic/Publishing/Documents.xml" manifest:media-type="text/xml"/>
